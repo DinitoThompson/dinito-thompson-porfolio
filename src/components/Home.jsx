@@ -2,7 +2,7 @@ import Resume from "../assets/document/Dinito R. Thompson - Resume.pdf";
 import { BsChevronDoubleDown } from "react-icons/bs";
 import { AiOutlineDownload } from "react-icons/ai";
 import { Link } from "react-scroll";
-import Typed from "react-typed";
+// import Typed from "react-typed";
 import React from "react";
 
 const Hero = () => {
@@ -27,9 +27,9 @@ const Hero = () => {
             Designer
           </p>
         </div>
-        <p className="md:text-2xl text-xl font-bold text-gray-400">
+        {/* <p className="md:text-2xl text-xl font-bold text-gray-400">
           <span>Skills: </span>
-          <Typed
+          <p
             className="text-white z-0"
             strings={[
               "React.js",
@@ -48,7 +48,7 @@ const Hero = () => {
             backDelay={500}
             loop
           />
-        </p>
+        </p> */}
         <div className="flex flex-row space-x-10">
           <button className="text-white uppercase group border-b-2 px-4 py-3 my-7 flex items-center duration-500">
             <Link
