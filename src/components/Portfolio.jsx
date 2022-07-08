@@ -18,23 +18,7 @@ import TodoListBG from "../assets/Development/EditableTodoList.png";
 import Development from "./subComponents/DevelopmentTemplate";
 import DesignTemplate from "./subComponents/DesignTemplate";
 
-import SliderJS from "./subComponents/SliderJS";
-import DesignRow from "./subComponents/DesignRow";
-
-//Swuipper JS
-// import { Swiper, SwiperSlide } from "swiper/react";
-// import SwiperCore, {
-//   Navigation,
-//   Pagination,
-//   Scrollbar,
-//   A11y,
-//   Autoplay,
-// } from "swiper";
-// import "swiper/css";
-
 const ProjectsSection = () => {
-  //SwiperCore.use([Autoplay]);
-
   // Development Projects
   const DevelopmentProjects = [
     {
