@@ -2,51 +2,49 @@
 import React from "react";
 
 // Graphic Designs - Images
-import GettingFit from "../assets/graphic_design/GettingFit.png";
-import Poshbytoya from "../assets/graphic_design/Poshbytoya.png";
-import ChelseaJo from "../assets/graphic_design/ChelseaJo.png";
-import CrownOfEster from "../assets/graphic_design/CrownOfEster.png";
-import LifeCoach from "../assets/graphic_design/D&J-Life-Coaches.png";
-import Fllego from "../assets/graphic_design/Fllego.jpeg";
-import IvyHouse from "../assets/graphic_design/IvyHouse.JPG";
-import LuxLot from "../assets/graphic_design/Lux&Lot.JPG";
-import MomisHomes from "../assets/graphic_design/MomisHomes.JPG";
-import NellaStyles from "../assets/graphic_design/NellaStyles.JPG";
-import Pengin from "../assets/graphic_design/Pengin.png";
-import Shermas from "../assets/graphic_design/ShermasOneStopShop.jpg";
+import GettingFit from "../assets/Design/GettingFit.png";
+import Poshbytoya from "../assets/Design/Poshbytoya.png";
+import ChelseaJo from "../assets/Design/ChelseaJo.png";
+import CrownOfEster from "../assets/Design/CrownOfEster.png";
+import Fllego from "../assets/Design/Fllego.jpeg";
+import LuxNLot from "../assets/Design/Lux&Lot.JPG";
 
 // Software Development - Images
-import PiratesPrimeBG from "../assets/fullstack/Pirates Prime/Pirates Prime Landing Page.png";
-import WeatherAppBG from "../assets/fullstack/Weather App/React Weather App.png";
-import TodoListBG from "../assets/fullstack/TodoList/React Editable Todo List.png";
+import PiratesPrimeBG from "../assets/Development/PiratesPrime.png";
+import WeatherAppBG from "../assets/Development/WeatherApp.png";
+import TodoListBG from "../assets/Development/EditableTodoList.png";
 
 //SubComponents - Templates
-import Development from "./subComponents/Development-Template";
-import Design from "./subComponents/Design Template";
+import Development from "./subComponents/DevelopmentTemplate";
+import DesignTemplate from "./subComponents/DesignTemplate";
+
+import SliderJS from "./subComponents/SliderJS";
+import DesignRow from "./subComponents/DesignRow";
 
 //Swuipper JS
-import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, {
-  Navigation,
-  Pagination,
-  Scrollbar,
-  A11y,
-  Autoplay,
-} from "swiper";
-import "swiper/css";
+// import { Swiper, SwiperSlide } from "swiper/react";
+// import SwiperCore, {
+//   Navigation,
+//   Pagination,
+//   Scrollbar,
+//   A11y,
+//   Autoplay,
+// } from "swiper";
+// import "swiper/css";
 
 const ProjectsSection = () => {
-  SwiperCore.use([Autoplay]);
+  //SwiperCore.use([Autoplay]);
 
   // Development Projects
   const DevelopmentProjects = [
     {
       Name: "Pirates Prime",
+      Link: "https://youtu.be/8kSEmysnpbM",
       iFrame: (
         <iframe
-          width="960"
-          height="715"
-          className="mx-auto rounded-t-[1.5rem]"
+          width="850"
+          height="550"
+          className="mx-auto rounded-[1.5rem] sm:scale-90"
           src="https://www.youtube.com/embed/8kSEmysnpbM"
           title="YouTube video player"
           frameborder="0"
@@ -59,12 +57,13 @@ const ProjectsSection = () => {
       Color: "green",
     },
     {
-      Name: "Open Weather App",
+      Name: "Weather App",
+      Link: "https://youtu.be/u2mFi9kcABg",
       iFrame: (
         <iframe
-          className="mx-auto rounded-t-[1.5rem] sm:scale-90"
-          width="960"
-          height="715"
+          className="mx-auto rounded-[1.5rem] sm:scale-90"
+          width="850"
+          height="550"
           src="https://www.youtube.com/embed/u2mFi9kcABg"
           title="YouTube video player"
           frameborder="0"
@@ -77,12 +76,13 @@ const ProjectsSection = () => {
       Color: "orange",
     },
     {
-      Name: "Editable Todo List",
+      Name: "Todo List",
+      Link: "https://youtu.be/A3Knf9vIgJA",
       iFrame: (
         <iframe
-          className="mx-auto rounded-t-[1.5rem] sm:scale-90"
-          width="960"
-          height="715"
+          className="mx-auto rounded-[1.5rem] sm:scale-90"
+          width="850"
+          height="550"
           src="https://www.youtube.com/embed/A3Knf9vIgJA"
           title="YouTube video player"
           frameborder="0"
@@ -114,137 +114,57 @@ const ProjectsSection = () => {
       Name: "Crown Of Ester",
     },
     {
-      Url: LifeCoach,
-      Name: "Life Coach",
-    },
-    {
       Url: Fllego,
       Name: "Fllego",
     },
     {
-      Url: IvyHouse,
-      Name: "Ivy House",
-    },
-    {
-      Url: LuxLot,
+      Url: LuxNLot,
       Name: "Lux & Lot",
     },
-    {
-      Url: MomisHomes,
-      Name: "Momis Homes",
-    },
-    {
-      Url: NellaStyles,
-      Name: "NellaStyles",
-    },
-    {
-      Url: Pengin,
-      Name: "Pengin",
-    },
-    {
-      Url: Shermas,
-      Name: "Shermas",
-    },
   ];
+
   return (
     <div
       name="portfolio"
-      className="bg-gradient-to-b from-black to-gray-800 w-full h-screen text-white md:h-screen"
+      className="bg-gradient-to-b from-black to-[#0a192f] w-full text-white md:h-screen"
     >
       <div className="max-w-screen-lg p-4 mx-auto flex flex-col justify-center w-full h-full">
         {/* Heading */}
-        <div className="pb-8">
-          <p className="text-4xl uppercase tracking-widest font-bold inline border-b-4 text-white border-white">
+        <div className="pb-2">
+          <p className="text-4xl uppercase font-bold border-b-4 border-white inline">
             Portfolio
           </p>
-        </div>
-
-        <div className="py-2">
-          {/* Fullstack Projects */}
-          <p className="py-2 uppercase">
+          {/* Development Projects */}
+          <p className="pb-2 pt-8 uppercase">
             <span className="border-b-2">Fullstack Development Projects</span>
           </p>
-          <Swiper
-            modules={[Navigation, Pagination, Scrollbar, A11y]}
-            spaceBetween={40}
-            slidesPerView={3}
-            breakpoints={{
-              // when window width is >= 320px
-              320: {
-                slidesPerView: 2,
-                spaceBetween: 20,
-              },
-              // when window width is >= 480px
-              480: {
-                slidesPerView: 2,
-                spaceBetween: 30,
-              },
-              // when window width is >= 640px
-              640: {
-                slidesPerView: 3,
-                spaceBetween: 40,
-              },
-            }}
-            navigation
-            pagination={{ clickable: true }}
-            scrollbar={{ draggable: true }}
-            autoplay={{
-              delay: 3000,
-            }}
-            loop={true}
-          >
-            {DevelopmentProjects.map((developmentInfo) => (
-              <SwiperSlide className="my-auto">
-                <Development
-                  Name={developmentInfo.Name}
-                  iFrame={developmentInfo.iFrame}
-                  Github={developmentInfo.Github}
-                  Cover={developmentInfo.Cover}
-                  Color={developmentInfo.Color}
-                />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8 px-12 sm:px-0">
+            {DevelopmentProjects.map(
+              ({ id, Name, iFrame, Github, Cover, Color, Link }) => (
+                <div key={id}>
+                  <Development
+                    Name={Name}
+                    iFrame={iFrame}
+                    Github={Github}
+                    Cover={Cover}
+                    Color={Color}
+                    Link={Link}
+                  />
+                </div>
+              )
+            )}
+          </div>
           {/* Design Projects */}
-          <p className="pb-8 pt-4 uppercase">
+          <p className="pb-2 pt-8 uppercase">
             <span className="border-b-2">Graphic Design Projects</span>
           </p>
-          <Swiper
-            modules={[Navigation, Pagination, Scrollbar, A11y]}
-            spaceBetween={40}
-            slidesPerView={3}
-            breakpoints={{
-              // when window width is >= 320px
-              320: {
-                slidesPerView: 2,
-                spaceBetween: 20,
-              },
-              // when window width is >= 480px
-              480: {
-                slidesPerView: 2,
-                spaceBetween: 30,
-              },
-              // when window width is >= 640px
-              640: {
-                slidesPerView: 3,
-                spaceBetween: 40,
-              },
-            }}
-            navigation
-            pagination={{ clickable: true }}
-            scrollbar={{ draggable: true }}
-            autoplay={{
-              delay: 3000,
-            }}
-            loop={true}
-          >
-            {DesignProjects.map((designInfo) => (
-              <SwiperSlide className="my-auto">
-                <Design Url={designInfo.Url} Name={designInfo.Name} />
-              </SwiperSlide>
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8 px-12 sm:px-0">
+            {DesignProjects.map(({ id, Url, Name }) => (
+              <div key={id} className="flex items-center">
+                <DesignTemplate Url={Url} Name={Name} />
+              </div>
             ))}
-          </Swiper>
+          </div>
         </div>
       </div>
     </div>

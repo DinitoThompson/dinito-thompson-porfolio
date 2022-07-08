@@ -1,79 +1,48 @@
-import Resume from "../assets/document/Dinito R. Thompson - Resume.pdf";
+import React from "react";
+//React Icons
 import { BsChevronDoubleDown } from "react-icons/bs";
 import { AiOutlineDownload } from "react-icons/ai";
+// React Scroll
 import { Link } from "react-scroll";
-// import Typed from "react-typed";
-import React from "react";
+//Resume
+import Resume from "../assets/Documents/Dinito R. Thompson - Resume.pdf";
 
-const Hero = () => {
+const Home = () => {
   return (
     <div
       name="home"
-      className="w-full h-screen bg-gradient-to-b from-gray-900 to-black text-white"
+      className="w-full h-screen bg-gradient-to-b from-[#0a192f] to-black"
     >
-      <div className=" text-white max-w-[1240px] h-screen mx-auto px-8 flex flex-col justify-center">
-        <h1 className="md:text-5xl sm:text-4xl text-3xl md:py-6">
-          <span className="text-4xl text-gray-400 sm:text-3xl">Hi, I'm</span>{" "}
-          <span className="text-4xl text-gray-400 sm:text-3xl">{" < > "}</span>
-          <span className="tracking-widest uppercase">
-            <span className="font-bold">DinitoThompson</span>
-          </span>
-          <span className="text-4xl text-gray-400 sm:text-3xl">{" < /> "}</span>
+      {/* Container */}
+      <div className="max-w-[1000px] mx-auto px-8 space-y-4 flex flex-col justify-center h-full">
+        <p className="text-4xl text-[#8892b0]">Hi, I'm,</p>
+        <h1 className="text-4xl sm:text-7xl font-bold uppercase tracking-widest text-white">
+          Dinito Thompson
         </h1>
-        <div className="flex justify-start items-center">
-          <p className="uppercase tracking-wider md:text-3xl sm:text-2xl text-xl font-bold py-4">
-            FullStack Developer
-            <span className=" font-normal text-gray-400"> / </span> Graphic
-            Designer
-          </p>
-        </div>
-        {/* <p className="md:text-2xl text-xl font-bold text-gray-400">
-          <span>Skills: </span>
-          <p
-            className="text-white z-0"
-            strings={[
-              "React.js",
-              "Adobe Photoshop",
-              "Adobe Illustrator",
-              "Next.js",
-              "HTML",
-              "Adobe Premier",
-              "CSS",
-              "Node.js",
-              "JavaScript",
-              "TailwindCSS",
-            ]}
-            typeSpeed={80}
-            backSpeed={80}
-            backDelay={500}
-            loop
-          />
-        </p> */}
-        <div className="flex flex-row space-x-10">
-          <button className="text-white uppercase group border-b-2 px-4 py-3 my-7 flex items-center duration-500">
-            <Link
-              to={"about"}
-              smooth={true}
-              duration={500}
-              className="flex flex-row items-center"
-            >
-              About Me{" "}
-              <span className=" px-4 -rotate-90 group-hover:rotate-0 group-hover:text-green-400 duration-300">
-                <BsChevronDoubleDown className=" my-auto" />
+        <h2 className="text-xl sm:text-3xl tracking-wider text-[#8892b0]">
+          Fullstack Developer/Graphic Designer
+        </h2>
+        {/* Buttons */}
+        <div className="flex space-x-5">
+          <Link to={"about"} smooth={true} duration={500}>
+            <button className="text-white uppercase group border-b-2 px-4 py-3 my-2 flex items-center  hover:border-b-blue-600">
+              About Me
+              <span className="group-hover:scale-125 duration-300">
+                <BsChevronDoubleDown className="ml-3 " />
               </span>
-            </Link>
-          </button>
+            </button>
+          </Link>
           <a
             href={Resume}
             download={true}
             target="_blank"
             alt="Resume"
             rel="noreferrer"
-            className="text-white uppercase group border-b-2 px-3 py-3 my-7 flex items-center duration-500"
+            className="text-white uppercase group border-b-2 px-4 py-3 my-2 flex items-center  hover:border-b-blue-600"
           >
             Resume
-            <span className=" px-4 -rotate-90 group-hover:scale-[1.3] group-hover:text-blue-400 duration-300">
-              <AiOutlineDownload className="rotate-90 my-auto w-5 h-5" />
+            <span className="group-hover:scale-125 duration-300">
+              <AiOutlineDownload className="ml-3 " />
             </span>
           </a>
         </div>
@@ -82,4 +51,4 @@ const Hero = () => {
   );
 };
 
-export default Hero;
+export default Home;

@@ -1,80 +1,212 @@
-import React from "react";
+import React, { Fragment, useState } from "react";
 
 // Link for Image Icons: https://www.flaticon.com/
-import HTML from "../assets/logo_icons/html.png";
-import CSS from "../assets/logo_icons/css.png";
-import JavaScript from "../assets/logo_icons/javascript.png";
-import ReactJs from "../assets/logo_icons/react.png";
-import Firebase from "../assets/logo_icons/firebase.png";
-import Photoshop from "../assets/logo_icons/Photoshop.png";
-import Illustrator from "../assets/logo_icons/Illustrator.png";
-import Tailwind from "../assets/logo_icons/tailwind.png";
-import Premiere from "../assets/logo_icons/Premiere.png";
+import HTML from "../assets/Logo_Icons/html.png";
+import CSS from "../assets/Logo_Icons/css.png";
+import JavaScript from "../assets/Logo_Icons/javascript.png";
+import ReactJs from "../assets/Logo_Icons/react.png";
+import Firebase from "../assets/Logo_Icons/firebase.png";
+import Photoshop from "../assets/Logo_Icons/Photoshop.png";
+import Illustrator from "../assets/Logo_Icons/Illustrator.png";
+import TailwindCSS from "../assets/Logo_Icons/tailwind.png";
+import Premier from "../assets/Logo_Icons/Premiere.png";
+import CPP from "../assets/Logo_Icons/C++.png";
+import Java from "../assets/Logo_Icons/Java.png";
+import Node from "../assets/Logo_Icons/node.png";
+import SQL from "../assets/Logo_Icons/SQL.png";
+import Git from "../assets/Logo_Icons/git.png";
+
+import { Dialog, Transition } from "@headlessui/react";
 
 import Skill from "./subComponents/Skill";
 
 const SkillSet = () => {
+  let [isOpen, setIsOpen] = useState(false);
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  function openModal() {
+    setIsOpen(true);
+  }
+  const Development = [
+    {
+      id: 1,
+      Url: HTML,
+      Name: "HTML",
+      Style: "shadow-orange-500",
+    },
+    {
+      id: 2,
+      Url: CSS,
+      Name: "CSS",
+      Style: "shadow-blue-500",
+    },
+    {
+      id: 3,
+      Url: JavaScript,
+      Name: "JavaScript",
+      Style: "shadow-yellow-500",
+    },
+    {
+      id: 4,
+      Url: ReactJs,
+      Name: "ReactJs",
+      Style: "shadow-blue-600",
+    },
+    {
+      id: 5,
+      Url: TailwindCSS,
+      Name: "TailwindCSS",
+      Style: "shadow-sky-400",
+    },
+    {
+      id: 6,
+      Url: Firebase,
+      Name: "Firebase",
+      Style: "shadow-orange-400",
+    },
+  ];
+
+  const Design = [
+    {
+      id: 1,
+      Url: Photoshop,
+      Name: "Photoshop",
+      Style: "shadow-blue-400",
+    },
+    {
+      id: 2,
+      Url: Illustrator,
+      Name: "Illustrator",
+      Style: "shadow-orange-600",
+    },
+  ];
+
+  const MoreTech = [
+    {
+      id: 1,
+      Url: CPP,
+      Name: "C++",
+      Style: "shadow-blue-500",
+    },
+    {
+      id: 2,
+      Url: Java,
+      Name: "Java",
+      Style: "shadow-orange-400",
+    },
+    {
+      id: 3,
+      Url: Node,
+      Name: "NodeJs",
+      Style: "shadow-green-400",
+    },
+    {
+      id: 4,
+      Url: SQL,
+      Name: "SQL",
+      Style: "shadow-yellow-400",
+    },
+    {
+      id: 2,
+      Url: Git,
+      Name: "Git",
+      Style: "shadow-orange-500",
+    },
+    {
+      id: 5,
+      Url: Premier,
+      Name: "Premiere",
+      Style: "shadow-purple-400",
+    },
+  ];
+
   return (
     <div
       name="experience"
-      className="bg-gradient-to-b from-gray-900 to-black w-full h-screen text-white"
+      className="bg-gradient-to-b from-[#0a192f] to-black w-full h-screen"
     >
-      {/* Container */}
       <div className="max-w-screen-lg mx-auto p-4 flex flex-col justify-center w-full h-full text-white">
         <div>
-          <p className="text-4xl font-bold py-2 inline">
-            <span className="border-b-4 tracking-widest uppercase">
-              Experience
+          <p className="text-4xl uppercase font-bold border-b-4 border-white inline">
+            Experience
+          </p>
+          <p className="pt-4">
+            My Current Techstacks -{" "}
+            <span
+              onClick={openModal}
+              className="text-gray-400 tracking-widest hover:cursor-pointer hover:text-blue-400 duration-400"
+            >
+              See More ?
             </span>
           </p>
-          <p className="pt-8 tracking-widest uppercase">
-            Fullstack Development
-          </p>
         </div>
-        {/* Fullstack Development Section */}
-        <div className="my-4">
-          <div className="w-full grid grid-cols-2 sm:grid-cols-3 gap-8 text-center py-8 px-12 sm:px-0">
-            <Skill Url={`${HTML}`} Name="HTML" Style={"shadow-orange-500"} />
-            <Skill Url={`${CSS}`} Name="CSS" Style={"shadow-blue-500"} />
-            <Skill
-              Url={`${JavaScript}`}
-              Name="JavaScript"
-              Style={"shadow-yellow-500"}
-            />
-            <Skill Url={`${ReactJs}`} Name="React" Style={"shadow-blue-600"} />
-            <Skill
-              Url={`${Firebase}`}
-              Name="Firebase"
-              Style={"shadow-orange-400"}
-            />
-            <Skill
-              Url={`${Tailwind}`}
-              Name="Tailwind"
-              Style={"shadow-blue-400"}
-            />
-          </div>
-          {/* Graphic Designer Section */}
-          <div>
-            <p className="py-4 uppercase tracking-widest">Graphic Design</p>
-            <div className="w-full grid grid-cols-2 sm:grid-cols-3 gap-8 text-center py-8">
-              <Skill
-                Url={`${Photoshop}`}
-                Name="Photoshop"
-                Style={"shadow-blue-400"}
-              />
-              <Skill
-                Url={`${Illustrator}`}
-                Name="Illustrator"
-                Style={"shadow-orange-600"}
-              />
-              <Skill
-                Url={`${Premiere}`}
-                Name="Premiere"
-                Style={"shadow-purple-600"}
-              />
+
+        <div className="w-full grid grid-cols-2 sm:grid-cols-3 gap-8 text-center py-8 px-12 sm:px-0">
+          {Development.map(({ id, Url, Name, Style }) => (
+            <div key={id}>
+              <Skill Url={Url} Name={Name} Style={Style} />
             </div>
-          </div>
+          ))}
         </div>
+        <div className="w-full grid grid-cols-2 sm:grid-cols-3 gap-8 text-center py-8 px-12 sm:px-0">
+          {Design.map(({ id, Url, Name, Style }) => (
+            <div key={id}>
+              <Skill Url={Url} Name={Name} Style={Style} />
+            </div>
+          ))}
+        </div>
+        {/* Dialog Box */}
+        <Transition appear show={isOpen} as={Fragment}>
+          <Dialog as="div" className="relative z-10" onClose={closeModal}>
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <div className="fixed inset-0 bg-gradient-to-bl from-[#0a192f] to-black bg-opacity-70 blur-md" />
+            </Transition.Child>
+
+            <div className="fixed inset-0 overflow-y-auto">
+              <div className="flex min-h-full items-center justify-center p-4 text-center">
+                <Transition.Child
+                  as={Fragment}
+                  enter="ease-out duration-300"
+                  enterFrom="opacity-0 scale-95"
+                  enterTo="opacity-100 scale-100"
+                  leave="ease-in duration-200"
+                  leaveFrom="opacity-100 scale-100"
+                  leaveTo="opacity-0 scale-95"
+                >
+                  <Dialog.Panel className="w-full max-w-[1000px] transform overflow-hidden rounded-2xl p-6 text-left align-middle shadow-xl transition-all">
+                    <div className="w-full grid grid-cols-2 sm:grid-cols-3 gap-8 text-center py-8 px-12 sm:px-0">
+                      {MoreTech.map(({ id, Url, Name, Style }) => (
+                        <div key={id}>
+                          <Skill Url={Url} Name={Name} Style={Style} />
+                        </div>
+                      ))}
+                    </div>
+                    <div className="flex justify-center mt-4 space-x-5">
+                      <button
+                        type="button"
+                        className="inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-lg font-medium text-white hover:border-b-white duration-500"
+                        onClick={closeModal}
+                      >
+                        Close
+                      </button>
+                    </div>
+                  </Dialog.Panel>
+                </Transition.Child>
+              </div>
+            </div>
+          </Dialog>
+        </Transition>
       </div>
     </div>
   );

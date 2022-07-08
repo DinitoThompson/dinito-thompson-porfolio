@@ -1,15 +1,14 @@
 import React from "react";
 
-import { BsLinkedin } from "react-icons/bs";
-import { BsGithub } from "react-icons/bs";
+import { BsLinkedin, BsGithub } from "react-icons/bs";
 import { IoDocumentSharp } from "react-icons/io5";
 import { AiOutlineMail } from "react-icons/ai";
 
-import Resume from "../../assets/document/Dinito R. Thompson - Resume.pdf";
+import Resume from "../assets/Documents/Dinito R. Thompson - Resume.pdf";
 
-const HeaderSocials = () => {
+const HeaderSocials = ({ State }) => {
   return (
-    <>
+    <div className={`${State} md:flex`}>
       <div className=" fixed bottom-5 left-8 text-white flex flex-row items-center gap-4 gap-x-5">
         <a
           href="https://www.linkedin.com/in/dinito-thompson/"
@@ -45,7 +44,7 @@ const HeaderSocials = () => {
           <IoDocumentSharp className="w-7 h-7 hover:text-blue-400 duration-500" />
         </a>
       </div>
-    </>
+    </div>
   );
 };
 

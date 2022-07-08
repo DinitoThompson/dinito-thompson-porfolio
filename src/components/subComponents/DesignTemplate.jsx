@@ -2,7 +2,7 @@ import React from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 
-const Design = ({ Url, Name }) => {
+const DesignTemplate = ({ Url, Name }) => {
   let [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
@@ -16,11 +16,11 @@ const Design = ({ Url, Name }) => {
   return (
     <div>
       {/* Image */}
-      <div className="shadow-md shadow-gray-600 rounded-lg">
+      <div className="shadow-md shadow-gray-600 rounded-lg my-auto hover:cursor-pointer">
         {/* Hover Effect */}
         <img
           onClick={openModal}
-          className="hover:cursor-pointer mx-auto rounded-md hover:scale-110 duration-500"
+          className="rounded-md duration-200 hover:scale-105"
           src={Url}
           alt={Name}
         />
@@ -37,7 +37,7 @@ const Design = ({ Url, Name }) => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-black bg-opacity-25" />
+            <div className="fixed inset-0 bg-gradient-to-bl from-[#0a192f] to-black  blur-md" />
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">
@@ -51,28 +51,26 @@ const Design = ({ Url, Name }) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <div className="flex justify-center items-center w-full h-screen bg-[#0e1113] rounded-lg">
-                  <Dialog.Panel className="w-full max-w-[1000px] transform overflow-hidden rounded-2xl bg-[#0e1113] p-6 text-left align-middle shadow-xl transition-all">
-                    <img
-                      onClick={openModal}
-                      className="mx-auto rounded-md "
-                      src={Url}
-                      alt={Name}
-                    />
-                    <p className="my-4 text-center text-white font-extralight text-3xl">
-                      {Name}
-                    </p>
-                    <div className="flex justify-center mt-4">
-                      <button
-                        type="button"
-                        className="inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-lg font-medium text-white hover:border-b-white duration-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
-                        onClick={closeModal}
-                      >
-                        Close
-                      </button>
-                    </div>
-                  </Dialog.Panel>
-                </div>
+                <Dialog.Panel className="w-full max-w-[1000px] transform overflow-hidden rounded-2xl p-6 text-left align-middle shadow-xl transition-all">
+                  <p className="my-4 text-center text-white font-extralight text-3xl">
+                    {Name}
+                  </p>
+                  <img
+                    onClick={openModal}
+                    className="mx-auto rounded-md "
+                    src={Url}
+                    alt={Name}
+                  />
+                  <div className="flex justify-center mt-4 space-x-5">
+                    <button
+                      type="button"
+                      className="inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-lg font-medium text-white hover:border-b-white duration-500"
+                      onClick={closeModal}
+                    >
+                      Close
+                    </button>
+                  </div>
+                </Dialog.Panel>
               </Transition.Child>
             </div>
           </div>
@@ -82,4 +80,4 @@ const Design = ({ Url, Name }) => {
   );
 };
 
-export default Design;
+export default DesignTemplate;

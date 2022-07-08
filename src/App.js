@@ -1,12 +1,12 @@
 import React from "react";
-
-import About from "./components/About";
-import Home from "./components/Home";
-import Experience from "./components/Experience";
-import Contact from "./components/Contact";
-import Portfolio from "./components/Portfolio";
+//Components
 import Navbar from "./components/Navbar";
-import HeaderSocials from "./components/subComponents/HeaderSocials";
+import Home from "./components/Home";
+import About from "./components/About";
+import Experience from "./components/Experience";
+import Portfolio from "./components/Portfolio";
+import Contact from "./components/Contact";
+import HeaderSocials from "./components/HeaderSocials";
 
 function App() {
   return (
@@ -17,7 +17,7 @@ function App() {
       <Experience />
       <Portfolio />
       <Contact />
-      <HeaderSocials />
+      <HeaderSocials State="hidden" />
     </div>
   );
 }

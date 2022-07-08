@@ -21,7 +21,7 @@ const Contact = () => {
           alert("Email Sent!");
         },
         (error) => {
-          alert("Error, Reach out via email please.");
+          alert("An Error Occured!, Please reach out via email.");
         }
       );
     e.target.reset();
@@ -30,16 +30,16 @@ const Contact = () => {
   return (
     <div
       name="contact"
-      className="w-full h-screen bg-gradient-to-b from-gray-800 to-black p-4 text-white"
+      className="w-full h-screen bg-gradient-to-b from-[#0a192f] to-black  p-4 text-white"
     >
       <div className="flex flex-col p-4 justify-center max-w-screen-lg mx-auto h-full">
-        <div className="pb-8">
+        <div className="pb-8 space-y-4">
           <p className="text-4xl font-bold inline border-b-4 border-white uppercase tracking-widest">
             Get In Touch ?
           </p>
           <p className="py-3 font-medium">
             Fill out the form or Send me an email : <br />
-            <span className="text-green-300 font-extralight tracking-widest">
+            <span className="text-green-300 font-medium tracking-widest">
               dinitothompson@gmail.com
             </span>{" "}
           </p>
