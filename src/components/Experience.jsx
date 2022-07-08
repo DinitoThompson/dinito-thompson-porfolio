@@ -1,20 +1,6 @@
 import React, { Fragment, useState } from "react";
 
 // Link for Image Icons: https://www.flaticon.com/
-import HTML from "../assets/Logo_Icons/html.png";
-import CSS from "../assets/Logo_Icons/css.png";
-import JavaScript from "../assets/Logo_Icons/javascript.png";
-import ReactJs from "../assets/Logo_Icons/react.png";
-import Firebase from "../assets/Logo_Icons/firebase.png";
-import Photoshop from "../assets/Logo_Icons/Photoshop.png";
-import Illustrator from "../assets/Logo_Icons/Illustrator.png";
-import TailwindCSS from "../assets/Logo_Icons/tailwind.png";
-import Premier from "../assets/Logo_Icons/Premiere.png";
-import CPP from "../assets/Logo_Icons/C++.png";
-import Java from "../assets/Logo_Icons/Java.png";
-import Node from "../assets/Logo_Icons/node.png";
-import SQL from "../assets/Logo_Icons/SQL.png";
-import Git from "../assets/Logo_Icons/git.png";
 
 import { Dialog, Transition } from "@headlessui/react";
 
@@ -33,37 +19,37 @@ const SkillSet = () => {
   const Development = [
     {
       id: 1,
-      Url: HTML,
+      Url: "/assets/Logo_Icons/html.png",
       Name: "HTML",
       Style: "shadow-orange-500",
     },
     {
       id: 2,
-      Url: CSS,
+      Url: "/assets/Logo_Icons/css.png",
       Name: "CSS",
       Style: "shadow-blue-500",
     },
     {
       id: 3,
-      Url: JavaScript,
+      Url: "/assets/Logo_Icons/javascript.png",
       Name: "JavaScript",
       Style: "shadow-yellow-500",
     },
     {
       id: 4,
-      Url: ReactJs,
+      Url: "/assets/Logo_Icons/react.png",
       Name: "ReactJs",
       Style: "shadow-blue-600",
     },
     {
       id: 5,
-      Url: TailwindCSS,
+      Url: "/assets/Logo_Icons/tailwind.png",
       Name: "TailwindCSS",
       Style: "shadow-sky-400",
     },
     {
       id: 6,
-      Url: Firebase,
+      Url: "/assets/Logo_Icons/firebase.png",
       Name: "Firebase",
       Style: "shadow-orange-400",
     },
@@ -72,13 +58,13 @@ const SkillSet = () => {
   const Design = [
     {
       id: 1,
-      Url: Photoshop,
+      Url: "/assets/Logo_Icons/Photoshop.png",
       Name: "Photoshop",
       Style: "shadow-blue-400",
     },
     {
       id: 2,
-      Url: Illustrator,
+      Url: "/assets/Logo_Icons/Illustrator.png",
       Name: "Illustrator",
       Style: "shadow-orange-600",
     },
@@ -87,37 +73,37 @@ const SkillSet = () => {
   const MoreTech = [
     {
       id: 1,
-      Url: CPP,
+      Url: "/assets/Logo_Icons/C++.png",
       Name: "C++",
       Style: "shadow-blue-500",
     },
     {
       id: 2,
-      Url: Java,
+      Url: "/assets/Logo_Icons/Java.png",
       Name: "Java",
       Style: "shadow-orange-400",
     },
     {
       id: 3,
-      Url: Node,
+      Url: "/assets/Logo_Icons/node.png",
       Name: "NodeJs",
       Style: "shadow-green-400",
     },
     {
       id: 4,
-      Url: SQL,
+      Url: "/assets/Logo_Icons/SQL.png",
       Name: "SQL",
       Style: "shadow-yellow-400",
     },
     {
       id: 2,
-      Url: Git,
+      Url: "/assets/Logo_Icons/git.png",
       Name: "Git",
       Style: "shadow-orange-500",
     },
     {
       id: 5,
-      Url: Premier,
+      Url: "/assets/Logo_Icons/Premiere.png",
       Name: "Premiere",
       Style: "shadow-purple-400",
     },

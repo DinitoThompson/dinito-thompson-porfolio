@@ -4,8 +4,6 @@ import { BsChevronDoubleDown } from "react-icons/bs";
 import { AiOutlineDownload } from "react-icons/ai";
 // React Scroll
 import { Link } from "react-scroll";
-//Resume
-import Resume from "../assets/Documents/Dinito R. Thompson - Resume.pdf";
 
 const Home = () => {
   return (
@@ -33,7 +31,7 @@ const Home = () => {
             </button>
           </Link>
           <a
-            href={Resume}
+            href={"/assets/Documents/Dinito R. Thompson - Resume.pdf"}
             download={true}
             target="_blank"
             alt="Resume"

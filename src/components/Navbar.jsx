@@ -3,8 +3,6 @@ import React, { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 //Smooth Scroll
 import { Link } from "react-scroll";
-//Logo
-import Logo from "../assets/Logo_Icons/Dinito - Logo.png";
 //HeaderSocials
 import HeaderSocials from "./HeaderSocials";
 
@@ -41,7 +39,7 @@ const Navbar = () => {
       <div className="hidden md:flex">
         <Link to={"home"} smooth={true} duration={500}>
           <img
-            src={Logo}
+            src={"/assets/Logo_Icons/Dinito - Logo.png"}
             alt="/"
             style={{ width: "80px" }}
             className="mt-8 hover:cursor-pointer"
@@ -96,7 +94,12 @@ const Navbar = () => {
         ))}
         {/* Logo */}
         <div className="animate-pulse">
-          <img src={Logo} alt="/" style={{ width: "120px" }} className="mt-2" />
+          <img
+            src={"/assets/Logo_Icons/Dinito - Logo.png"}
+            alt="/"
+            style={{ width: "120px" }}
+            className="mt-2"
+          />
         </div>
         <HeaderSocials State={null} />
       </ul>

@@ -1,19 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 
-// Graphic Designs - Images
-import GettingFit from "../assets/Design/GettingFit.png";
-import Poshbytoya from "../assets/Design/Poshbytoya.png";
-import ChelseaJo from "../assets/Design/ChelseaJo.png";
-import CrownOfEster from "../assets/Design/CrownOfEster.png";
-import Fllego from "../assets/Design/Fllego.jpeg";
-import LuxNLot from "../assets/Design/Lux&Lot.JPG";
-
-// Software Development - Images
-import PiratesPrimeBG from "../assets/Development/PiratesPrime.png";
-import WeatherAppBG from "../assets/Development/WeatherApp.png";
-import TodoListBG from "../assets/Development/EditableTodoList.png";
-
 //SubComponents - Templates
 import Development from "./subComponents/DevelopmentTemplate";
 import DesignTemplate from "./subComponents/DesignTemplate";
@@ -37,7 +24,7 @@ const ProjectsSection = () => {
         />
       ),
       Github: "https://github.com/DinitoThompson/ReactJS-Pirates-Prime",
-      Cover: PiratesPrimeBG,
+      Cover: "/assets/Development/PiratesPrime.png",
       Color: "green",
     },
     {
@@ -56,7 +43,7 @@ const ProjectsSection = () => {
         />
       ),
       Github: "https://github.com/DinitoThompson/React-Weather-App",
-      Cover: WeatherAppBG,
+      Cover: "/assets/Development/WeatherApp.png",
       Color: "orange",
     },
     {
@@ -75,34 +62,34 @@ const ProjectsSection = () => {
         />
       ),
       Github: "https://github.com/DinitoThompson/React-Editable-Todo-List",
-      Cover: TodoListBG,
+      Cover: "/assets/Development/EditableTodoList.png",
       Color: "blue",
     },
   ];
   //Design Projects
   const DesignProjects = [
     {
-      Url: GettingFit,
+      Url: "/assets/Design/GettingFit.png",
       Name: "Getting Fit",
     },
     {
-      Url: Poshbytoya,
+      Url: "/assets/Design/Poshbytoya.png",
       Name: "Poshbytoya",
     },
     {
-      Url: ChelseaJo,
+      Url: "/assets/Design/ChelseaJo.png",
       Name: "ChelseaJo",
     },
     {
-      Url: CrownOfEster,
+      Url: "/assets/Design/CrownOfEster.png",
       Name: "Crown Of Ester",
     },
     {
-      Url: Fllego,
+      Url: "/assets/Design/Fllego.jpeg",
       Name: "Fllego",
     },
     {
-      Url: LuxNLot,
+      Url: "/assets/Design/Lux&Lot.JPG",
       Name: "Lux & Lot",
     },
   ];

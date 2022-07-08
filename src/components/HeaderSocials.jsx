@@ -4,8 +4,6 @@ import { BsLinkedin, BsGithub } from "react-icons/bs";
 import { IoDocumentSharp } from "react-icons/io5";
 import { AiOutlineMail } from "react-icons/ai";
 
-import Resume from "../assets/Documents/Dinito R. Thompson - Resume.pdf";
-
 const HeaderSocials = ({ State }) => {
   return (
     <div className={`${State} md:flex`}>
@@ -35,7 +33,7 @@ const HeaderSocials = ({ State }) => {
         </a>
 
         <a
-          href={Resume}
+          href={"/assets/Documents/Dinito R. Thompson - Resume.pdf"}
           download={true}
           target="_blank"
           alt="Resume"
