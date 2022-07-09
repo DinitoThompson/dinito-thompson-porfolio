@@ -41,8 +41,8 @@ const Navbar = () => {
           <img
             src={"/assets/Logo_Icons/Dinito - Logo.png"}
             alt="/"
-            style={{ width: "80px" }}
-            className="mt-8 hover:cursor-pointer"
+            style={{ width: "60px" }}
+            className="mt-1 hover:cursor-pointer hover:scale-110 duration-300"
           />
         </Link>
       </div>
@@ -55,7 +55,7 @@ const Navbar = () => {
             className="px-4 cursor-pointer uppercase font-medium text-gray-500 hover:scale-105 duration-500"
           >
             <Link to={link} smooth={true} duration={500}>
-              {link}
+              <div className="hover:text-white duration-300">{link}</div>
             </Link>
           </li>
         ))}
@@ -78,7 +78,7 @@ const Navbar = () => {
         className={
           !mobileNav
             ? "hidden"
-            : "absolute top-0 left-0 w-full h-screen bg-[#0a192f] flex flex-col justify-center items-center z-40"
+            : "fixed top-0 left-0 w-full h-screen bg-[#252629] flex flex-col justify-center items-center z-40"
         }
       >
         {links.map(({ id, link }) => (
