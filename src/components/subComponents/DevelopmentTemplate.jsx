@@ -18,7 +18,7 @@ const DevelopmentTemplate = ({ Name, iFrame, Github, Cover, Color, Link }) => {
     <div class>
       {/* Project Name */}
       <p className="my-4 text-white font-extralight tracking-widest">
-        <span className={`text-${Color}-400`}>{Name}</span> React
+        <span className={`text-${Color}`}>{Name}</span> React
       </p>
       {/* Project Cover Image */}
       <div className="shadow-md shadow-gray-600 rounded-lg hover:cursor-pointer">
@@ -34,7 +34,7 @@ const DevelopmentTemplate = ({ Name, iFrame, Github, Cover, Color, Link }) => {
         <div className="flex items-center justify-center text-center">
           <button
             onClick={openPreview}
-            className="w-1/2 px-6 py-1 m-4 border border-transparent hover:border-b-white hover:scale-105 duration-500"
+            className="w-1/2 px-6 py-1 m-4 border border-transparent hover:border-b-[#ffac3f] hover:scale-105 duration-500"
           >
             Preview
           </button>
@@ -42,7 +42,7 @@ const DevelopmentTemplate = ({ Name, iFrame, Github, Cover, Color, Link }) => {
             href={Github}
             target="_blank"
             rel="noreferrer"
-            className="w-1/2 px-6 py-1 m-4 border border-transparent hover:border-b-white hover:scale-105 duration-500"
+            className="w-1/2 px-6 py-1 m-4 border border-transparent hover:border-b-[#ffac3f] hover:scale-105 duration-500"
           >
             Github
           </a>

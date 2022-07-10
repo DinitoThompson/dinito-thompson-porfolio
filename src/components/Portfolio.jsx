@@ -25,7 +25,7 @@ const ProjectsSection = () => {
       ),
       Github: "https://github.com/DinitoThompson/ReactJS-Pirates-Prime",
       Cover: "/assets/Development/PiratesPrime.png",
-      Color: "green",
+      Color: "green-400",
     },
     {
       Name: "Weather App",
@@ -44,7 +44,7 @@ const ProjectsSection = () => {
       ),
       Github: "https://github.com/DinitoThompson/React-Weather-App",
       Cover: "/assets/Development/WeatherApp.png",
-      Color: "orange",
+      Color: "orange-400",
     },
     {
       Name: "Todo List",
@@ -63,7 +63,7 @@ const ProjectsSection = () => {
       ),
       Github: "https://github.com/DinitoThompson/React-Editable-Todo-List",
       Cover: "/assets/Development/EditableTodoList.png",
-      Color: "blue",
+      Color: "blue-400",
     },
   ];
   //Design Projects
@@ -97,9 +97,9 @@ const ProjectsSection = () => {
   return (
     <div
       name="portfolio"
-      className="bg-gradient-to-b from-black to-[#0a192f] w-full text-white md:h-screen"
+      className="bg-gradient-to-br from-black to-[#252629] w-full text-white md:h-screen"
     >
-      <div className="max-w-screen-lg p-4 mx-auto flex flex-col justify-center w-full h-full">
+      <div className="max-w-screen-lg p-6 mx-auto flex flex-col justify-center w-full h-full">
         {/* Heading */}
         <div className="pb-2">
           <p className="text-4xl uppercase font-bold border-b-4 border-white inline">
@@ -109,7 +109,7 @@ const ProjectsSection = () => {
           <p className="pb-2 pt-8 uppercase">
             <span className="border-b-2">Fullstack Development Projects</span>
           </p>
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8 px-12 sm:px-0">
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-1 sm:gap-4 px-8 sm:px-0 text-center">
             {DevelopmentProjects.map(
               ({ id, Name, iFrame, Github, Cover, Color, Link }) => (
                 <div key={id}>
@@ -126,9 +126,10 @@ const ProjectsSection = () => {
             )}
           </div>
           {/* Design Projects */}
-          <p className="pb-2 pt-8 uppercase">
+          <p className="pb-8 pt-4 uppercase">
             <span className="border-b-2">Graphic Design Projects</span>
           </p>
+
           <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8 px-12 sm:px-0">
             {DesignProjects.map(({ id, Url, Name }) => (
               <div key={id} className="flex items-center">

@@ -44,7 +44,7 @@ const SkillSet = () => {
     {
       id: 5,
       Url: "/assets/Logo_Icons/tailwind.png",
-      Name: "TailwindCSS",
+      Name: "Tailwind",
       Style: "shadow-sky-400",
     },
     {
@@ -112,7 +112,7 @@ const SkillSet = () => {
   return (
     <div
       name="experience"
-      className="bg-gradient-to-b from-[#0a192f] to-black w-full h-screen"
+      className="bg-gradient-to-tr from-black to-[#252629] w-full h-screen"
     >
       <div className="max-w-screen-lg mx-auto p-4 flex flex-col justify-center w-full h-full text-white">
         <div>
@@ -123,7 +123,7 @@ const SkillSet = () => {
             My Current Techstacks -{" "}
             <span
               onClick={openModal}
-              className="text-gray-400 tracking-widest hover:cursor-pointer hover:text-blue-400 duration-400"
+              className="text-gray-400 tracking-widest hover:cursor-pointer hover:text-[#ffac3f] duration-400"
             >
               See More ?
             </span>
@@ -136,8 +136,6 @@ const SkillSet = () => {
               <Skill Url={Url} Name={Name} Style={Style} />
             </div>
           ))}
-        </div>
-        <div className="w-full grid grid-cols-2 sm:grid-cols-3 gap-8 text-center py-8 px-12 sm:px-0">
           {Design.map(({ id, Url, Name, Style }) => (
             <div key={id}>
               <Skill Url={Url} Name={Name} Style={Style} />
@@ -156,7 +154,7 @@ const SkillSet = () => {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <div className="fixed inset-0 bg-gradient-to-bl from-[#0a192f] to-black bg-opacity-70 blur-md" />
+              <div className="fixed inset-0 bg-gradient-to-tr from-black to-[#252629] bg-opacity-70 blur-md" />
             </Transition.Child>
 
             <div className="fixed inset-0 overflow-y-auto">
@@ -181,7 +179,7 @@ const SkillSet = () => {
                     <div className="flex justify-center mt-4 space-x-5">
                       <button
                         type="button"
-                        className="inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-lg font-medium text-white hover:border-b-white duration-500"
+                        className="inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-lg font-medium text-[#ffac3f] hover:border-b-[#ffac3f] duration-500"
                         onClick={closeModal}
                       >
                         Close

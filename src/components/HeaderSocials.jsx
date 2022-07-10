@@ -13,14 +13,14 @@ const HeaderSocials = ({ State }) => {
           target="_blank"
           rel="noreferrer"
         >
-          <BsLinkedin className="w-7 h-7 hover:text-blue-400 duration-500" />
+          <BsLinkedin className="w-7 h-7 hover:text-[#ffac3f] duration-500" />
         </a>
         <a
           href="https://github.com/DinitoThompson/"
           target="_blank"
           rel="noreferrer"
         >
-          <BsGithub className="w-7 h-7 hover:text-blue-400 duration-500" />
+          <BsGithub className="w-7 h-7 hover:text-[#ffac3f] duration-500" />
         </a>
       </div>
       <div className=" fixed bottom-5 right-8 text-white flex flex-row items-center gap-4 gap-x-5">
@@ -29,7 +29,7 @@ const HeaderSocials = ({ State }) => {
           target="_blank"
           rel="noreferrer"
         >
-          <AiOutlineMail className="w-7 h-7 hover:text-blue-400 duration-500" />
+          <AiOutlineMail className="w-7 h-7 hover:text-[#ffac3f] duration-500" />
         </a>
 
         <a
@@ -39,7 +39,7 @@ const HeaderSocials = ({ State }) => {
           alt="Resume"
           rel="noreferrer"
         >
-          <IoDocumentSharp className="w-7 h-7 hover:text-blue-400 duration-500" />
+          <IoDocumentSharp className="w-7 h-7 hover:text-[#ffac3f] duration-500" />
         </a>
       </div>
     </div>

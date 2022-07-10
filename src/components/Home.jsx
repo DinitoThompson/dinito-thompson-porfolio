@@ -11,7 +11,7 @@ const Home = () => {
   return (
     <div
       name="home"
-      className="w-full h-screen bg-gradient-to-b from-[#252629] to-black"
+      className="w-full h-screen bg-gradient-to-tr from-black to-[#252629]"
     >
       {/* Container */}
       <div className="max-w-[1000px] mx-auto px-8 space-y-4 flex flex-col justify-center h-full">
@@ -22,11 +22,11 @@ const Home = () => {
         <h2 className="text-xl sm:text-3xl tracking-wider text-[#8892b0]">
           Fullstack Developer/Graphic Designer
         </h2>
-        <div className="flex text-xl sm:text-2xl tracking-widest text-[#8892b0]">
-          <h2 className="text-white">
+        <div className="flex flex-row items-baseline text-xl sm:text-2xl tracking-widest text-[#8892b0]">
+          <h2 className="text-[#8892b0] text-xl">
             Skills: <span></span>
           </h2>
-          <div className="pl-2">
+          <div className="pl-2 text-[#ffac3f] tracking-widest">
             <Typewriter
               options={{
                 strings: [
@@ -35,9 +35,10 @@ const Home = () => {
                   "Java",
                   "C++",
                   "HTML",
+                  "CSS",
                   "JavaScript",
                   "Adobe Photoshop",
-                  "TailwindCss",
+                  "Tailwind",
                   "Firebase",
                   "Adobe Illustrator",
                 ],
@@ -51,10 +52,10 @@ const Home = () => {
         {/* Buttons */}
         <div className="flex space-x-5">
           <Link to={"about"} smooth={true} duration={500}>
-            <button className="text-white uppercase group border-b-2 px-4 py-3 my-2 flex items-center  hover:border-b-blue-600">
+            <button className="text-white uppercase group border-b-2 px-4 py-3 my-2 flex items-center border-b-[#ffac3f]">
               About Me
               <span className="group-hover:scale-125 duration-300">
-                <BsChevronDoubleDown className="ml-3 " />
+                <BsChevronDoubleDown className="ml-3 group-hover:text-[#ffac3f]" />
               </span>
             </button>
           </Link>
@@ -64,11 +65,11 @@ const Home = () => {
             target="_blank"
             alt="Resume"
             rel="noreferrer"
-            className="text-white uppercase group border-b-2 px-4 py-3 my-2 flex items-center  hover:border-b-blue-600"
+            className="text-white uppercase group border-b-2 px-4 py-3 my-2 flex items-center border-b-[#ffac3f]"
           >
             Resume
             <span className="group-hover:scale-125 duration-300">
-              <AiOutlineDownload className="ml-3 " />
+              <AiOutlineDownload className="ml-3 group-hover:text-[#ffac3f]" />
             </span>
           </a>
         </div>

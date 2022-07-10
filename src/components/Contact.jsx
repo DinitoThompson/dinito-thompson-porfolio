@@ -30,16 +30,16 @@ const Contact = () => {
   return (
     <div
       name="contact"
-      className="w-full h-screen bg-gradient-to-b from-[#0a192f] to-black  p-4 text-white"
+      className="w-full h-screen bg-gradient-to-tr from-black to-[#252629]  p-4 text-white"
     >
       <div className="flex flex-col p-4 justify-center max-w-screen-lg mx-auto h-full">
         <div className="pb-8 space-y-4">
           <p className="text-4xl font-bold inline border-b-4 border-white uppercase tracking-widest">
-            Get In Touch ?
+            Get In Touch
           </p>
           <p className="py-3 font-medium">
             Fill out the form or Send me an email : <br />
-            <span className="text-green-300 font-medium tracking-widest">
+            <span className="text-[#ffac3f] font-light tracking-widest">
               dinitothompson@gmail.com
             </span>{" "}
           </p>
@@ -76,7 +76,7 @@ const Contact = () => {
               <div className="p-8 flex justify-center">
                 <button
                   type="submit"
-                  className="text-white border-2 hover:bg-white hover:text-black px-4 py-3 duration-500 rounded-lg"
+                  className="text-white border-2 hover:bg-[#ffac3f] hover:border-black hover:text-black px-4 py-3 duration-500 rounded-lg"
                 >
                   Send Message
                 </button>

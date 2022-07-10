@@ -55,7 +55,7 @@ const Navbar = () => {
             className="px-4 cursor-pointer uppercase font-medium text-gray-500 hover:scale-105 duration-500"
           >
             <Link to={link} smooth={true} duration={500}>
-              <div className="hover:text-white duration-300">{link}</div>
+              <div className="hover:text-[#ffac3f] duration-300">{link}</div>
             </Link>
           </li>
         ))}
@@ -64,7 +64,7 @@ const Navbar = () => {
       {/* Hamburger */}
       <div
         onClick={handleClick}
-        className="md:hidden z-50 ml-auto hover:cursor-pointer"
+        className="md:hidden z-50 ml-auto hover:cursor-pointer text-[#ffac3f] hover:scale-110 duration-300"
       >
         {!mobileNav ? (
           <FaBars className="w-5 h-8" />
@@ -78,13 +78,13 @@ const Navbar = () => {
         className={
           !mobileNav
             ? "hidden"
-            : "fixed top-0 left-0 w-full h-screen bg-[#252629] flex flex-col justify-center items-center z-40"
+            : "fixed top-0 left-0 w-full h-screen bg-gradient-to-tr from-black to-[#252629] flex flex-col justify-center items-center z-40"
         }
       >
         {links.map(({ id, link }) => (
           <li
             key={id}
-            className="py-6 text-gray-500 scale-90 capitalize text-4xl hover:cursor-pointer hover:scale-105 hover:text-white duration-500"
+            className="py-6 text-gray-500 scale-90 capitalize text-4xl hover:cursor-pointer hover:scale-105 hover:text-[#ffac3f] duration-500"
           >
             {" "}
             <Link onClick={handleClick} to={link} smooth={true} duration={500}>
