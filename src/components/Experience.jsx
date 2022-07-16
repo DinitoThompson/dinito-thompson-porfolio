@@ -19,38 +19,38 @@ const SkillSet = () => {
   const Development = [
     {
       id: 1,
-      Url: "/assets/Logo_Icons/html.png",
-      Name: "HTML",
-      Style: "shadow-orange-500",
-    },
-    {
-      id: 2,
-      Url: "/assets/Logo_Icons/css.png",
-      Name: "CSS",
-      Style: "shadow-blue-500",
-    },
-    {
-      id: 3,
-      Url: "/assets/Logo_Icons/javascript.png",
-      Name: "JavaScript",
-      Style: "shadow-yellow-500",
-    },
-    {
-      id: 4,
       Url: "/assets/Logo_Icons/react.png",
       Name: "ReactJs",
       Style: "shadow-blue-600",
     },
     {
-      id: 5,
+      id: 2,
+      Url: "/assets/Logo_Icons/javascript.png",
+      Name: "JavaScript",
+      Style: "shadow-yellow-500",
+    },
+    {
+      id: 3,
+      Url: "/assets/Logo_Icons/node.png",
+      Name: "NodeJs",
+      Style: "shadow-green-400",
+    },
+    {
+      id: 4,
       Url: "/assets/Logo_Icons/tailwind.png",
       Name: "Tailwind",
       Style: "shadow-sky-400",
     },
     {
-      id: 6,
+      id: 5,
       Url: "/assets/Logo_Icons/firebase.png",
       Name: "Firebase",
+      Style: "shadow-orange-400",
+    },
+    {
+      id: 6,
+      Url: "/assets/Logo_Icons/Java.png",
+      Name: "Java",
       Style: "shadow-orange-400",
     },
   ];
@@ -73,36 +73,36 @@ const SkillSet = () => {
   const MoreTech = [
     {
       id: 1,
+      Url: "/assets/Logo_Icons/html.png",
+      Name: "HTML",
+      Style: "shadow-orange-500",
+    },
+    {
+      id: 2,
+      Url: "/assets/Logo_Icons/css.png",
+      Name: "CSS",
+      Style: "shadow-blue-500",
+    },
+    {
+      id: 3,
       Url: "/assets/Logo_Icons/C++.png",
       Name: "C++",
       Style: "shadow-blue-500",
     },
     {
-      id: 2,
-      Url: "/assets/Logo_Icons/Java.png",
-      Name: "Java",
-      Style: "shadow-orange-400",
-    },
-    {
-      id: 3,
-      Url: "/assets/Logo_Icons/node.png",
-      Name: "NodeJs",
-      Style: "shadow-green-400",
-    },
-    {
-      id: 4,
+      id: 5,
       Url: "/assets/Logo_Icons/SQL.png",
       Name: "SQL",
       Style: "shadow-yellow-400",
     },
     {
-      id: 2,
+      id: 6,
       Url: "/assets/Logo_Icons/git.png",
       Name: "Git",
       Style: "shadow-orange-500",
     },
     {
-      id: 5,
+      id: 7,
       Url: "/assets/Logo_Icons/Premiere.png",
       Name: "Premiere",
       Style: "shadow-purple-400",
@@ -116,17 +116,20 @@ const SkillSet = () => {
     >
       <div className="max-w-screen-lg mx-auto p-4 flex flex-col justify-center w-full h-full text-white">
         <div>
-          <p className="text-4xl uppercase font-bold border-b-4 border-white inline">
+          <p className="text-4xl uppercase font-bold border-b-4 border-white inline w-auto">
             Experience
           </p>
+        </div>
+
+        <div className="flex items-center">
           <p className="pt-4">
             My Current Techstacks -{" "}
-            <span
+            <button
               onClick={openModal}
               className="text-gray-400 tracking-widest hover:cursor-pointer hover:text-[#ffac3f] duration-400"
             >
-              See More ?
-            </span>
+              See More?
+            </button>
           </p>
         </div>
 
@@ -169,7 +172,7 @@ const SkillSet = () => {
                   leaveTo="opacity-0 scale-95"
                 >
                   <Dialog.Panel className="w-full max-w-[1000px] transform overflow-hidden rounded-2xl p-6 text-left align-middle shadow-xl transition-all">
-                    <div className="w-full grid grid-cols-2 sm:grid-cols-3 gap-8 text-center py-8 px-12 sm:px-0">
+                    <div className="w-full grid grid-cols-2 sm:grid-cols-3 gap-8 text-center p-4 sm:px-0">
                       {MoreTech.map(({ id, Url, Name, Style }) => (
                         <div key={id}>
                           <Skill Url={Url} Name={Name} Style={Style} />
@@ -179,7 +182,7 @@ const SkillSet = () => {
                     <div className="flex justify-center mt-4 space-x-5">
                       <button
                         type="button"
-                        className="inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-lg font-medium text-[#ffac3f] hover:border-b-[#ffac3f] duration-500"
+                        className="inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-lg font-medium text-white hover:border-b-[#ffac3f] duration-500"
                         onClick={closeModal}
                       >
                         Close

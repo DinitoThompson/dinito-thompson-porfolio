@@ -25,7 +25,7 @@ const ProjectsSection = () => {
       ),
       Github: "https://github.com/DinitoThompson/ReactJS-Pirates-Prime",
       Cover: "/assets/Development/PiratesPrime.png",
-      Color: "green-400",
+      TextColor: "text-green-400",
     },
     {
       Name: "Weather App",
@@ -44,7 +44,7 @@ const ProjectsSection = () => {
       ),
       Github: "https://github.com/DinitoThompson/React-Weather-App",
       Cover: "/assets/Development/WeatherApp.png",
-      Color: "orange-400",
+      TextColor: "text-orange-400",
     },
     {
       Name: "Todo List",
@@ -63,7 +63,7 @@ const ProjectsSection = () => {
       ),
       Github: "https://github.com/DinitoThompson/React-Editable-Todo-List",
       Cover: "/assets/Development/EditableTodoList.png",
-      Color: "blue-400",
+      TextColor: `text-blue-400`,
     },
   ];
   //Design Projects
@@ -71,6 +71,10 @@ const ProjectsSection = () => {
     {
       Url: "/assets/Design/GettingFit.png",
       Name: "Getting Fit",
+    },
+    {
+      Url: "/assets/Design/Fllego.jpeg",
+      Name: "Fllego",
     },
     {
       Url: "/assets/Design/Poshbytoya.png",
@@ -83,10 +87,6 @@ const ProjectsSection = () => {
     {
       Url: "/assets/Design/CrownOfEster.png",
       Name: "Crown Of Ester",
-    },
-    {
-      Url: "/assets/Design/Fllego.jpeg",
-      Name: "Fllego",
     },
     {
       Url: "/assets/Design/Lux&Lot.JPG",
@@ -106,19 +106,19 @@ const ProjectsSection = () => {
             Portfolio
           </p>
           {/* Development Projects */}
-          <p className="pb-2 pt-8 uppercase">
-            <span className="border-b-2">Fullstack Development Projects</span>
+          <p className="pb-4 pt-8 uppercase">
+            <span className="border-b-2">Development Projects</span>
           </p>
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-1 sm:gap-4 px-8 sm:px-0 text-center">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-[0.9rem] px-2 sm:px-0">
             {DevelopmentProjects.map(
-              ({ id, Name, iFrame, Github, Cover, Color, Link }) => (
+              ({ id, Name, iFrame, Github, Cover, TextColor, Link }) => (
                 <div key={id}>
                   <Development
                     Name={Name}
                     iFrame={iFrame}
                     Github={Github}
                     Cover={Cover}
-                    Color={Color}
+                    TextColor={TextColor}
                     Link={Link}
                   />
                 </div>
@@ -126,11 +126,10 @@ const ProjectsSection = () => {
             )}
           </div>
           {/* Design Projects */}
-          <p className="pb-8 pt-4 uppercase">
-            <span className="border-b-2">Graphic Design Projects</span>
+          <p className="pb-4 pt-8 uppercase">
+            <span className="border-b-2">Design Projects</span>
           </p>
-
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8 px-12 sm:px-0">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 px-2 sm:px-0">
             {DesignProjects.map(({ id, Url, Name }) => (
               <div key={id} className="flex items-center">
                 <DesignTemplate Url={Url} Name={Name} />

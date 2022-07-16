@@ -53,21 +53,21 @@ const Contact = () => {
           >
             <div className="p-4">
               <input
-                className="w-[100%] p-6 my-2 rounded-[0.5rem] bg-transparent border-[2px] border-solid border-white"
+                className="w-[100%] p-6 my-2 rounded-[0.5rem] bg-transparent border-[2px] border-transparent border-b-white text-center focus:outline-none focus:border-b-[#ffac3f] duration-300 sm:text-left"
                 type="text"
                 name="name"
                 placeholder="Your Full Name"
                 required
               />
               <input
-                className="w-[100%] p-6 my-2 rounded-[0.5rem] bg-transparent border-[2px] border-solid border-white"
+                className="w-[100%] p-6 my-2 rounded-[0.5rem] bg-transparent border-[2px] border-transparent border-b-white text-center focus:outline-none focus:border-b-[#ffac3f] duration-300 sm:text-left"
                 type="text"
                 name="subject"
                 placeholder="Your Subject"
                 required
               />
               <textarea
-                className="w-[100%] p-6 my-2 rounded-[0.5rem] bg-transparent border-[2px] border-solid border-white"
+                className="w-[100%] p-6 my-2 rounded-[0.5rem] bg-transparent border-[2px] border-transparent border-b-white text-center focus:outline-none focus:border-b-[#ffac3f] duration-300 sm:text-left"
                 name="message"
                 rows="7"
                 placeholder="Your Message"
@@ -76,7 +76,7 @@ const Contact = () => {
               <div className="p-8 flex justify-center">
                 <button
                   type="submit"
-                  className="text-white border-2 hover:bg-[#ffac3f] hover:border-black hover:text-black px-4 py-3 duration-500 rounded-lg"
+                  className="text-white border-b-2 hover:border-b-[#ffac3f] px-4 py-3 duration-500 rounded-lg"
                 >
                   Send Message
                 </button>

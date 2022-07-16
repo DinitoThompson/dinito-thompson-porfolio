@@ -4,7 +4,14 @@ import React from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 
-const DevelopmentTemplate = ({ Name, iFrame, Github, Cover, Color, Link }) => {
+const DevelopmentTemplate = ({
+  Name,
+  iFrame,
+  Github,
+  Cover,
+  TextColor,
+  Link,
+}) => {
   let [preview, setPreview] = useState(false);
 
   function closePreview() {
@@ -15,39 +22,30 @@ const DevelopmentTemplate = ({ Name, iFrame, Github, Cover, Color, Link }) => {
   }
 
   return (
-    <div class>
-      {/* Project Name */}
-      <p className="my-4 text-white font-extralight tracking-widest">
-        <span className={`text-${Color}`}>{Name}</span> React
-      </p>
+    <div>
       {/* Project Cover Image */}
       <div className="shadow-md shadow-gray-600 rounded-lg hover:cursor-pointer">
+        {/* Project Name */}
+        <p className="m-2 font-extralight tracking-widest text-center">
+          <span className={TextColor}>{Name}</span>
+        </p>
         <img
           onClick={openPreview}
-          className="rounded-md duration-200 hover:scale-105 w-[500px] h-[170px]"
+          className="rounded-md duration-200 hover:scale-105 w-[480px] h-[100px] sm:h-[150px]"
           src={Cover}
           alt={Name}
         />
-      </div>
-      {/* Project Buttons */}
-      <div>
-        <div className="flex items-center justify-center text-center">
+        {/* Project Buttons */}
+        <div className="flex justify-center">
           <button
             onClick={openPreview}
-            className="w-1/2 px-6 py-1 m-4 border border-transparent hover:border-b-[#ffac3f] hover:scale-105 duration-500"
+            className="m-2 border border-transparent tracking-widest hover:border-b-white hover:scale-105 duration-500"
           >
             Preview
           </button>
-          <a
-            href={Github}
-            target="_blank"
-            rel="noreferrer"
-            className="w-1/2 px-6 py-1 m-4 border border-transparent hover:border-b-[#ffac3f] hover:scale-105 duration-500"
-          >
-            Github
-          </a>
         </div>
       </div>
+
       {/* Application Preview*/}
       <Transition appear show={preview} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closePreview}>
@@ -60,7 +58,7 @@ const DevelopmentTemplate = ({ Name, iFrame, Github, Cover, Color, Link }) => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-gradient-to-bl from-[#0a192f] to-black bg-opacity-70 blur-md" />
+            <div className="fixed inset-0 bg-gradient-to-tr from-black to-[#252629] bg-opacity-70 blur-md" />
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">
@@ -74,17 +72,17 @@ const DevelopmentTemplate = ({ Name, iFrame, Github, Cover, Color, Link }) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <div className="flex justify-center items-center w-full bg-gradient-to-tr from-black to-gray-900 rounded-lg">
+                <div className="flex justify-center items-center w-full rounded-lg">
                   <Dialog.Panel className="w-full max-w-[1000px] transform overflow-hidden rounded-2xl p-6 text-left align-middle shadow-xl transition-all">
                     <div className="text-white flex flex-row items-center">
                       <p className="my-4 text-center mx-auto text-white font-extralight text-3xl tracking-widest">
-                        {Name}
+                        <span className={TextColor}>{Name}</span>
                       </p>
                     </div>
 
                     <div className="flex items-center">{iFrame}</div>
 
-                    <div className="flex flex-row justify-center mt-4 space-x-10">
+                    <div className="flex flex-row justify-center mt-4">
                       <a
                         href={Github}
                         alt={Name}

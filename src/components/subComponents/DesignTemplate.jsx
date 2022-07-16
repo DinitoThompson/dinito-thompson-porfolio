@@ -37,7 +37,7 @@ const DesignTemplate = ({ Url, Name }) => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-gradient-to-bl from-[#0a192f] to-black  blur-md" />
+            <div className="fixed inset-0 bg-gradient-to-tr from-black to-[#252629] bg-opacity-70 blur-md" />
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">

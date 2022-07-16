@@ -34,7 +34,7 @@ const Navbar = () => {
   ];
 
   return (
-    <div className="fixed w-full h-[80px] flex justify-between items-center px-4 bg-transparent text-gray-300">
+    <div className="fixed w-full h-[70px] flex justify-between items-center px-4 bg-transparent text-gray-300">
       {/* Logo */}
       <div className="hidden md:flex">
         <Link to={"home"} smooth={true} duration={500}>

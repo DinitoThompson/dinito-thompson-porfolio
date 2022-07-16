@@ -8,7 +8,7 @@ const Skill = ({ Url, Name, Style }) => {
       >
         <img
           src={Url}
-          alt=""
+          alt={Name}
           className="w-20 mx-auto group-hover:scale-[1.25] duration-500"
         />
         <p className="mt-4 font-extralight tracking-widest">{Name}</p>
