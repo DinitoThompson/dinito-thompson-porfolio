@@ -26,7 +26,7 @@ const DevelopmentTemplate = ({
       {/* Project Cover Image */}
       <div className="shadow-md shadow-gray-600 rounded-lg hover:cursor-pointer">
         {/* Project Name */}
-        <p className="m-2 font-extralight tracking-widest text-center">
+        <p className="m-2 font-medium tracking-widest text-center">
           <span className={TextColor}>{Name}</span>
         </p>
         <img

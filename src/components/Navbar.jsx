@@ -34,7 +34,7 @@ const Navbar = () => {
   ];
 
   return (
-    <div className="fixed w-full h-[70px] flex justify-between items-center px-4 bg-transparent text-gray-300">
+    <div className="fixed w-full h-[70px] flex justify-between items-center px-5 bg-transparent text-gray-300 z-10">
       {/* Logo */}
       <div className="hidden md:flex">
         <Link to={"home"} smooth={true} duration={500}>
@@ -42,7 +42,7 @@ const Navbar = () => {
             src={"/assets/Logo_Icons/Dinito - Logo.png"}
             alt="/"
             style={{ width: "60px" }}
-            className="mt-1 hover:cursor-pointer hover:scale-110 duration-300"
+            className="mt-2 hover:cursor-pointer hover:scale-110 duration-300 animate-pulse"
           />
         </Link>
       </div>
