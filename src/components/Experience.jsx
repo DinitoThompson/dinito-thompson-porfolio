@@ -116,7 +116,7 @@ const SkillSet = () => {
       name="experience"
       className="w-full h-screen bg-experience-page bg-center bg-fixed bg-cover"
     >
-      <div className="bg-gradient-to-tr from-black to-[#252629] w-full h-screen opacity-95">
+      <div className="bg-gradient-to-t from-black to-[#252629] w-full h-screen opacity-95">
         <div className="max-w-screen-lg mx-auto p-4 flex flex-col justify-center w-full h-full text-white opacity-100">
           <div>
             <p className="text-4xl uppercase font-bold border-b-4 border-white inline w-auto">
@@ -149,9 +149,10 @@ const SkillSet = () => {
             ))}
           </div>
 
+          {/* Portfolio Button */}
           <div className="w-full flex justify-center">
             <Link to={"portfolio"} smooth={true} duration={500}>
-              <button className="text-white uppercase group border-b-2 px-4 py-3 my-2 flex items-center border-b-white hover:border-b-[#ffac3f] duration-300">
+              <button className="text-white uppercase group border-b-2 px-4 py-3 my-2 flex items-center border-b-[#ffac3f] duration-300">
                 Portfolio
                 <span className="group-hover:scale-125 duration-300">
                   <BsChevronDoubleDown className="ml-3 group-hover:text-[#ffac3f]" />

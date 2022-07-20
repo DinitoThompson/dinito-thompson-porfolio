@@ -13,7 +13,7 @@ const Home = () => {
       name="home"
       className="w-full h-screen bg-landing-page bg-center bg-fixed bg-cover"
     >
-      <div className="w-fill h-screen bg-gradient-to-tr from-black to-[#252629] opacity-90">
+      <div className="w-fill h-screen bg-gradient-to-t from-black to-[#252629] opacity-90">
         <div className="w-full h-screen opacity-100">
           {/* Container */}
           <div className="max-w-[1000px] mx-auto px-8 space-y-4 flex flex-col justify-center h-full">

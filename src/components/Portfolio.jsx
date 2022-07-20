@@ -137,103 +137,101 @@ const ProjectsSection = () => {
   return (
     <div
       name="portfolio"
-      className="w-full h-screen bg-portfolio-page bg-center bg-cover bg-fixed"
+      className="w-full h-screen bg-gradient-to-b from-black to-[#252629] text-white md:h-screen"
     >
-      <div className="bg-gradient-to-bl from-black to-[#252629] w-full h-screen text-white md:h-screen opacity-95">
-        <div className="max-w-screen-lg p-6 mx-auto flex flex-col justify-center w-full h-full">
-          {/* Heading */}
-          <div className="pb-2">
-            <p className="text-4xl uppercase font-bold border-b-4 border-white inline">
-              Portfolio
-            </p>
-            <div className="py-4">
-              {/* Development Projects */}
-              <p className="pt-4 uppercase">Development Projects </p>
-              <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-[0.9rem] px-2 sm:px-0">
-                {DevelopmentProjects.map(
-                  ({ id, Name, iFrame, Github, Cover, TextColor, Link }) => (
-                    <div key={id}>
-                      <Development
-                        Name={Name}
-                        iFrame={iFrame}
-                        Github={Github}
-                        Cover={Cover}
-                        TextColor={TextColor}
-                        Link={Link}
-                      />
-                    </div>
-                  )
-                )}
-              </div>
-            </div>
-            {/* Design Projects */}
-            <p className="pt-4 pb-2">
-              <span className="uppercase">Design Projects</span> -{" "}
-              <button
-                onClick={openGallery}
-                className="text-gray-400 tracking-widest hover:cursor-pointer hover:text-[#ffac3f] duration-400"
-              >
-                See More?
-              </button>
-            </p>
-            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-2 sm:px-0">
-              {RecentDesign.map(({ id, Url, Name }) => (
-                <div key={id} className="flex items-center">
-                  <DesignTemplate Url={Url} Name={Name} />
-                </div>
-              ))}
-            </div>
-
-            {/* Gallery Preview */}
-            <Transition appear show={isOpen} as={Fragment}>
-              <Dialog as="div" className="relative z-10" onClose={closeGallery}>
-                <Transition.Child
-                  as={Fragment}
-                  enter="ease-out duration-300"
-                  enterFrom="opacity-0"
-                  enterTo="opacity-100"
-                  leave="ease-in duration-200"
-                  leaveFrom="opacity-100"
-                  leaveTo="opacity-0"
-                >
-                  <div className="fixed inset-0 bg-gradient-to-tr from-black to-[#252629] bg-opacity-70 blur-md" />
-                </Transition.Child>
-
-                <div className="fixed inset-0 overflow-y-auto">
-                  <div className="flex min-h-full items-center justify-center p-4 text-center">
-                    <Transition.Child
-                      as={Fragment}
-                      enter="ease-out duration-300"
-                      enterFrom="opacity-0 scale-95"
-                      enterTo="opacity-100 scale-100"
-                      leave="ease-in duration-200"
-                      leaveFrom="opacity-100 scale-100"
-                      leaveTo="opacity-0 scale-95"
-                    >
-                      <Dialog.Panel className="w-full max-w-[1000px] transform overflow-hidden rounded-2xl p-6 text-left align-middle shadow-xl transition-all">
-                        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 px-2 sm:px-0">
-                          {DesignGallery.map(({ id, Url, Name }) => (
-                            <div key={id} className="flex items-center">
-                              <DesignTemplate Url={Url} Name={Name} />
-                            </div>
-                          ))}
-                        </div>
-                        <div className="flex justify-center mt-4 space-x-5">
-                          <button
-                            type="button"
-                            className="inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-lg font-medium text-white hover:border-b-white duration-500"
-                            onClick={closeGallery}
-                          >
-                            Close
-                          </button>
-                        </div>
-                      </Dialog.Panel>
-                    </Transition.Child>
+      <div className="max-w-screen-lg p-6 mx-auto flex flex-col justify-center w-full h-full">
+        {/* Heading */}
+        <div className="pb-2">
+          <p className="text-4xl uppercase font-bold border-b-4 border-white inline">
+            Portfolio
+          </p>
+          <div className="py-4">
+            {/* Development Projects */}
+            <p className="pt-4 uppercase">Development Projects </p>
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-[0.9rem] px-2 sm:px-0">
+              {DevelopmentProjects.map(
+                ({ id, Name, iFrame, Github, Cover, TextColor, Link }) => (
+                  <div key={id}>
+                    <Development
+                      Name={Name}
+                      iFrame={iFrame}
+                      Github={Github}
+                      Cover={Cover}
+                      TextColor={TextColor}
+                      Link={Link}
+                    />
                   </div>
-                </div>
-              </Dialog>
-            </Transition>
+                )
+              )}
+            </div>
           </div>
+          {/* Design Projects */}
+          <p className="pt-4 pb-2">
+            <span className="uppercase">Design Projects</span> -{" "}
+            <button
+              onClick={openGallery}
+              className="text-gray-400 tracking-widest hover:cursor-pointer hover:text-[#ffac3f] duration-400"
+            >
+              See More?
+            </button>
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-2 sm:px-0">
+            {RecentDesign.map(({ id, Url, Name }) => (
+              <div key={id} className="flex items-center">
+                <DesignTemplate Url={Url} Name={Name} />
+              </div>
+            ))}
+          </div>
+
+          {/* Gallery Preview */}
+          <Transition appear show={isOpen} as={Fragment}>
+            <Dialog as="div" className="relative z-10" onClose={closeGallery}>
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0"
+                enterTo="opacity-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100"
+                leaveTo="opacity-0"
+              >
+                <div className="fixed inset-0 bg-gradient-to-tr from-black to-[#252629] bg-opacity-70 blur-md" />
+              </Transition.Child>
+
+              <div className="fixed inset-0 overflow-y-auto">
+                <div className="flex min-h-full items-center justify-center p-4 text-center">
+                  <Transition.Child
+                    as={Fragment}
+                    enter="ease-out duration-300"
+                    enterFrom="opacity-0 scale-95"
+                    enterTo="opacity-100 scale-100"
+                    leave="ease-in duration-200"
+                    leaveFrom="opacity-100 scale-100"
+                    leaveTo="opacity-0 scale-95"
+                  >
+                    <Dialog.Panel className="w-full max-w-[1000px] transform overflow-hidden rounded-2xl p-6 text-left align-middle shadow-xl transition-all">
+                      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 px-2 sm:px-0">
+                        {DesignGallery.map(({ id, Url, Name }) => (
+                          <div key={id} className="flex items-center">
+                            <DesignTemplate Url={Url} Name={Name} />
+                          </div>
+                        ))}
+                      </div>
+                      <div className="flex justify-center mt-4 space-x-5">
+                        <button
+                          type="button"
+                          className="inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-lg font-medium text-white hover:border-b-white duration-500"
+                          onClick={closeGallery}
+                        >
+                          Close
+                        </button>
+                      </div>
+                    </Dialog.Panel>
+                  </Transition.Child>
+                </div>
+              </div>
+            </Dialog>
+          </Transition>
         </div>
       </div>
     </div>
