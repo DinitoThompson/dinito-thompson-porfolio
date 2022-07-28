@@ -78,7 +78,7 @@ const Navbar = () => {
         className={
           !mobileNav
             ? "hidden"
-            : "fixed top-0 left-0 w-full h-screen bg-gradient-to-tr from-black to-[#252629] flex flex-col justify-center items-center z-40"
+            : "fixed top-0 left-0 w-full h-screen bg-gradient-to-t from-gray-900 to-black flex flex-col justify-center items-center z-40"
         }
       >
         {links.map(({ id, link }) => (

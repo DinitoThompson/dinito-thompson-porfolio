@@ -58,7 +58,7 @@ const DevelopmentTemplate = ({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-gradient-to-tr from-black to-[#252629] bg-opacity-70 blur-md" />
+            <div className="fixed inset-0 bg-gradient-to-t from-gray-900 to-black bg-opacity-70 blur-md" />
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">

@@ -137,7 +137,7 @@ const ProjectsSection = () => {
   return (
     <div
       name="portfolio"
-      className="w-full h-screen bg-gradient-to-b from-black to-[#252629] text-white md:h-screen"
+      className="w-full h-screen bg-gradient-to-t from-black to-gray-900 text-white md:h-screen"
     >
       <div className="max-w-screen-lg p-6 mx-auto flex flex-col justify-center w-full h-full">
         {/* Heading */}
@@ -195,7 +195,7 @@ const ProjectsSection = () => {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
               >
-                <div className="fixed inset-0 bg-gradient-to-tr from-black to-[#252629] bg-opacity-70 blur-md" />
+                <div className="fixed inset-0 bg-gradient-to-t from-gray-900 to-black bg-opacity-70 blur-md" />
               </Transition.Child>
 
               <div className="fixed inset-0 overflow-y-auto">

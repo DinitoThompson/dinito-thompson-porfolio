@@ -7,7 +7,7 @@ const About = () => {
   return (
     <div
       name="about"
-      className="w-full h-screen bg-gradient-to-b from-black to-[#252629] text-white"
+      className="w-full h-screen bg-gradient-to-t from-black to-gray-900 text-white"
     >
       <div className="max-w-screen-lg p-4 mx-auto flex flex-col justify-center w-full h-full">
         <div className="pb-4">
@@ -15,14 +15,16 @@ const About = () => {
             About
           </p>
         </div>
-        <p className="text-xl sm:text-2xl mt-10">
-          Greetings ! <br />
-          My name is Dinito Thompson, <br />A {""}
-          <span className="text-[#ffac3f]">Software Developer</span> &{" "}
-          <span className="text-[#ffac3f]">Graphic Designer</span> with a
-          history of working with modern technologies to solve complex design &
-          computational problems.
-        </p>
+        <div>
+          <p className="text-xl sm:text-2xl mt-10">
+            Greetings ! <br />
+            My name is Dinito Thompson, <br />A {""}
+            <span className="text-[#ffac3f]">Software Developer</span> &{" "}
+            <span className="text-[#ffac3f]">Graphic Designer</span> with a
+            history of working with modern technologies to solve complex design
+            & computational problems.
+          </p>
+        </div>
         <div className="flex flex-row space-x-10 mt-5">
           <button className="text-white uppercase group border-b-2 hover:border-b-[#ffac3f] px-0.5 py-3 my-7 flex items-center duration-500">
             <Link

@@ -30,11 +30,11 @@ const Contact = () => {
   return (
     <div
       name="contact"
-      className="w-full h-screen bg-contact-page bg-center bg-fixed bg-cover"
+      className="w-full h-screen sm:bg-contact-page bg-center bg-fixed bg-cover"
     >
-      <div className="w-full h-screen bg-gradient-to-t from-black to-[#252629] opacity-[0.96] p-4 text-white">
+      <div className="w-full h-screen bg-gradient-to-t from-gray-900 to-black sm:opacity-95 p-4 text-white">
         <div className="flex flex-col p-4 mt-4 justify-center items-center max-w-screen-lg mx-auto h-full opacity-100">
-          <div className="pb-8 space-y-4">
+          <div className="pb-4 space-y-4">
             <p className="text-4xl font-bold inline border-b-4 border-white uppercase tracking-widest">
               Get In Touch
             </p>
