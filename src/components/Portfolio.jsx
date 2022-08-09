@@ -105,8 +105,8 @@ const ProjectsSection = () => {
       Name: "Poshbytoya",
     },
     {
-      Url: "/assets/Design/Lux&Lot.JPG",
-      Name: "Lux & Lot",
+      Url: "/assets/Design/BodyIn.png",
+      Name: "Body In ",
     },
     {
       Url: "/assets/Design/Pengin.png",
@@ -129,17 +129,17 @@ const ProjectsSection = () => {
       Name: "Wolferic Security Inc",
     },
     {
-      Url: "/assets/Design/BodyIn.png",
-      Name: "Body In ",
+      Url: "/assets/Design/Lux&Lot.JPG",
+      Name: "Lux & Lot",
     },
   ];
 
   return (
     <div
       name="portfolio"
-      className="w-full h-screen bg-gradient-to-t from-black to-gray-900 text-white md:h-screen"
+      className="w-full h-screen bg-gradient-to-tl from-orange-900 via-black to-black text-white md:h-screen"
     >
-      <div className="max-w-screen-lg p-6 mx-auto flex flex-col justify-center w-full h-full">
+      <div className="max-w-screen-lg p-8 mx-auto flex flex-col justify-center w-full h-full">
         {/* Heading */}
         <div className="pb-2">
           <p className="text-4xl uppercase font-bold border-b-4 border-white inline">
@@ -195,7 +195,7 @@ const ProjectsSection = () => {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
               >
-                <div className="fixed inset-0 bg-gradient-to-t from-gray-900 to-black bg-opacity-70 blur-md" />
+                <div className="fixed inset-0 bg-gradient-to-bl from-orange-900 via-black to-black bg-opacity-70 blur-md" />
               </Transition.Child>
 
               <div className="fixed inset-0 overflow-y-auto">

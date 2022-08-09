@@ -7,6 +7,7 @@ import Experience from "./components/Experience";
 import Portfolio from "./components/Portfolio";
 import Contact from "./components/Contact";
 import HeaderSocials from "./components/HeaderSocials";
+//import GraphicDesign from "./components/GraphicDesign";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <About />
       <Experience />
       <Portfolio />
+      {/* <GraphicDesign /> */}
       <Contact />
       <HeaderSocials State="hidden" />
     </div>

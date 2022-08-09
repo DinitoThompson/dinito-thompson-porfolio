@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { React, Fragment, useState } from "react";
 //React icons
 import { FaBars, FaTimes } from "react-icons/fa";
 //Smooth Scroll
@@ -6,9 +6,17 @@ import { Link } from "react-scroll";
 //HeaderSocials
 import HeaderSocials from "./HeaderSocials";
 
+import { Dialog, Transition } from "@headlessui/react";
+
 const Navbar = () => {
   const [mobileNav, setMobileNav] = useState(false);
   const handleClick = () => setMobileNav(!mobileNav);
+
+  let [isOpen, setIsOpen] = useState(false);
+
+  function toggleMobileMenu() {
+    setIsOpen(!isOpen);
+  }
 
   const links = [
     {
@@ -52,7 +60,7 @@ const Navbar = () => {
         {links.map(({ id, link }) => (
           <li
             key={id}
-            className="px-4 cursor-pointer uppercase font-medium text-gray-500 hover:scale-105 duration-500"
+            className="px-4 cursor-pointer uppercase font-medium text-gray-400 hover:scale-105 duration-500"
           >
             <Link to={link} smooth={true} duration={500}>
               <div className="hover:text-[#ffac3f] duration-300">{link}</div>
@@ -63,46 +71,87 @@ const Navbar = () => {
 
       {/* Hamburger */}
       <div
-        onClick={handleClick}
+        onClick={toggleMobileMenu}
         className="md:hidden z-50 ml-auto hover:cursor-pointer text-[#ffac3f] hover:scale-110 duration-300"
       >
-        {!mobileNav ? (
-          <FaBars className="w-5 h-8" />
-        ) : (
-          <FaTimes className="w-5 h-8" />
-        )}
+        <FaBars className="w-5 h-8" />
       </div>
 
-      {/* Mobile menu */}
-      <ul
-        className={
-          !mobileNav
-            ? "hidden"
-            : "fixed top-0 left-0 w-full h-screen bg-gradient-to-t from-gray-900 to-black flex flex-col justify-center items-center z-40"
-        }
-      >
-        {links.map(({ id, link }) => (
-          <li
-            key={id}
-            className="py-6 text-gray-500 scale-90 capitalize text-4xl hover:cursor-pointer hover:scale-105 hover:text-[#ffac3f] duration-500"
+      {/* Mbile Menu */}
+      <Transition appear show={isOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-10" onClose={toggleMobileMenu}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
           >
-            {" "}
-            <Link onClick={handleClick} to={link} smooth={true} duration={500}>
-              {link}
-            </Link>
-          </li>
-        ))}
-        {/* Logo */}
-        <div className="animate-pulse">
-          <img
-            src={"/assets/Logo_Icons/Dinito - Logo.png"}
-            alt="/"
-            style={{ width: "120px" }}
-            className="mt-2"
-          />
-        </div>
-        <HeaderSocials State={null} />
-      </ul>
+            <div className="fixed inset-0 bg-gradient-to-bl from-orange-900 via-black to-black bg-opacity-70 blur-md" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex h-[100vh] items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-full max-w-[1000px] h-[100vh] flex flex-col justify-evenly items-center transform overflow-hidden p-2 shadow-xl transition-all">
+                  <div
+                    onClick={toggleMobileMenu}
+                    className="w-full flex justify-end text-[#ffac3f]"
+                  >
+                    <FaTimes className="w-5 h-8 hover:cursor-pointer hover:scale-110 duration-300" />
+                  </div>
+                  <div>
+                    {/* Mobile menu */}
+                    <ul>
+                      {links.map(({ id, link }) => (
+                        <li
+                          key={id}
+                          className="py-6 text-gray-500 scale-90 capitalize text-4xl hover:cursor-pointer hover:scale-105 hover:text-[#ffac3f] duration-500"
+                        >
+                          {" "}
+                          <Link
+                            onClick={() => {
+                              toggleMobileMenu();
+                              handleClick();
+                            }}
+                            to={link}
+                            smooth={true}
+                            duration={500}
+                          >
+                            {link}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  {/* Logo */}
+                  <div className="animate-pulse">
+                    <img
+                      src={"/assets/Logo_Icons/Dinito - Logo.png"}
+                      alt="/"
+                      style={{ width: "120px" }}
+                      className="mt-2"
+                    />
+                  </div>
+                  <div>
+                    <HeaderSocials State={null} />
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
     </div>
   );
 };

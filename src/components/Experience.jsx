@@ -141,145 +141,143 @@ const SkillSet = () => {
   return (
     <div
       name="experience"
-      className="w-full h-screen sm:bg-experience-page bg-center bg-fixed bg-cover"
+      className="w-full h-[100vh] bg-gradient-to-bl from-orange-900 via-black to-black"
     >
-      <div className="bg-gradient-to-t from-gray-900 to-black w-full h-screen sm:opacity-95">
-        <div className="max-w-screen-lg mx-auto p-4 flex flex-col justify-center w-full h-full text-white opacity-100">
-          {/* Heading */}
-          <div className="my-4">
-            <p className="text-4xl uppercase font-bold border-b-4 border-white inline w-auto">
-              Experience
-            </p>
-          </div>
-          {/* Tech Display */}
-          <div className="py-8">
-            <Tab.Group>
-              <Tab.List className="flex space-x-1 rounded-xl bg-gray-900 p-1">
-                {Object.keys(categories).map((category) => (
-                  <Tab
-                    key={category}
-                    className={({ selected }) =>
-                      classNames(
-                        "w-full rounded-lg py-2.5 text-sm tracking font-medium leading-5 text-[#ffac3f]",
-                        "ring-white ring-opacity-60 ring-offset-2 focus:outline-none",
-                        selected
-                          ? "bg-white shadow text-black"
-                          : "text-[#ffac3f] hover:bg-white/[0.12] hover:scale-100 duration-300"
-                      )
-                    }
-                  >
-                    {category}
-                  </Tab>
-                ))}
-              </Tab.List>
-              <Tab.Panels className="mt-4">
-                {/* Frontend Panel */}
-                <Tab.Panel>
-                  <div className="w-full grid grid-cols-2 sm:grid-cols-4 gap-8 text-center py-8 px-12 sm:px-0">
-                    {Frontend.map(({ id, Url, Name, Style }) => (
-                      <div key={id}>
-                        <Skill Url={Url} Name={Name} Style={Style} />
-                      </div>
-                    ))}
-                  </div>
-                </Tab.Panel>
-                {/* Backend Panel */}
-                <Tab.Panel>
-                  <div className="w-full grid grid-cols-2 sm:grid-cols-4 gap-8 text-center py-8 px-12 sm:px-0">
-                    {Backend.map(({ id, Url, Name, Style }) => (
-                      <div key={id}>
-                        <Skill Url={Url} Name={Name} Style={Style} />
-                      </div>
-                    ))}
-                  </div>
-                </Tab.Panel>
-                {/* Graphic Design Panel */}
-                <Tab.Panel>
-                  <div className="w-full grid grid-cols-2 sm:grid-cols-4 gap-8 text-center py-8 px-12 sm:px-0">
-                    {Design.map(({ id, Url, Name, Style }) => (
-                      <div key={id}>
-                        <Skill Url={Url} Name={Name} Style={Style} />
-                      </div>
-                    ))}
-                  </div>
-                </Tab.Panel>
-              </Tab.Panels>
-            </Tab.Group>
-          </div>
-          {/* More Techstack */}
-          <div className="flex justify-center w-full py-4">
-            <p className="text-center">
-              My Current Techstacks -{" "}
-              <button
-                onClick={openModal}
-                className="text-gray-400 tracking-widest hover:cursor-pointer hover:text-[#ffac3f] duration-400"
-              >
-                See More?
-              </button>
-            </p>
-          </div>
-          {/* Portfolio Button */}
-          <div className="w-full flex justify-center">
-            <Link to={"portfolio"} smooth={true} duration={500}>
-              <button className="text-white uppercase group border-b-2 px-4 py-3 my-2 flex items-center border-b-[#ffac3f] duration-300">
-                Portfolio
-                <span className="group-hover:scale-125 duration-300">
-                  <BsChevronDoubleDown className="ml-3 group-hover:text-[#ffac3f]" />
-                </span>
-              </button>
-            </Link>
-          </div>
-
-          {/* Dialog Box */}
-          <Transition appear show={isOpen} as={Fragment}>
-            <Dialog as="div" className="relative z-10" onClose={closeModal}>
-              <Transition.Child
-                as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0"
-                enterTo="opacity-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
-              >
-                <div className="fixed inset-0 bg-gradient-to-t from-gray-900 to-black bg-opacity-70 blur-md" />
-              </Transition.Child>
-
-              <div className="fixed inset-0 overflow-y-auto">
-                <div className="flex min-h-full items-center justify-center p-4 text-center">
-                  <Transition.Child
-                    as={Fragment}
-                    enter="ease-out duration-300"
-                    enterFrom="opacity-0 scale-95"
-                    enterTo="opacity-100 scale-100"
-                    leave="ease-in duration-200"
-                    leaveFrom="opacity-100 scale-100"
-                    leaveTo="opacity-0 scale-95"
-                  >
-                    <Dialog.Panel className="w-full max-w-[1000px] transform overflow-hidden rounded-2xl p-6 text-left align-middle shadow-xl transition-all">
-                      <div className="w-full grid grid-cols-2 sm:grid-cols-4 gap-8 text-center p-4 sm:px-0">
-                        {MoreTech.map(({ id, Url, Name, Style }) => (
-                          <div key={id}>
-                            <Skill Url={Url} Name={Name} Style={Style} />
-                          </div>
-                        ))}
-                      </div>
-                      <div className="flex justify-center mt-4 space-x-5">
-                        <button
-                          type="button"
-                          className="inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-lg font-medium text-white hover:border-b-[#ffac3f] duration-500"
-                          onClick={closeModal}
-                        >
-                          Close
-                        </button>
-                      </div>
-                    </Dialog.Panel>
-                  </Transition.Child>
-                </div>
-              </div>
-            </Dialog>
-          </Transition>
+      <div className="max-w-screen-lg mx-auto p-8 flex flex-col justify-center w-full h-full text-white opacity-100">
+        {/* Heading */}
+        <div className="my-4">
+          <p className="text-4xl uppercase font-bold border-b-4 border-white inline w-auto">
+            Experience
+          </p>
         </div>
+        {/* Tech Display */}
+        <div className="py-8">
+          <Tab.Group>
+            <Tab.List className="flex space-x-1 rounded-xl bg-gray-900 p-1">
+              {Object.keys(categories).map((category) => (
+                <Tab
+                  key={category}
+                  className={({ selected }) =>
+                    classNames(
+                      "w-full rounded-lg py-2.5 text-sm tracking font-medium leading-5 text-[#ffac3f]",
+                      "ring-white ring-opacity-60 ring-offset-2 focus:outline-none",
+                      selected
+                        ? "bg-white shadow text-black"
+                        : "text-[#ffac3f] hover:bg-white/[0.12] hover:scale-100 duration-300"
+                    )
+                  }
+                >
+                  {category}
+                </Tab>
+              ))}
+            </Tab.List>
+            <Tab.Panels className="mt-4">
+              {/* Frontend Panel */}
+              <Tab.Panel>
+                <div className="w-full grid grid-cols-2 sm:grid-cols-4 gap-8 text-center py-8 px-12 sm:px-0">
+                  {Frontend.map(({ id, Url, Name, Style }) => (
+                    <div key={id}>
+                      <Skill Url={Url} Name={Name} Style={Style} />
+                    </div>
+                  ))}
+                </div>
+              </Tab.Panel>
+              {/* Backend Panel */}
+              <Tab.Panel>
+                <div className="w-full grid grid-cols-2 sm:grid-cols-4 gap-8 text-center py-8 px-12 sm:px-0">
+                  {Backend.map(({ id, Url, Name, Style }) => (
+                    <div key={id}>
+                      <Skill Url={Url} Name={Name} Style={Style} />
+                    </div>
+                  ))}
+                </div>
+              </Tab.Panel>
+              {/* Graphic Design Panel */}
+              <Tab.Panel>
+                <div className="w-full grid grid-cols-2 sm:grid-cols-4 gap-8 text-center py-8 px-12 sm:px-0">
+                  {Design.map(({ id, Url, Name, Style }) => (
+                    <div key={id}>
+                      <Skill Url={Url} Name={Name} Style={Style} />
+                    </div>
+                  ))}
+                </div>
+              </Tab.Panel>
+            </Tab.Panels>
+          </Tab.Group>
+        </div>
+        {/* More Techstack */}
+        <div className="flex justify-center w-full py-4">
+          <p className="text-center">
+            My Current Techstacks -{" "}
+            <button
+              onClick={openModal}
+              className="text-gray-400 tracking-widest hover:cursor-pointer hover:text-[#ffac3f] duration-300"
+            >
+              See More?
+            </button>
+          </p>
+        </div>
+        {/* Portfolio Button */}
+        <div className="w-full flex justify-center">
+          <Link to={"portfolio"} smooth={true} duration={500}>
+            <button className="text-white uppercase group border-b-2 px-4 py-3 my-2 flex items-center border-b-[#ffac3f] duration-300">
+              Portfolio
+              <span className="group-hover:scale-125 duration-300">
+                <BsChevronDoubleDown className="ml-3 group-hover:text-[#ffac3f]" />
+              </span>
+            </button>
+          </Link>
+        </div>
+
+        {/* Dialog Box */}
+        <Transition appear show={isOpen} as={Fragment}>
+          <Dialog as="div" className="relative z-10" onClose={closeModal}>
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <div className="fixed inset-0 bg-gradient-to-t from-gray-900 to-black bg-opacity-70 blur-md" />
+            </Transition.Child>
+
+            <div className="fixed inset-0 overflow-y-auto">
+              <div className="flex min-h-full items-center justify-center p-4 text-center">
+                <Transition.Child
+                  as={Fragment}
+                  enter="ease-out duration-300"
+                  enterFrom="opacity-0 scale-95"
+                  enterTo="opacity-100 scale-100"
+                  leave="ease-in duration-200"
+                  leaveFrom="opacity-100 scale-100"
+                  leaveTo="opacity-0 scale-95"
+                >
+                  <Dialog.Panel className="w-full max-w-[1000px] transform overflow-hidden rounded-2xl p-6 text-left align-middle shadow-xl transition-all">
+                    <div className="w-full grid grid-cols-2 sm:grid-cols-4 gap-8 text-center p-4 sm:px-0">
+                      {MoreTech.map(({ id, Url, Name, Style }) => (
+                        <div key={id}>
+                          <Skill Url={Url} Name={Name} Style={Style} />
+                        </div>
+                      ))}
+                    </div>
+                    <div className="flex justify-center mt-4 space-x-5">
+                      <button
+                        type="button"
+                        className="inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-lg font-medium text-white hover:border-b-[#ffac3f] duration-500"
+                        onClick={closeModal}
+                      >
+                        Close
+                      </button>
+                    </div>
+                  </Dialog.Panel>
+                </Transition.Child>
+              </div>
+            </div>
+          </Dialog>
+        </Transition>
       </div>
     </div>
   );
