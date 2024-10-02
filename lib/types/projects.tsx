@@ -1,55 +1,109 @@
-export const projects = [
+interface Project {
+  id: number;
+  title: string;
+  company: string;
+  description: string;
+  technologies: string[];
+  screenshot: string;
+  role: string;
+  impact: string;
+  isPublic: boolean;
+  github?: string;
+  hasVideo: boolean;
+  videoLink?: string;
+}
+
+export const projects: Project[] = [
   {
-    id: "project1",
-    title: "E-commerce Platform",
-    company: "TechCorp Inc.",
+    id: 1,
+    title: "Campus Vision",
+    company: "University of Technology",
     description:
-      "A full-stack e-commerce solution with real-time inventory management and AI-powered recommendations.",
-    technologies: ["React", "Node.js", "MongoDB", "GraphQL"],
-    screenshot: "/profile.jpg",
-    role: "Lead Frontend Developer",
+      "A real-time, A.I powered platform for monitoring, storing and deciphering details about vehicles coming in and out of the campus.",
+    technologies: [
+      "Python",
+      "TensorFlow",
+      "Pytorch",
+      "OpenCV",
+      "Mathplotlib",
+      "NumPy",
+      "EasyOCR",
+      "Github",
+    ],
+    screenshot: "/assets/development/campus-vision.png",
+    role: "Lead Software Developer",
     impact:
-      "Increased conversion rates by 25% and improved user engagement by 40%",
-    isPublic: false,
-  },
-  {
-    id: "project2",
-    title: "Financial Analytics Dashboard",
-    company: "FinTech Solutions",
-    description:
-      "Interactive dashboard for visualizing complex financial datasets with machine learning integration.",
-    technologies: ["Python", "React", "D3.js", "TensorFlow"],
-    screenshot: "/profile.jpg",
-    role: "Full Stack Developer",
-    impact:
-      "Reduced data processing time by 60% and improved decision-making accuracy by 30%",
-    isPublic: false,
-  },
-  {
-    id: "project3",
-    title: "Open Source IoT Library",
-    company: "Personal Project",
-    description:
-      "A public library for IoT device management, featuring real-time data processing and automated provisioning.",
-    technologies: ["Golang", "MQTT", "gRPC"],
-    screenshot: "/profile.jpg",
-    role: "Creator & Maintainer",
-    impact: "Over 1000 stars on GitHub and adopted by several IoT startups",
+      "Improved security and monitoring of vehicles coming in and out of the campus",
     isPublic: true,
-    github: "https://github.com/yourusername/iot-library",
-    demo: "https://iot-library-demo.com",
+    github:
+      "https://github.com/DinitoThompson/Automatic-License-Plate-Recognition",
+    hasVideo: false,
   },
   {
-    id: "project4",
-    title: "AI Content Optimizer",
-    company: "MediaTech Innovations",
+    id: 2,
+    title: "Konnocate",
+    company: "Konnexx Services Limited",
     description:
-      "AI-powered content optimization and personalization system built with microservices architecture.",
-    technologies: ["Python", "FastAPI", "React", "Docker", "AWS"],
-    screenshot: "/profile.jpg",
-    role: "AI Engineer & Full Stack Developer",
+      "In house Job management system for the Konnexx Services Limited",
+    technologies: ["PHP", "Yii2", "Flutter"],
+    screenshot: "/assets/development/konnocate.png",
+    role: "Lead Software Developer",
     impact:
-      "Reduced content production time by 35% and increased user engagement by 50%",
+      "Improved Job creation and management, increased employee engagement and productivity",
     isPublic: false,
+    hasVideo: false,
+  },
+  {
+    id: 3,
+    title: "Massy Operations",
+    company: "Massy Groups",
+    description: "Delivery and logistics management system for Massy Groups",
+    technologies: ["NextJS", "Yii2", "Flutter", "TailwindCSS"],
+    screenshot: "/assets/development/massy-ops.png",
+    role: "Lead Software Developer",
+    impact: "Improved delivery and logistics management for Massy Groups",
+    isPublic: false,
+    hasVideo: false,
+  },
+  {
+    id: 4,
+    title: "Pirates Prime",
+    company: "Idle Project",
+    description: "IMDB-like movie showcase website",
+    technologies: ["ReactJS", "TailwindCSS", "Firebase"],
+    screenshot: "/assets/development/pirates-prime.png",
+    role: "Lead Software Developer",
+    impact:
+      "Learned how to use Firebase for real-time data synchronization and authentication",
+    isPublic: true,
+    github: "https://github.com/DinitoThompson/React-Pirates-Prime",
+    hasVideo: true,
+    videoLink: "https://youtu.be/8kSEmysnpbM",
+  },
+  {
+    id: 5,
+    title: "Digicel+ Smart Home",
+    company: "Konnexx Services Limited",
+    description: "Digicel's home security system, using smart technology",
+    technologies: ["PHP", "Java", "Flutter"],
+    screenshot: "/assets/development/smart-home.png",
+    role: "Code Contributor",
+    impact:
+      "Solved a bug that was causing Playback to not work on certain devices",
+    isPublic: false,
+    hasVideo: false,
+  },
+  {
+    id: 6,
+    title: "AirSpace",
+    company: "ByteOptima",
+    description: "Courier and logistics management system",
+    technologies: ["SpringBoot", "Java", "PostgreSQL", "NextJS"],
+    screenshot: "/assets/development/air-space.jpg",
+    role: "Software Developer",
+    impact:
+      "Developed a new feature for the courier and logistics management system",
+    isPublic: false,
+    hasVideo: false,
   },
 ];

@@ -13,6 +13,7 @@ import {
   Briefcase,
   PenTool,
   PhoneCall,
+  FileText,
 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -48,7 +49,23 @@ export default function Sidebar() {
   const handleNavigation = (href: string) => {
     router.push(href);
     setActiveItem(href);
-    if (isMobile) setIsExpanded(false);
+    if (isMobile) {
+      if (isExpanded) {
+        setIsExpanded(false);
+        window.dispatchEvent(
+          new CustomEvent("sidebarToggle", {
+            detail: { isExpanded: !isExpanded },
+          })
+        );
+      } else {
+        setIsExpanded(false);
+        window.dispatchEvent(
+          new CustomEvent("sidebarToggle", {
+            detail: { isExpanded: isExpanded },
+          })
+        );
+      }
+    }
   };
 
   const toggleSidebar = () => {
@@ -64,7 +81,7 @@ export default function Sidebar() {
       animate={{ x: 0 }}
       transition={{ duration: 0.3 }}
       className={`fixed top-0 left-0 h-full bg-gray-900 transition-all duration-300 ease-in-out ${
-        isExpanded ? (isMobile ? "w-full" : "w-64") : "w-16"
+        isExpanded ? (isMobile ? "w-2/4" : "w-64") : "w-16"
       } flex flex-col z-50 shadow-lg`}
     >
       {/* Header Section */}
@@ -76,20 +93,20 @@ export default function Sidebar() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.2 }}
-              className="flex items-center"
+              className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-3 p-2 sm:p-3"
             >
-              <Avatar className="h-10 w-10 ring-2 ring-blue-900">
+              <Avatar className="h-16 w-16 sm:h-10 sm:w-10 ring-2 ring-blue-900">
                 <AvatarImage src="/profile.jpg" alt="Dinito Thompson" />
-                <AvatarFallback className="bg-gradient-to-br from-blue-900 to-purple-900 text-white">
+                <AvatarFallback className="bg-gradient-to-br from-blue-900 to-purple-900 text-white text-lg sm:text-base">
                   DT
                 </AvatarFallback>
               </Avatar>
-              <div className="ml-3">
-                <h2 className="text-sm font-bold text-white">
+              <div className="text-center sm:text-left">
+                <h2 className="text-base sm:text-sm font-bold text-white">
                   Dinito Thompson
                 </h2>
-                <p className="text-xs bg-clip-text text-transparent text-white">
-                  Developer & Designer
+                <p className="text-sm sm:text-xs bg-clip-text text-transparent text-white">
+                  Software Developer
                 </p>
               </div>
             </motion.div>
@@ -172,19 +189,23 @@ export default function Sidebar() {
         <div
           className={`flex ${
             isExpanded ? "justify-between" : "flex-col space-y-2"
-          }`}
+          } mb-2`}
         >
           <SocialButton
             href="https://github.com/DinitoThompson"
             icon={<Github className="h-4 w-4" />}
           />
           <SocialButton
-            href="https://linkedin.com/in/yourusername"
+            href="https://www.linkedin.com/in/dinito-thompson/"
             icon={<Linkedin className="h-4 w-4" />}
           />
           <SocialButton
             href="mailto:your.email@example.com"
             icon={<Mail className="h-4 w-4" />}
+          />
+          <SocialButton
+            href="https://drive.google.com/drive/folders/1gewsLO8TAwmCM2ugSrGCNH1zWaQfGVBl?usp=sharing"
+            icon={<FileText className="h-4 w-4" />}
           />
         </div>
       </div>
@@ -198,16 +219,19 @@ const SocialButton = ({
 }: {
   href: string;
   icon: React.ReactNode;
+  label?: string;
+  isExpanded?: boolean;
 }) => (
   <Link href={href} target="_blank" rel="noopener noreferrer">
     <motion.div
       whileHover={{ scale: 1.1, rotate: 10 }}
       whileTap={{ scale: 0.9 }}
+      className="w-full"
     >
       <Button
         variant="outline"
-        size="icon"
-        className="bg-transparent hover:bg-gradient-to-r hover:from-blue-900 hover:to-purple-900 text-blue-300 hover:text-white border-blue-900 transition-all duration-300"
+        size={"icon"}
+        className={`bg-transparent hover:bg-gradient-to-r hover:from-blue-900 hover:to-purple-900 text-blue-300 hover:text-white border-blue-900 transition-all duration-300`}
       >
         {icon}
       </Button>
