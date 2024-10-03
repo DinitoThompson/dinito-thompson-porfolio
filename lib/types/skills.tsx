@@ -30,7 +30,7 @@ export const skillCategories = [
     ],
   },
   {
-    name: "Web Development",
+    name: "Web",
     icon: <Globe />,
     skills: [
       {
@@ -48,7 +48,7 @@ export const skillCategories = [
     ],
   },
   {
-    name: "Mobile & Cross-Platform",
+    name: "Mobile",
     icon: <Smartphone />,
     skills: [
       {
@@ -107,7 +107,7 @@ export const skillCategories = [
     skills: [
       {
         name: "AWS",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg",
       },
       {
         name: "Docker",
@@ -142,16 +142,16 @@ export const skillCategories = [
     icon: <PenTool />,
     skills: [
       {
-        name: "Adobe XD",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/xd/xd-original.svg",
+        name: "Illustrator",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/illustrator/illustrator-plain.svg",
+      },
+      {
+        name: "Photoshop",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-original.svg",
       },
       {
         name: "Figma",
         icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
-      },
-      {
-        name: "Sketch",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sketch/sketch-original.svg",
       },
     ],
   },
@@ -168,8 +168,8 @@ export const skillCategories = [
         icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg",
       },
       {
-        name: "Scikit-learn",
-        icon: "https://upload.wikimedia.org/wikipedia/commons/0/05/Scikit_learn_logo_small.svg",
+        name: "OpenCV",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opencv/opencv-original.svg",
       },
     ],
   },

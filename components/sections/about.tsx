@@ -74,14 +74,14 @@ export default function About() {
               />
               <InfoCard
                 icon={<Award />}
-                title="Education"
-                description="Bachelor's Degree"
+                title="Bachelor's Degree"
+                description="Computer Science"
                 color="from-pink-500 to-red-500"
               />
               <InfoCard
                 icon={<Briefcase />}
-                title="Professional"
-                description="5+ Years Experience"
+                title="Work Experience"
+                description="5+ Years"
                 color="from-red-500 to-yellow-500"
               />
             </div>
