@@ -18,51 +18,46 @@ import {
   ChevronRight,
   PlayCircle,
   X,
+  Info,
 } from "lucide-react";
 import { projects } from "@/lib/types/projects";
 
 export default function Projects() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [showDetails, setShowDetails] = useState(false);
 
-  // Function to convert YouTube URL to embed URL
   const getYouTubeEmbedUrl = (url: string) => {
     const regExp =
       /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
     const match = url.match(regExp);
-
-    if (match && match[2].length === 11) {
-      return `https://www.youtube.com/embed/${match[2]}`;
-    }
-
-    return url; // Return original URL if it's not a valid YouTube URL
+    return match && match[2].length === 11
+      ? `https://www.youtube.com/embed/${match[2]}`
+      : url;
   };
 
-  const nextProject = () => {
+  const nextProject = () =>
     setActiveIndex((prevIndex) => (prevIndex + 1) % projects.length);
-  };
-
-  const prevProject = () => {
+  const prevProject = () =>
     setActiveIndex(
       (prevIndex) => (prevIndex - 1 + projects.length) % projects.length
     );
-  };
 
   return (
     <section
       id="projects"
-      className="min-h-screen py-16 bg-gradient-to-t from-black via-gray-900 to-purple-900 text-gray-100 flex items-center justify-center"
+      className="min-h-screen py-16 sm:py-20 bg-gradient-to-t from-black via-gray-900 to-purple-900 text-gray-100 flex items-center justify-center"
     >
-      <div className="container mx-auto px-4 max-w-4xl">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-3xl sm:text-4xl font-bold mb-8 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500"
+          className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-8 sm:mb-12 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500"
         >
           Featured Projects
         </motion.h2>
 
-        <div className="relative">
+        <div className="relative px-4 sm:px-8 lg:px-16">
           <AnimatePresence mode="wait">
             <motion.div
               key={projects[activeIndex].id}
@@ -72,12 +67,13 @@ export default function Projects() {
               transition={{ duration: 0.3 }}
               className="w-full"
             >
-              <Card className="bg-gray-800/50 backdrop-blur-sm border-gray-700 overflow-hidden shadow-2xl">
-                <div className="md:flex">
-                  <div className="md:w-1/2 relative h-48 md:h-auto">
+              <Card className="bg-gray-800/50 backdrop-blur-sm border-gray-700 overflow-hidden shadow-2xl rounded-xl">
+                <div className="flex flex-col sm:flex-row">
+                  <div className="sm:w-full md:w-1/2 relative h-48 sm:h-auto">
                     <Image
                       src={projects[activeIndex].screenshot}
                       alt={`${projects[activeIndex].title} screenshot`}
+                      priority={true}
                       fill
                       className="object-cover"
                     />
@@ -88,22 +84,22 @@ export default function Projects() {
                       transition={{ duration: 0.5 }}
                     />
                     <motion.div
-                      className="absolute bottom-2 left-4 right-4"
+                      className="absolute bottom-4 left-4 right-4"
                       initial={{ y: 20, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ delay: 0.2, duration: 0.5 }}
                     >
-                      <h3 className="text-xl md:text-2xl font-bold text-white mb-1">
+                      <h3 className="text-xl sm:text-2xl font-bold text-white mb-1 sm:mb-2">
                         {projects[activeIndex].title}
                       </h3>
-                      <p className="text-sm flex items-center text-gray-300">
+                      <p className="text-sm sm:text-base flex items-center text-gray-300">
                         {projects[activeIndex].company}
                       </p>
                     </motion.div>
                   </div>
-                  <div className="md:w-1/2 p-4 md:p-6">
+                  <div className="sm:w-full md:w-1/2 p-4 sm:p-6">
                     <CardContent className="p-0 space-y-4">
-                      <p className="text-sm text-gray-300">
+                      <p className="text-sm sm:text-base text-gray-300">
                         {projects[activeIndex].description}
                       </p>
                       <div>
@@ -122,26 +118,43 @@ export default function Projects() {
                           ))}
                         </div>
                       </div>
-                      <div>
-                        <h4 className="text-sm font-semibold mb-2 text-blue-400">
-                          Role:
-                        </h4>
-                        <p className="text-sm text-gray-300">
-                          {projects[activeIndex].role}
-                        </p>
+                      <div className="sm:hidden">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => setShowDetails(!showDetails)}
+                          className="w-full text-sm border-blue-500 text-blue-400 hover:bg-blue-500/20"
+                        >
+                          <Info className="mr-2 h-4 w-4" />
+                          {showDetails ? "Hide Details" : "Show Details"}
+                        </Button>
                       </div>
-                      <div>
-                        <h4 className="text-sm font-semibold mb-2 text-blue-400">
-                          Impact:
-                        </h4>
-                        <p className="text-sm text-gray-300">
-                          {projects[activeIndex].impact}
-                        </p>
+                      <div
+                        className={`space-y-4 ${
+                          showDetails ? "block" : "hidden sm:block"
+                        }`}
+                      >
+                        <div>
+                          <h4 className="text-sm font-semibold mb-2 text-blue-400">
+                            Role:
+                          </h4>
+                          <p className="text-sm sm:text-base text-gray-300">
+                            {projects[activeIndex].role}
+                          </p>
+                        </div>
+                        <div>
+                          <h4 className="text-sm font-semibold mb-2 text-blue-400">
+                            Impact:
+                          </h4>
+                          <p className="text-sm sm:text-base text-gray-300">
+                            {projects[activeIndex].impact}
+                          </p>
+                        </div>
                       </div>
-                      <div className="flex items-center space-x-4 mt-4">
+                      <div className="flex flex-wrap items-center gap-4 mt-4">
                         {!projects[activeIndex].isPublic ? (
                           <div className="flex items-center text-gray-400 text-sm">
-                            <Lock className="mr-1 h-4 w-4" />
+                            <Lock className="mr-2 h-4 w-4" />
                             <span>Private Project</span>
                           </div>
                         ) : (
@@ -150,7 +163,7 @@ export default function Projects() {
                               <Button
                                 size="sm"
                                 variant="outline"
-                                className="text-sm border-blue-500 text-blue-400 hover:bg-blue-500/20"
+                                className="text-xs sm:text-sm border-blue-500 text-blue-400 hover:bg-blue-500/20"
                                 asChild
                               >
                                 <a
@@ -158,7 +171,7 @@ export default function Projects() {
                                   target="_blank"
                                   rel="noopener noreferrer"
                                 >
-                                  <Github className="mr-1 h-4 w-4" /> GitHub
+                                  <Github className="mr-2 h-4 w-4" /> GitHub
                                 </a>
                               </Button>
                             )}
@@ -171,9 +184,9 @@ export default function Projects() {
                                 <Button
                                   size="sm"
                                   variant="default"
-                                  className="text-sm bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 transition-all duration-300 ease-in-out transform hover:scale-105"
+                                  className="text-xs sm:text-sm bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 transition-all duration-300 ease-in-out transform hover:scale-105"
                                 >
-                                  <PlayCircle className="mr-1 h-4 w-4" /> Watch
+                                  <PlayCircle className="mr-2 h-4 w-4" /> Watch
                                   Demo
                                 </Button>
                               </DialogTrigger>
@@ -194,7 +207,7 @@ export default function Projects() {
                                   <div className="md:w-1/3 p-6 flex flex-col justify-between overflow-y-auto">
                                     <div>
                                       <DialogHeader>
-                                        <DialogTitle className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-500 to-blue-500 mb-4">
+                                        <DialogTitle className="text-xl sm:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-500 to-blue-500 mb-4">
                                           {projects[activeIndex].title}
                                         </DialogTitle>
                                       </DialogHeader>
@@ -255,19 +268,19 @@ export default function Projects() {
           <Button
             size="icon"
             variant="ghost"
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-10"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-10 bg-gray-800/50 hover:bg-gray-700/50"
             onClick={prevProject}
           >
-            <ChevronLeft className="h-6 w-6" />
+            <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6" />
           </Button>
 
           <Button
             size="icon"
             variant="ghost"
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-10"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-10 bg-gray-800/50 hover:bg-gray-700/50"
             onClick={nextProject}
           >
-            <ChevronRight className="h-6 w-6" />
+            <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6" />
           </Button>
         </div>
 
