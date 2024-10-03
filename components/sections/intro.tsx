@@ -61,7 +61,7 @@ export default function Intro() {
       <div className="z-10 max-w-4xl w-full text-center px-4">
         <motion.h1
           style={{ opacity: titleOpacity, y: titleY }}
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-teal-400"
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-purple-500 to-teal-500"
         >
           Dinito Thompson
         </motion.h1>
@@ -75,7 +75,7 @@ export default function Intro() {
           style={{ opacity: descriptionOpacity, y: descriptionY }}
           className="max-w-2xl mx-auto text-base sm:text-lg md:text-xl mb-8 sm:mb-12 text-gray-400"
         >
-          Crafting digital experiences with code and creativity
+          🌞 Software Developer by day, 🌟 Graphic Designer by night
         </motion.p>
         <motion.div
           style={{ opacity: traitsOpacity, scale: traitsScale }}
@@ -98,7 +98,7 @@ export default function Intro() {
             size="lg"
             className="bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-600 hover:to-teal-500 text-white px-6 sm:px-8 md:px-10 py-3 sm:py-4 md:py-6 text-base sm:text-lg md:text-xl rounded-full transition-all duration-300 shadow-lg hover:shadow-xl"
           >
-            <a href="#about">Discover My World</a>
+            <a href="#about">Explore</a>
           </Button>
         </motion.div>
       </div>

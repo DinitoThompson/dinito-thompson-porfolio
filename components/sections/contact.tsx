@@ -105,14 +105,14 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="min-h-screen py-20 bg-gradient-to-t from-black via-gray-900 to-blue-900 text-white flex items-center justify-center"
+      className="min-h-screen py-12 sm:py-20 bg-gradient-to-t from-black via-gray-900 to-blue-900 text-white flex items-center justify-center"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500"
+          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6 sm:mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500"
         >
           Let&apos;s Connect
         </motion.h2>
@@ -122,33 +122,34 @@ export default function Contact() {
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="lg:w-2/5 bg-gradient-to-br from-blue-900 to-purple-900 p-8 lg:p-12"
+              className="w-full lg:w-2/5 bg-gradient-to-br from-blue-900 to-purple-900 p-6 sm:p-8 lg:p-12"
             >
-              <h3 className="text-2xl font-semibold mb-6">Get in Touch</h3>
-              <p className="mb-8 text-gray-300">
+              <h3 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6">
+                Get in Touch
+              </h3>
+              <p className="mb-6 sm:mb-8 text-sm sm:text-base text-gray-300">
                 I&apos;m always open to new opportunities and collaborations.
                 Feel free to reach out!
               </p>
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 <div className="flex items-center">
-                  <Mail className="mr-4 h-6 w-6 text-blue-400" />
-                  <span>dinitothompson@gmail.com</span>
+                  <Mail className="mr-3 sm:mr-4 h-5 w-5 sm:h-6 sm:w-6 text-blue-400" />
+                  <span className="text-sm sm:text-base">
+                    dinitothompson@gmail.com
+                  </span>
                 </div>
                 <div className="flex items-center">
-                  <Phone className="mr-4 h-6 w-6 text-blue-400" />
-                  <span>876-357-1273</span>
+                  <Phone className="mr-3 sm:mr-4 h-5 w-5 sm:h-6 sm:w-6 text-blue-400" />
+                  <span className="text-sm sm:text-base">876-357-1273</span>
                 </div>
                 <div className="flex items-center">
-                  <FileText className="mr-4 h-6 w-6 text-blue-400" />
+                  <FileText className="mr-3 sm:mr-4 h-5 w-5 sm:h-6 sm:w-6 text-blue-400" />
                   <Link
                     href="https://drive.google.com/drive/folders/1gewsLO8TAwmCM2ugSrGCNH1zWaQfGVBl?usp=sharing"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <Button
-                      variant="outline"
-                      className="bg-transparent hover:bg-blue-700 text-blue-400 hover:text-white border border-blue-500 hover:border-transparent rounded"
-                    >
+                    <Button className="bg-transparent hover:bg-blue-700 text-blue-400 hover:text-white border border-blue-500 hover:border-transparent rounded text-sm sm:text-base py-1 px-2 sm:py-2 sm:px-4">
                       Download Resume
                     </Button>
                   </Link>
@@ -160,13 +161,13 @@ export default function Contact() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
               onSubmit={handleSubmit}
-              className="lg:w-3/5 p-8 lg:p-12 space-y-6"
+              className="w-full lg:w-3/5 p-6 sm:p-8 lg:p-12 space-y-4 sm:space-y-6"
             >
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                 <div>
                   <label
                     htmlFor="name"
-                    className="block text-sm font-medium text-gray-300 mb-1"
+                    className="block text-xs sm:text-sm font-medium text-gray-300 mb-1"
                   >
                     Name
                   </label>
@@ -177,7 +178,7 @@ export default function Contact() {
                     value={formData.name}
                     onChange={handleInputChange}
                     placeholder="Your Name"
-                    className="bg-gray-700/50 border-gray-600 focus:border-blue-500 text-white placeholder-gray-400"
+                    className="bg-gray-700/50 border-gray-600 focus:border-blue-500 text-white placeholder-gray-400 text-sm sm:text-base"
                     required
                   />
                   {formErrors.name && (
@@ -189,7 +190,7 @@ export default function Contact() {
                 <div>
                   <label
                     htmlFor="email"
-                    className="block text-sm font-medium text-gray-300 mb-1"
+                    className="block text-xs sm:text-sm font-medium text-gray-300 mb-1"
                   >
                     Email
                   </label>
@@ -200,7 +201,7 @@ export default function Contact() {
                     value={formData.email}
                     onChange={handleInputChange}
                     placeholder="Your Email"
-                    className="bg-gray-700/50 border-gray-600 focus:border-blue-500 text-white placeholder-gray-400"
+                    className="bg-gray-700/50 border-gray-600 focus:border-blue-500 text-white placeholder-gray-400 text-sm sm:text-base"
                     required
                   />
                   {formErrors.email && (
@@ -213,7 +214,7 @@ export default function Contact() {
               <div>
                 <label
                   htmlFor="message"
-                  className="block text-sm font-medium text-gray-300 mb-1"
+                  className="block text-xs sm:text-sm font-medium text-gray-300 mb-1"
                 >
                   Message
                 </label>
@@ -223,7 +224,7 @@ export default function Contact() {
                   value={formData.message}
                   onChange={handleInputChange}
                   placeholder="Your Message"
-                  className="bg-gray-700/50 border-gray-600 focus:border-blue-500 text-white placeholder-gray-400 min-h-[150px]"
+                  className="bg-gray-700/50 border-gray-600 focus:border-blue-500 text-white placeholder-gray-400 min-h-[120px] sm:min-h-[150px] text-sm sm:text-base"
                   required
                 />
                 {formErrors.message && (
@@ -234,7 +235,7 @@ export default function Contact() {
               </div>
               <Button
                 type="submit"
-                className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 transition-all duration-300"
+                className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 transition-all duration-300 text-sm sm:text-base py-2 sm:py-3"
                 disabled={isSubmitting || !canSendEmail}
               >
                 {isSubmitting ? (

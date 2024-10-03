@@ -17,7 +17,6 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -50,21 +49,12 @@ export default function Sidebar() {
     router.push(href);
     setActiveItem(href);
     if (isMobile) {
-      if (isExpanded) {
-        setIsExpanded(false);
-        window.dispatchEvent(
-          new CustomEvent("sidebarToggle", {
-            detail: { isExpanded: !isExpanded },
-          })
-        );
-      } else {
-        setIsExpanded(false);
-        window.dispatchEvent(
-          new CustomEvent("sidebarToggle", {
-            detail: { isExpanded: isExpanded },
-          })
-        );
-      }
+      setIsExpanded(false);
+      window.dispatchEvent(
+        new CustomEvent("sidebarToggle", {
+          detail: { isExpanded: false },
+        })
+      );
     }
   };
 
@@ -138,49 +128,47 @@ export default function Sidebar() {
       <StyledSeparator />
 
       {/* Menu Section */}
-      <ScrollArea className="flex-grow">
-        <nav className="p-2">
-          <ul className="space-y-2">
-            {menuItems.map((item) => (
-              <motion.li
-                key={item.href}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+      <nav className="flex-grow p-2 overflow-hidden">
+        <ul className="space-y-2">
+          {menuItems.map((item) => (
+            <motion.li
+              key={item.href}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <a
+                href={item.href}
+                className={`flex items-center py-2 px-4 rounded-md text-gray-300 transition-all duration-300 ${
+                  activeItem === item.href
+                    ? "bg-gradient-to-r from-blue-900 to-purple-900 text-white"
+                    : "hover:bg-gradient-to-r hover:from-blue-900 hover:to-purple-900 hover:text-white"
+                } ${isExpanded ? "" : "justify-center"}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavigation(item.href);
+                }}
               >
-                <a
-                  href={item.href}
-                  className={`flex items-center py-2 px-4 rounded-md text-gray-300 transition-all duration-300 ${
-                    activeItem === item.href
-                      ? "bg-gradient-to-r from-blue-900 to-purple-900 text-white"
-                      : "hover:bg-gradient-to-r hover:from-blue-900 hover:to-purple-900 hover:text-white"
-                  } ${isExpanded ? "" : "justify-center"}`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleNavigation(item.href);
-                  }}
+                <motion.div
+                  whileHover={{ rotate: 360 }}
+                  transition={{ duration: 0.3 }}
                 >
-                  <motion.div
-                    whileHover={{ rotate: 360 }}
-                    transition={{ duration: 0.3 }}
+                  <item.icon className="h-5 w-5" />
+                </motion.div>
+                {isExpanded && (
+                  <motion.span
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="ml-3"
                   >
-                    <item.icon className="h-5 w-5" />
-                  </motion.div>
-                  {isExpanded && (
-                    <motion.span
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.2 }}
-                      className="ml-3"
-                    >
-                      {item.label}
-                    </motion.span>
-                  )}
-                </a>
-              </motion.li>
-            ))}
-          </ul>
-        </nav>
-      </ScrollArea>
+                    {item.label}
+                  </motion.span>
+                )}
+              </a>
+            </motion.li>
+          ))}
+        </ul>
+      </nav>
 
       <StyledSeparator />
 
@@ -200,7 +188,7 @@ export default function Sidebar() {
             icon={<Linkedin className="h-4 w-4" />}
           />
           <SocialButton
-            href="mailto:your.email@example.com"
+            href="mailto:your.dinitothompson@gmail.com"
             icon={<Mail className="h-4 w-4" />}
           />
           <SocialButton
