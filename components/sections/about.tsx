@@ -69,7 +69,7 @@ export default function About() {
               <InfoCard
                 icon={<Palette />}
                 title="Graphic Designer"
-                description="UI/UX | Brand Design"
+                description="Brand Design"
                 color="from-purple-500 to-pink-500"
               />
               <InfoCard
