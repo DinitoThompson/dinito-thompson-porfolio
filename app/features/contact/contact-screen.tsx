@@ -5,9 +5,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
+import { BubblesBackground } from "@/app/components/animated-background/bubbles-animated-bg";
 
-export default function Contact() {
+export default function ContactScreen() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [canSendEmail, setCanSendEmail] = useState(true);
@@ -103,11 +104,12 @@ export default function Contact() {
   };
 
   return (
-    <section
+    <div
       id="contact"
-      className="min-h-screen py-12 sm:py-20 bg-gradient-to-t from-black via-gray-900 to-blue-900 text-white flex items-center justify-center"
+      className="min-h-screen py-12 sm:py-20 text-white flex items-center justify-center relative overflow-hidden"
     >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
+      <BubblesBackground />
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl relative z-10">
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -116,14 +118,14 @@ export default function Contact() {
         >
           Let&apos;s Connect
         </motion.h2>
-        <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg shadow-2xl overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="bg-gray-800/30 backdrop-blur-md rounded-lg shadow-2xl overflow-hidden"
+        >
           <div className="flex flex-col lg:flex-row">
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="w-full lg:w-2/5 bg-gradient-to-br from-blue-900 to-purple-900 p-6 sm:p-8 lg:p-12"
-            >
+            <div className="w-full lg:w-2/5 bg-gradient-to-br from-blue-900/50 to-purple-900/50 p-6 sm:p-8 lg:p-12">
               <h3 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6">
                 Get in Touch
               </h3>
@@ -132,39 +134,49 @@ export default function Contact() {
                 Feel free to reach out!
               </p>
               <div className="space-y-4 sm:space-y-6">
-                <div className="flex items-center">
+                <motion.div
+                  className="flex items-center"
+                  whileTap={{ scale: 0.95 }}
+                >
                   <Mail className="mr-3 sm:mr-4 h-5 w-5 sm:h-6 sm:w-6 text-blue-400" />
                   <span className="text-sm sm:text-base">
                     dinitothompson@gmail.com
                   </span>
-                </div>
-                <div className="flex items-center">
+                </motion.div>
+                <motion.div
+                  className="flex items-center"
+                  whileTap={{ scale: 0.95 }}
+                >
                   <Phone className="mr-3 sm:mr-4 h-5 w-5 sm:h-6 sm:w-6 text-blue-400" />
                   <span className="text-sm sm:text-base">876-357-1273</span>
-                </div>
-                <div className="flex items-center">
+                </motion.div>
+                <motion.div
+                  className="flex items-center"
+                  whileTap={{ scale: 0.95 }}
+                >
                   <FileText className="mr-3 sm:mr-4 h-5 w-5 sm:h-6 sm:w-6 text-blue-400" />
                   <Link
                     href="https://drive.google.com/drive/folders/1gewsLO8TAwmCM2ugSrGCNH1zWaQfGVBl?usp=sharing"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <Button className="bg-transparent hover:bg-blue-700 text-blue-400 hover:text-white border border-blue-500 hover:border-transparent rounded text-sm sm:text-base py-1 px-2 sm:py-2 sm:px-4">
+                    <Button className="bg-transparent hover:bg-blue-700 text-blue-400 hover:text-white border border-blue-500 hover:border-transparent rounded text-sm sm:text-base py-1 px-2 sm:py-2 sm:px-4 transition-all duration-300">
                       Download Resume
                     </Button>
                   </Link>
-                </div>
+                </motion.div>
               </div>
-            </motion.div>
-            <motion.form
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
+            </div>
+            <form
               onSubmit={handleSubmit}
               className="w-full lg:w-3/5 p-6 sm:p-8 lg:p-12 space-y-4 sm:space-y-6"
             >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-                <div>
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.3 }}
+                >
                   <label
                     htmlFor="name"
                     className="block text-xs sm:text-sm font-medium text-gray-300 mb-1"
@@ -186,8 +198,12 @@ export default function Contact() {
                       {formErrors.name}
                     </p>
                   )}
-                </div>
-                <div>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.4 }}
+                >
                   <label
                     htmlFor="email"
                     className="block text-xs sm:text-sm font-medium text-gray-300 mb-1"
@@ -209,9 +225,13 @@ export default function Contact() {
                       {formErrors.email}
                     </p>
                   )}
-                </div>
+                </motion.div>
               </div>
-              <div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.5 }}
+              >
                 <label
                   htmlFor="message"
                   className="block text-xs sm:text-sm font-medium text-gray-300 mb-1"
@@ -232,27 +252,33 @@ export default function Contact() {
                     {formErrors.message}
                   </p>
                 )}
-              </div>
-              <Button
-                type="submit"
-                className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 transition-all duration-300 text-sm sm:text-base py-2 sm:py-3"
-                disabled={isSubmitting || !canSendEmail}
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.6 }}
               >
-                {isSubmitting ? (
-                  "Sending..."
-                ) : !canSendEmail ? (
-                  `Wait ${countdown}s`
-                ) : (
-                  <>
-                    Send Message
-                    <Send className="ml-2 h-4 w-4" />
-                  </>
-                )}
-              </Button>
-            </motion.form>
+                <Button
+                  type="submit"
+                  className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 transition-all duration-300 text-sm sm:text-base py-2 sm:py-3"
+                  disabled={isSubmitting || !canSendEmail}
+                >
+                  {isSubmitting ? (
+                    "Sending..."
+                  ) : !canSendEmail ? (
+                    `Wait ${countdown}s`
+                  ) : (
+                    <>
+                      Send Message
+                      <Send className="ml-2 h-4 w-4" />
+                    </>
+                  )}
+                </Button>
+              </motion.div>
+            </form>
           </div>
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </div>
   );
 }

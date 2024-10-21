@@ -1,7 +1,7 @@
 "use client";
 
-import Sidebar from "@/components/sections/sidebar";
 import { useEffect, useState } from "react";
+import { Sidebar } from "../features/sidebar/sidebar";
 
 export default function HomeLayout({
   children,
@@ -17,7 +17,7 @@ export default function HomeLayout({
     };
 
     const checkIsMobile = () => {
-      setIsMobile(window.innerWidth < 868); // Adjust breakpoint as needed
+      setIsMobile(window.innerWidth < 868);
     };
 
     window.addEventListener(
@@ -38,7 +38,7 @@ export default function HomeLayout({
   }, []);
 
   return (
-    <div className="flex min-h-screen w-full">
+    <div className="flex min-h-screen w-full bg-black">
       <Sidebar />
       <main
         className={`flex-1 overflow-y-auto p-4 lg:p-6 transition-all duration-300 ease-in-out ${

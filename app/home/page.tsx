@@ -1,6 +1,7 @@
-import { PortfolioComponent } from "@/components/portfolio";
-import React from "react";
+"use client";
+
+import HomeScreen from "../features/home/home-screen";
 
 export default function Home() {
-  return <PortfolioComponent />;
+  return <HomeScreen />;
 }
