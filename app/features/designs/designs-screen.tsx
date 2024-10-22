@@ -22,38 +22,50 @@ export default function DesignsScreen() {
   }, [activeCategory]);
 
   return (
-    <div className="min-h-screen py-16 relative overflow-hidden">
+    <div className="min-h-screen text-white relative overflow-hidden">
       <BubblesBackground />
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
+      <div className="max-w-[2000px] mx-auto px-5 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16 relative z-10">
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-4xl sm:text-5xl font-bold mb-12 text-center text-white"
+          className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8 sm:mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-teal-500"
         >
           Graphic Designs
         </motion.h2>
 
-        <CategoryTabs
-          categories={categories}
-          activeCategory={activeCategory}
-          onCategoryChange={setActiveCategory}
-        />
+        <div className="flex flex-col items-center mb-8">
+          <CategoryTabs
+            categories={categories}
+            activeCategory={activeCategory}
+            onCategoryChange={setActiveCategory}
+          />
+        </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-          {filteredDesigns.map((design) => (
-            <DesignCard
+        <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-5 lg:gap-6 px-2">
+          {filteredDesigns.map((design, index) => (
+            <motion.div
               key={design.id}
-              design={design}
-              onClick={() => setSelectedDesign(design)}
-            />
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              <DesignCard
+                design={design}
+                onClick={() => setSelectedDesign(design)}
+              />
+            </motion.div>
           ))}
         </div>
 
         {filteredDesigns.length === 0 && (
-          <p className="text-center text-gray-400 mt-8">
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-center text-gray-400 mt-8 text-lg"
+          >
             No designs found in this category.
-          </p>
+          </motion.p>
         )}
       </div>
 

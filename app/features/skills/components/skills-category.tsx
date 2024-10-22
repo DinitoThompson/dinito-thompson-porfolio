@@ -17,9 +17,9 @@ interface Category {
 const SkillBadge = ({ skill }: { skill: Skill }) => (
   <motion.div
     whileHover={{ scale: 1.05 }}
-    className="bg-gray-700 bg-opacity-50 rounded-lg p-2 flex flex-col items-center justify-center"
+    className="bg-gray-800 bg-opacity-60 rounded-lg p-3 flex flex-col items-center justify-center transition-colors hover:bg-gray-700"
   >
-    <div className="relative w-8 h-8 mb-1">
+    <div className="relative w-8 h-8 mb-2">
       <Image
         priority={true}
         src={skill.icon}
@@ -28,27 +28,27 @@ const SkillBadge = ({ skill }: { skill: Skill }) => (
         className="object-contain"
       />
     </div>
-    <span className="text-xs text-center font-medium text-gray-300">
-      {skill.name}
-    </span>
+    <span className="text-xs font-medium text-gray-200">{skill.name}</span>
   </motion.div>
 );
 
 export const SkillCategory = ({ category }: { category: Category }) => (
-  <Card className="bg-gray-800 bg-opacity-30 shadow-lg">
-    <CardContent className="p-4">
+  <Card className="bg-gray-800/30 backdrop-blur-sm border-gray-700">
+    <CardContent className="p-5">
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
-        className="flex items-center mb-4"
+        className="flex items-center mb-5"
       >
         <div className="text-blue-400 mr-3">
           {React.cloneElement(category.icon as React.ReactElement, {
-            className: "w-6 h-6",
+            className: "w-5 h-5",
           })}
         </div>
-        <h3 className="text-lg font-semibold text-blue-300">{category.name}</h3>
+        <h3 className="text-base font-semibold text-blue-300">
+          {category.name}
+        </h3>
       </motion.div>
       <motion.div
         initial={{ opacity: 0 }}

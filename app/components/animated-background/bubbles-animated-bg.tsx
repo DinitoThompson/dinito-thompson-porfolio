@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 export const BubblesBackground: React.FC = () => (
   <div className="absolute inset-0 overflow-hidden">
-    <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-black" />
+    <div className="absolute inset-0" />
     {[...Array(3)].map((_, i) => (
       <motion.div
         key={i}

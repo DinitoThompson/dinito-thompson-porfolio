@@ -2,7 +2,6 @@ import { Section } from "../components/section";
 import { resumeSkills, Skill } from "../components/skills-summary";
 import { motion } from "framer-motion";
 import { SkillProps } from "../types/animation";
-import { PrimaryButton } from "../components/primary-button";
 
 export function SkillsSection({ controls }: SkillProps) {
   return (
@@ -35,7 +34,6 @@ export function SkillsSection({ controls }: SkillProps) {
           }}
         ></motion.div>
       </div>
-      <PrimaryButton href="/home/skills">Explore Full Skill Set</PrimaryButton>
     </Section>
   );
 }

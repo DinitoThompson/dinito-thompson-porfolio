@@ -6,11 +6,11 @@ import { BubblesBackground } from "@/app/components/animated-background/bubbles-
 
 export default function HomeScreen() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-gray-100 relative overflow-hidden">
+    <div className="text-gray-100 relative overflow-hidden">
       <div className="absolute inset-0 opacity-20" />
       <BubblesBackground />
 
-      <section className="min-h-screen flex flex-col justify-center p-4 sm:p-6 md:p-8 lg:p-12 relative overflow-hidden">
+      <section className="min-h-screen flex flex-col justify-center p-10 sm:p-6 md:p-8 lg:p-12 relative overflow-hidden">
         {floatingIcons.map(({ Icon, x, y }, index) => (
           <motion.div
             key={index}
@@ -36,15 +36,15 @@ export default function HomeScreen() {
             transition={{ duration: 0.8, delay: 0.1 }}
             className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light mb-2 text-gray-400"
           >
-            <span className="text-white">Welcome</span>, I am
+            <span className="text-white font-bold">Welcome</span>, I am
           </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-500  to-indigo-500"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-teal-500"
           >
-            Dinito R. Thompson
+            Dinito Thompson
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}

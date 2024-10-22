@@ -6,15 +6,15 @@ import { BubblesBackground } from "@/app/components/animated-background/bubbles-
 
 export default function ProjectsScreen() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-gray-100 relative overflow-hidden">
+    <div className="min-h-screen text-gray-100 relative overflow-hidden">
       <BubblesBackground />
 
-      <div className="min-h-screen flex flex-col justify-center p-4 sm:p-6 md:p-8 lg:p-12 relative overflow-hidden">
+      <div className="min-h-screen flex flex-col justify-center p-10 sm:p-6 md:p-8 lg:p-16 relative overflow-hidden">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-5xl font-bold mb-16 text-center text-transparent text-white"
+          className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 sm:mb-12 md:mb-16 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-teal-500"
         >
           Featured Projects
         </motion.h1>
@@ -22,7 +22,7 @@ export default function ProjectsScreen() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8"
         >
           {projects.map((project, index) => (
             <motion.div

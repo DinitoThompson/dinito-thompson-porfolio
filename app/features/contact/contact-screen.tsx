@@ -106,15 +106,15 @@ export default function ContactScreen() {
   return (
     <div
       id="contact"
-      className="min-h-screen py-12 sm:py-20 text-white flex items-center justify-center relative overflow-hidden"
+      className="min-h-screen text-white relative overflow-hidden"
     >
       <BubblesBackground />
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl relative z-10">
+      <div className="min-h-screen flex flex-col justify-center p-10 sm:p-6 md:p-8 lg:p-16 relative overflow-hidden">
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6 sm:mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500"
+          className="text-2xl py-10 sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6 sm:mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-teal-500"
         >
           Let&apos;s Connect
         </motion.h2>

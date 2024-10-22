@@ -5,7 +5,7 @@ import { onlineLinks } from "../types/online-links";
 
 export function OverviewSection() {
   return (
-    <Section title="Overview">
+    <Section title="About Me">
       <motion.div
         initial={{ opacity: 0, x: -50 }}
         animate={{ opacity: 1, x: 0 }}
