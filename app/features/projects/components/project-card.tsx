@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
@@ -14,11 +14,24 @@ import { getYouTubeEmbedUrl } from "../types/youtube-player";
 export const ProjectCard = ({ project }: { project: Project }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    // Set initial mobile state
+    setIsMobile(window.innerWidth <= 768);
+
+    // Add resize listener
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const toggleDialog = () => {
     setIsDialogOpen(!isDialogOpen);
   };
-
   return (
     <motion.div
       className="h-full"
@@ -38,7 +51,7 @@ export const ProjectCard = ({ project }: { project: Project }) => {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/60 to-transparent" />
           <AnimatePresence>
-            {(isHovered || window?.innerWidth <= 768) && (
+            {(isHovered || isMobile) && (
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
