@@ -39,6 +39,14 @@ body {
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+    --sidebar-background: 245 100% 2%; /* This is the HSL value for gray-900 */
+    --sidebar-foreground: 0 0% 100%; /* White text for contrast */
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 215 28% 25%; /* Slightly lighter than gray-900 for hover states */
+    --sidebar-accent-foreground: 0 0% 100%; /* White text for contrast */
+    --sidebar-border: 215 28% 30%; /* Slightly lighter border */
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
   .dark {
     --background: 0 0% 3.9%;
@@ -65,6 +73,14 @@ body {
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+    --sidebar-background: 245 100% 2%; /* Same as light mode */
+    --sidebar-foreground: 0 0% 100%; /* Same as light mode */
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 215 28% 25%; /* Same as light mode */
+    --sidebar-accent-foreground: 0 0% 100%; /* Same as light mode */
+    --sidebar-border: 215 28% 30%; /* Same as light mode */
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
 

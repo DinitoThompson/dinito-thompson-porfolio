@@ -1,52 +1,28 @@
 "use client";
 
-import Sidebar from "@/components/sections/sidebar";
-import { useEffect, useState } from "react";
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/sidebar/app-sidebar";
 
 export default function HomeLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const handleSidebarToggle = (event: CustomEvent) => {
-      setIsSidebarExpanded(event.detail.isExpanded);
-    };
-
-    const checkIsMobile = () => {
-      setIsMobile(window.innerWidth < 868); // Adjust breakpoint as needed
-    };
-
-    window.addEventListener(
-      "sidebarToggle",
-      handleSidebarToggle as EventListener
-    );
-    window.addEventListener("resize", checkIsMobile);
-
-    checkIsMobile();
-
-    return () => {
-      window.removeEventListener(
-        "sidebarToggle",
-        handleSidebarToggle as EventListener
-      );
-      window.removeEventListener("resize", checkIsMobile);
-    };
-  }, []);
-
   return (
-    <div className="flex min-h-screen w-full">
-      <Sidebar />
-      <main
-        className={`flex-1 overflow-y-auto p-4 lg:p-6 transition-all duration-300 ease-in-out ${
-          isSidebarExpanded ? (isMobile ? "ml-0" : "ml-64") : "ml-16"
-        }`}
-      >
-        {children}
-      </main>
-    </div>
+    <SidebarProvider className="bg-gray-950">
+      <AppSidebar />
+      <SidebarInset>
+        <div className="fixed top-5 z-50 md:hidden">
+          <SidebarTrigger className="text-white" />
+        </div>
+        <main className="flex flex-col min-h-screen bg-gray-950 px-0 py-0">
+          {children}
+        </main>
+      </SidebarInset>
+    </SidebarProvider>
   );
 }
