@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect } from "react";
 import { useAnimation } from "framer-motion";
 import { OverviewSection } from "./section/overview-section";

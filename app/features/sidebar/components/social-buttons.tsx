@@ -1,3 +1,5 @@
+"use client";
+
 import { Link } from "next-view-transitions";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";

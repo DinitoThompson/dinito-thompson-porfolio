@@ -1,3 +1,5 @@
+"use client";
+
 import { Link } from "next-view-transitions";
 import { menuItems } from "../types/menu-items";
 import { motion } from "framer-motion";

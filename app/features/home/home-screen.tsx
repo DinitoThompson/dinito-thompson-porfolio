@@ -1,3 +1,5 @@
+"use client";
+
 import { floatingIcons } from "./types/floating-icons";
 import { motion } from "framer-motion";
 import { TypeWriter } from "./components/type-writer";

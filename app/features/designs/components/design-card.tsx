@@ -1,3 +1,5 @@
+"use client";
+
 import { Card } from "@/components/ui/card";
 import { Design } from "../types/designs";
 import Image from "next/image";

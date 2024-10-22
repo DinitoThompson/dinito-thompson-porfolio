@@ -1,3 +1,5 @@
+"use client";
+
 import { FileText } from "lucide-react";
 import { Section } from "../components/section";
 import { motion } from "framer-motion";

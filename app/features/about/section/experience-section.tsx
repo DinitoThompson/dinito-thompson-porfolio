@@ -1,3 +1,5 @@
+"use client";
+
 import { Section } from "../components/section";
 import { TimelineItem } from "../components/timeline-detail";
 import { workExperience } from "../types/work-experience";

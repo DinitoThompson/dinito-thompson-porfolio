@@ -1,3 +1,5 @@
+"use client";
+
 import { Section } from "../components/section";
 import { resumeSkills, Skill } from "../components/skills-summary";
 import { motion } from "framer-motion";
