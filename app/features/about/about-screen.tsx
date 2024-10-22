@@ -19,9 +19,9 @@ export default function AboutScreen() {
   }, [controls]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white relative overflow-hidden">
+    <div className="min-h-screen text-white relative overflow-hidden">
       <BubblesBackground />
-      <div className="max-w-4xl mx-auto px-4 py-8 md:py-16 relative z-10">
+      <div className="min-h-screen flex flex-col justify-center p-10 sm:p-6 md:p-8 lg:p-16 relative overflow-hidden">
         <OverviewSection />
 
         <ExecutiveSummary />

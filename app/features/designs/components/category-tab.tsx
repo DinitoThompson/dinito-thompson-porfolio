@@ -6,7 +6,7 @@ export const CategoryTabs: React.FC<{
   onCategoryChange: (category: string) => void;
 }> = ({ categories, activeCategory, onCategoryChange }) => {
   return (
-    <div className="flex flex-wrap justify-center gap-2 mb-8">
+    <div className="flex flex-wrap justify-center gap-2 mb-8 text-black">
       <Button
         variant={activeCategory === "All" ? "default" : "outline"}
         onClick={() => onCategoryChange("All")}
