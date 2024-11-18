@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import { motion } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
 import { designs, Design } from "@/app/features/designs/types/designs";
 import { DesignDialog } from "@/app/features/designs/components/design-dialog";
 import { DesignCard } from "@/app/features/designs/components/design-card";
@@ -9,34 +10,79 @@ import { CategoryTabs } from "@/app/features/designs/components/category-tab";
 import { BubblesBackground } from "@/app/components/animated-background/bubbles-animated-bg";
 
 export default function DesignsScreen() {
-  const [selectedDesign, setSelectedDesign] = useState<Design | null>(null);
-  const [activeCategory, setActiveCategory] = useState<string>("All");
+  const [selectedDesign, setSelectedDesign] = React.useState<Design | null>(
+    null
+  );
+  const [activeCategory, setActiveCategory] = React.useState<string>("All");
+
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["designs"],
+    queryFn: () => designs,
+  });
 
   const categories = useMemo(() => {
-    const uniqueCategories = new Set(designs.map((design) => design.category));
+    if (!data) return [];
+    const uniqueCategories = new Set(data.map((design) => design.category));
     return Array.from(uniqueCategories).sort();
-  }, []);
+  }, [data]);
 
   const filteredDesigns = useMemo(() => {
+    if (!data) return [];
     return activeCategory === "All"
-      ? designs
-      : designs.filter((design) => design.category === activeCategory);
-  }, [activeCategory]);
+      ? data
+      : data.filter((design) => design.category === activeCategory);
+  }, [activeCategory, data]);
+
+  // Organize designs for masonry layout with smaller, more uniform sizes
+  const organizedDesigns = useMemo(() => {
+    if (!filteredDesigns.length) return [];
+
+    return filteredDesigns.map((design, index) => ({
+      ...design,
+      span: {
+        // More subtle variations in sizing
+        row: index % 12 === 0 ? 2 : 1,
+        col: index % 12 === 0 ? 2 : 1,
+      },
+    }));
+  }, [filteredDesigns]);
+
+  if (isLoading || error) {
+    return (
+      <div className="min-h-screen text-white relative overflow-hidden">
+        <BubblesBackground />
+        <div className="h-screen flex items-center justify-center">
+          {isLoading ? (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-2xl font-bold"
+            >
+              Loading Designs...
+            </motion.div>
+          ) : (
+            <div className="text-2xl font-bold text-red-500">
+              Error loading designs
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen text-white relative overflow-hidden">
       <BubblesBackground />
-      <div className="max-w-[2000px] mx-auto px-5 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16 relative z-10">
+      <div className="max-w-[2000px] pl-9 pr-9 mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16 relative z-10">
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
           className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8 sm:mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-teal-500"
         >
           Graphic Designs
         </motion.h2>
 
-        <div className="flex flex-col items-center mb-8">
+        <div className="w-full">
           <CategoryTabs
             categories={categories}
             activeCategory={activeCategory}
@@ -44,13 +90,21 @@ export default function DesignsScreen() {
           />
         </div>
 
-        <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-5 lg:gap-6 px-2">
-          {filteredDesigns.map((design, index) => (
+        <motion.div
+          layout
+          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-3 md:gap-4 auto-rows-[200px] sm:auto-rows-[220px] md:auto-rows-[240px]"
+        >
+          {organizedDesigns.map((design, index) => (
             <motion.div
               key={design.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              transition={{ duration: 0.5, delay: index * 0.05 }}
+              className={`
+                ${design.span.row === 2 ? "row-span-2" : ""}
+                ${design.span.col === 2 ? "sm:col-span-2" : ""}
+                transition-all duration-500
+              `}
             >
               <DesignCard
                 design={design}
@@ -58,9 +112,9 @@ export default function DesignsScreen() {
               />
             </motion.div>
           ))}
-        </div>
+        </motion.div>
 
-        {filteredDesigns.length === 0 && (
+        {organizedDesigns.length === 0 && (
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -74,6 +128,7 @@ export default function DesignsScreen() {
       {selectedDesign && (
         <DesignDialog
           design={selectedDesign}
+          designs={filteredDesigns}
           isOpen={!!selectedDesign}
           onClose={() => setSelectedDesign(null)}
         />
