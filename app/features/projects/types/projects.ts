@@ -82,17 +82,17 @@ export const projects: Project[] = [
     isPublic: false,
     hasVideo: false,
   },
-  {
-    id: 6,
-    title: "AirSpace",
-    company: "ByteOptima",
-    description: "Courier and logistics management system",
-    technologies: ["SpringBoot", "PostgreSQL", "NextJS"],
-    screenshot: "/assets/development/air-space.jpg",
-    role: "Software Developer",
-    impact:
-      "Built full-stack features for a courier system, handling API endpoints, frontend, and integration.",
-    isPublic: false,
-    hasVideo: false,
-  },
+  // {
+  //   id: 6,
+  //   title: "AirSpace",
+  //   company: "ByteOptima",
+  //   description: "Courier and logistics management system",
+  //   technologies: ["SpringBoot", "PostgreSQL", "NextJS"],
+  //   screenshot: "/assets/development/air-space.jpg",
+  //   role: "Software Developer",
+  //   impact:
+  //     "Built full-stack features for a courier system, handling API endpoints, frontend, and integration.",
+  //   isPublic: false,
+  //   hasVideo: false,
+  // },
 ];
