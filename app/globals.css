@@ -39,7 +39,7 @@ body {
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
-    --sidebar-background: 245 100% 2%; /* This is the HSL value for gray-900 */
+    --sidebar-background: 222 47% 11%;
     --sidebar-foreground: 0 0% 100%; /* White text for contrast */
     --sidebar-primary: 240 5.9% 10%;
     --sidebar-primary-foreground: 0 0% 98%;
@@ -73,7 +73,7 @@ body {
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
-    --sidebar-background: 245 100% 2%; /* Same as light mode */
+    --sidebar-background: 222 47% 11%; /* Same value in dark mode */
     --sidebar-foreground: 0 0% 100%; /* Same as light mode */
     --sidebar-primary: 224.3 76.3% 48%;
     --sidebar-primary-foreground: 0 0% 100%;
@@ -91,4 +91,44 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@keyframes blob {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(20px, -20px) scale(1.1);
+  }
+  50% {
+    transform: translate(0, 20px) scale(1);
+  }
+  75% {
+    transform: translate(-20px, -20px) scale(0.9);
+  }
+}
+
+@keyframes gradient-xy {
+  0%,
+  100% {
+    background-size: 400% 400%;
+    background-position: 0% 0%;
+  }
+  50% {
+    background-size: 400% 400%;
+    background-position: 100% 100%;
+  }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animate-gradient-xy {
+  animation: gradient-xy 15s ease infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
 }

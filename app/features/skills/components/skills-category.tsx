@@ -21,7 +21,7 @@ const SkillBadge = ({ skill }: { skill: Skill }) => (
     whileHover={{ scale: 1.05 }}
     className="bg-gray-800 bg-opacity-60 rounded-lg p-3 flex flex-col items-center justify-center transition-colors hover:bg-gray-700"
   >
-    <div className="relative w-8 h-8 mb-2">
+    <div className="relative w-8 h-8 mb-2 flex justify-center items-center">
       <Image
         priority={true}
         src={skill.icon}
@@ -30,7 +30,9 @@ const SkillBadge = ({ skill }: { skill: Skill }) => (
         className="object-contain"
       />
     </div>
-    <span className="text-xs font-medium text-gray-200">{skill.name}</span>
+    <span className="text-xs font-medium text-gray-200 text-center">
+      {skill.name}
+    </span>
   </motion.div>
 );
 
