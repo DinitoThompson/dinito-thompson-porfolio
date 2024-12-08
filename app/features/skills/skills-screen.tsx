@@ -58,7 +58,7 @@ export function SkillsScreen() {
 
         {/* Main Content Section */}
         <div
-          className={`flex-1 w-full ${
+          className={`flex-1 flex-col w-full ${
             !isLargeScreen ? "flex items-center" : ""
           }`}
         >

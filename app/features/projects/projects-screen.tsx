@@ -9,7 +9,7 @@ import { NavButton } from "@/components/ui/nav-button";
 
 export default function ProjectsScreen() {
   return (
-    <div className="min-h-screen text-gray-100 pb-5 relative overflow-hidden">
+    <div className="min-h-screen text-gray-100 px-5 pb-5 sm:pb-10 lg:pb-20 relative overflow-hidden">
       <BubblesBackground />
 
       <div className="p-4 sm:p-6 lg:p-8 relative">
