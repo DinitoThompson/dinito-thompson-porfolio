@@ -5,10 +5,11 @@ import { motion } from "framer-motion";
 import { projects } from "@/app/features/projects/types/projects";
 import { ProjectCard } from "./components/project-card";
 import { BubblesBackground } from "@/app/components/animated-background/bubbles-animated-bg";
+import { NavButton } from "@/components/ui/nav-button";
 
 export default function ProjectsScreen() {
   return (
-    <div className="min-h-screen text-gray-100 relative overflow-hidden">
+    <div className="min-h-screen text-gray-100 pb-5 relative overflow-hidden">
       <BubblesBackground />
 
       <div className="p-4 sm:p-6 lg:p-8 relative">
@@ -41,6 +42,7 @@ export default function ProjectsScreen() {
           </motion.div>
         </div>
       </div>
+      <NavButton href="/home/designs" text="Designs" />
     </div>
   );
 }
