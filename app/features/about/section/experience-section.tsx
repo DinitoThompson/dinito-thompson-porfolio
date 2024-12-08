@@ -17,8 +17,8 @@ export function WorkExperience({ controls }: SkillProps) {
       ...exp,
       description:
         index < 2
-          ? [exp.description[0], exp.description[1]] // Show two points for most recent
-          : [exp.description[0]], // Show one point for all others
+          ? [exp.description[0], exp.description[1], exp.description[2]]
+          : [exp.description[0], exp.description[1]],
     }));
   };
 
