@@ -1,12 +1,13 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { skillCategories } from "@/app/features/skills/components/skills";
 import { useMediaQuery } from "@/app/components/hooks/useMediaQuery";
 import { SkillCategory } from "./components/skills-category";
 import { BubblesBackground } from "@/app/components/animated-background/bubbles-animated-bg";
+import { NavButton } from "@/components/ui/nav-button";
 
 export function SkillsScreen() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -15,13 +16,6 @@ export function SkillsScreen() {
   // Always show 3 items per page on mobile
   const itemsPerPage = isLargeScreen ? skillCategories.length : 3;
   const totalPages = Math.ceil(skillCategories.length / itemsPerPage);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveIndex((prevIndex) => (prevIndex + 1) % totalPages);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [totalPages]);
 
   const nextSlide = () => {
     setActiveIndex((prevIndex) => (prevIndex + 1) % totalPages);
@@ -133,6 +127,9 @@ export function SkillsScreen() {
               </div>
             </div>
           )}
+
+          {/* Navigation Controls */}
+          <NavButton href="/home/projects" text="Featured Projects" />
         </div>
       </div>
     </div>

@@ -3,8 +3,8 @@
 import { floatingIcons } from "./types/floating-icons";
 import { motion } from "framer-motion";
 import { TypeWriter } from "./components/type-writer";
-import { PrimaryButton } from "../about/components/primary-button";
 import { BubblesBackground } from "@/app/components/animated-background/bubbles-animated-bg";
+import { NavButton } from "@/components/ui/nav-button";
 
 export default function HomeScreen() {
   return (
@@ -73,8 +73,9 @@ export default function HomeScreen() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1 }}
+            className="flex items-start"
           >
-            <PrimaryButton href="/home/about">About Me</PrimaryButton>
+            <NavButton href="/home/about" text="About Me" />
           </motion.div>
         </div>
       </section>

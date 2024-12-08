@@ -8,6 +8,7 @@ import { DesignDialog } from "@/app/features/designs/components/design-dialog";
 import { DesignCard } from "@/app/features/designs/components/design-card";
 import { CategoryTabs } from "@/app/features/designs/components/category-tab";
 import { BubblesBackground } from "@/app/components/animated-background/bubbles-animated-bg";
+import { NavButton } from "@/components/ui/nav-button";
 
 export default function DesignsScreen() {
   const [selectedDesign, setSelectedDesign] = React.useState<Design | null>(
@@ -71,7 +72,7 @@ export default function DesignsScreen() {
   }
 
   return (
-    <div className="min-h-screen text-white relative overflow-hidden">
+    <div className="min-h-screen text-white relative pb-6 overflow-hidden">
       <BubblesBackground />
       <div className="max-w-[2000px] pl-9 pr-9 mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16 relative z-10">
         <motion.h2
@@ -133,6 +134,8 @@ export default function DesignsScreen() {
           onClose={() => setSelectedDesign(null)}
         />
       )}
+
+      <NavButton href="/home/contact" text="Contact Me" />
     </div>
   );
 }
