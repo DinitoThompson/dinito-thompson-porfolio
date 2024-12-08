@@ -8,6 +8,7 @@ import { WorkExperience } from "./section/experience-section";
 import { EducationSection } from "./section/education-section";
 import { SkillsSection } from "./section/skills-section";
 import { BubblesBackground } from "@/app/components/animated-background/bubbles-animated-bg";
+import { NavButton } from "@/components/ui/nav-button";
 
 export default function AboutScreen() {
   const controls = useAnimation();
@@ -33,6 +34,8 @@ export default function AboutScreen() {
         <EducationSection />
 
         <SkillsSection controls={controls} />
+
+        <NavButton href="/home/skills" text="View Skills" />
       </div>
     </div>
   );
