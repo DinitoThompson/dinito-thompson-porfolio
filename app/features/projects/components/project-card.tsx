@@ -1,3 +1,4 @@
+// ProjectCard.tsx
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -6,10 +7,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { Github, Lock, PlayCircle, X } from "lucide-react";
+import { Lock, PlayCircle, View, Clock, Building2 } from "lucide-react";
 import { Project } from "../types/projects";
-import { getYouTubeEmbedUrl } from "../types/youtube-player";
+import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import { ProjectDialog } from "./project-dialog";
 
 export const ProjectCard = ({ project }: { project: Project }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -23,10 +24,34 @@ export const ProjectCard = ({ project }: { project: Project }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const getDuration = () => {
+    const start = new Date(project.duration.start);
+    const end =
+      project.duration.end === "Present"
+        ? new Date()
+        : project.duration.end
+        ? new Date(project.duration.end)
+        : new Date();
+
+    const months =
+      (end.getFullYear() - start.getFullYear()) * 12 +
+      (end.getMonth() - start.getMonth());
+    if (months < 1) return "< 1 month";
+    if (months === 1) return "1 month";
+    if (months < 12) return `${months} months`;
+    const years = Math.floor(months / 12);
+    const remainingMonths = months % 12;
+    if (remainingMonths === 0)
+      return `${years} ${years === 1 ? "year" : "years"}`;
+    return `${years} ${years === 1 ? "year" : "years"}, ${remainingMonths} ${
+      remainingMonths === 1 ? "month" : "months"
+    }`;
+  };
+
   return (
     <motion.div
       className="h-full"
-      whileHover={{ scale: 1.02 }}
+      whileHover={{ scale: isMobile ? 1 : 1.02 }}
       transition={{ duration: 0.3 }}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
@@ -53,7 +78,7 @@ export const ProjectCard = ({ project }: { project: Project }) => {
               >
                 <Button
                   size="sm"
-                  className="bg-blue-500/90 hover:bg-blue-600 text-white px-4 py-2 text-xs"
+                  className="bg-blue-500/90 hover:bg-blue-600 text-white px-3 py-1.5 text-[10px] sm:text-xs sm:px-4 sm:py-2"
                   onClick={() => setIsDialogOpen(true)}
                 >
                   View Details
@@ -64,44 +89,71 @@ export const ProjectCard = ({ project }: { project: Project }) => {
         </div>
 
         {/* Content Section */}
-        <CardContent className="p-3 sm:p-4">
-          <div className="space-y-2">
-            <h2 className="text-base sm:text-lg font-semibold text-white line-clamp-1">
-              {project.title}
-            </h2>
-            <p className="text-xs text-gray-400 line-clamp-1">
-              {project.company}
-            </p>
-            <p className="text-xs text-gray-300 line-clamp-2 leading-relaxed">
+        <CardContent className="p-2 sm:p-3 md:p-4">
+          <div className="space-y-1.5 sm:space-y-2">
+            <div className="flex items-start justify-between">
+              <h2 className="text-sm sm:text-base md:text-lg font-semibold text-white line-clamp-1">
+                {project.title}
+              </h2>
+              <Badge
+                variant="outline"
+                className="ml-2 border-gray-700 text-gray-400 text-[8px] sm:text-xs px-1.5"
+              >
+                {project.category}
+              </Badge>
+            </div>
+
+            {/* Company and Duration */}
+            <div className="flex flex-col gap-0.5">
+              <div className="flex items-center text-[10px] sm:text-xs text-gray-400">
+                <Building2 className="mr-1 h-3 w-3" />
+                <span className="line-clamp-1">{project.company.name}</span>
+              </div>
+              <div className="flex items-center text-[10px] sm:text-xs text-gray-400">
+                <Clock className="mr-1 h-3 w-3" />
+                <span>{getDuration()}</span>
+              </div>
+            </div>
+
+            <p className="text-[10px] sm:text-xs text-gray-300 line-clamp-2 leading-relaxed">
               {project.description}
             </p>
 
             {/* Technologies */}
-            <div className="flex flex-wrap gap-1.5 pt-1">
-              {project.technologies.slice(0, 2).map((tech) => (
+            <div className="flex flex-wrap gap-1 sm:gap-1.5 pt-0.5 sm:pt-1">
+              {project.technologies.slice(0, isMobile ? 2 : 3).map((tech) => (
                 <Badge
                   key={tech}
                   variant="secondary"
-                  className="bg-blue-500/20 text-blue-300 text-xs px-2 py-0.5"
+                  className="bg-blue-500/20 text-blue-300 text-[8px] sm:text-xs px-1.5 sm:px-2 py-0.5"
                 >
                   {tech}
                 </Badge>
               ))}
-              {project.technologies.length > 2 && (
+              {project.technologies.length > (isMobile ? 2 : 3) && (
                 <Badge
                   variant="secondary"
-                  className="bg-blue-500/20 text-blue-300 text-xs px-2 py-0.5"
+                  className="bg-blue-500/20 text-blue-300 text-[8px] sm:text-xs px-1.5 sm:px-2 py-0.5"
                 >
-                  +{project.technologies.length - 2}
+                  +{project.technologies.length - (isMobile ? 2 : 3)}
                 </Badge>
               )}
             </div>
 
+            {/* Highlights Preview */}
+            {project.highlights && (
+              <div className="pt-1">
+                <p className="text-[8px] sm:text-xs text-gray-300 line-clamp-1">
+                  ✨ {project.highlights[0]}
+                </p>
+              </div>
+            )}
+
             {/* Actions */}
-            <div className="flex items-center gap-2 pt-1">
+            <div className="flex items-center gap-1.5 sm:gap-2 pt-0.5 sm:pt-1">
               {!project.isPublic ? (
-                <div className="flex items-center text-gray-400 text-xs bg-gray-700/50 px-2 py-1 rounded-full">
-                  <Lock className="mr-1 h-3 w-3" />
+                <div className="flex items-center text-gray-400 text-[8px] sm:text-xs bg-gray-700/50 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full">
+                  <Lock className="mr-0.5 sm:mr-1 h-2.5 w-2.5 sm:h-3 sm:w-3" />
                   <span>Private</span>
                 </div>
               ) : (
@@ -109,7 +161,7 @@ export const ProjectCard = ({ project }: { project: Project }) => {
                   <Button
                     size="sm"
                     variant="ghost"
-                    className="bg-gradient-to-r from-blue-700 to-blue-900 text-white text-xs h-6 px-2"
+                    className="bg-gradient-to-r from-blue-700 to-blue-900 text-white text-[8px] sm:text-xs h-5 sm:h-6 px-1.5 sm:px-2"
                     asChild
                   >
                     <a
@@ -117,7 +169,8 @@ export const ProjectCard = ({ project }: { project: Project }) => {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <Github className="mr-1 h-3 w-3" /> GitHub
+                      <GitHubLogoIcon className="mr-0.5 sm:mr-1 h-2.5 w-2.5 sm:h-3 sm:w-3" />{" "}
+                      GitHub
                     </a>
                   </Button>
                 )
@@ -125,10 +178,28 @@ export const ProjectCard = ({ project }: { project: Project }) => {
               {project.hasVideo && (
                 <Button
                   size="sm"
-                  className="bg-gradient-to-r from-pink-500 to-purple-600 text-xs h-6 px-2"
+                  className="bg-gradient-to-r from-pink-500 to-purple-600 text-[8px] sm:text-xs h-5 sm:h-6 px-1.5 sm:px-2"
                   onClick={() => setIsDialogOpen(true)}
                 >
-                  <PlayCircle className="mr-1 h-3 w-3" /> Demo
+                  <PlayCircle className="mr-0.5 sm:mr-1 h-2.5 w-2.5 sm:h-3 sm:w-3" />{" "}
+                  Demo
+                </Button>
+              )}
+              {project.isLive && project.websiteLink && (
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  className="bg-gradient-to-r from-blue-700 to-blue-900 text-white text-[8px] sm:text-xs h-5 sm:h-6 px-1.5 sm:px-2"
+                  asChild
+                >
+                  <a
+                    href={project.websiteLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <View className="mr-0.5 sm:mr-1 h-2.5 w-2.5 sm:h-3 sm:w-3" />
+                    Live
+                  </a>
                 </Button>
               )}
             </div>
@@ -136,130 +207,12 @@ export const ProjectCard = ({ project }: { project: Project }) => {
         </CardContent>
       </Card>
 
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="max-w-2xl w-[95%] p-0 bg-gray-900/95 backdrop-blur-sm rounded-lg border border-gray-800 shadow-2xl">
-          <div className="relative flex flex-col max-h-[85vh]">
-            {/* Close button */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="absolute right-2 top-2 z-50 text-gray-400 hover:text-white bg-gray-900/80 backdrop-blur-sm rounded-full h-7 w-7"
-              onClick={() => setIsDialogOpen(false)}
-            >
-              <X className="h-3.5 w-3.5" />
-            </Button>
-
-            {/* Adaptive Media section */}
-            <div
-              className="relative w-full bg-gray-950 overflow-hidden"
-              style={{
-                height:
-                  project.hasVideo && project.videoLink ? "360px" : "240px",
-              }}
-            >
-              {project.hasVideo && project.videoLink ? (
-                <iframe
-                  src={getYouTubeEmbedUrl(project.videoLink)}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  className="absolute inset-0 w-full h-full"
-                />
-              ) : (
-                <div className="relative w-full h-full flex items-center justify-center bg-gray-950">
-                  <Image
-                    src={project.screenshot}
-                    alt={`${project.title} screenshot`}
-                    fill
-                    className="object-contain"
-                    priority
-                  />
-                </div>
-              )}
-            </div>
-
-            {/* Content section */}
-            <div className="flex-1 overflow-y-auto p-4">
-              {/* Header */}
-              <div className="flex items-start justify-between mb-4">
-                <div className="flex-1">
-                  <h2 className="text-xl font-bold text-white mb-1">
-                    {project.title}
-                  </h2>
-                  <p className="text-xs text-gray-400">{project.company}</p>
-                </div>
-                <div className="ml-4 flex-shrink-0">
-                  {!project.isPublic ? (
-                    <div className="flex items-center text-gray-400 text-xs bg-gray-800 px-2.5 py-1 rounded-full">
-                      <Lock className="mr-1 h-3 w-3" />
-                      Private
-                    </div>
-                  ) : (
-                    project.github && (
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        className="h-7 border-blue-500 text-blue-400 hover:bg-blue-500 hover:text-white"
-                        asChild
-                      >
-                        <a
-                          href={project.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center text-xs"
-                        >
-                          <Github className="mr-1 h-3.5 w-3.5" />
-                          GitHub
-                        </a>
-                      </Button>
-                    )
-                  )}
-                </div>
-              </div>
-
-              {/* Description */}
-              <p className="text-gray-300 text-sm mb-4 leading-relaxed">
-                {project.description}
-              </p>
-
-              {/* Technologies */}
-              <div className="mb-4">
-                <h3 className="text-xs font-medium text-gray-400 mb-2">
-                  Technologies
-                </h3>
-                <div className="flex flex-wrap gap-1.5">
-                  {project.technologies.map((tech) => (
-                    <Badge
-                      key={tech}
-                      variant="secondary"
-                      className="bg-blue-500/10 text-blue-400 border border-blue-500/20 text-xs px-2 py-0.5"
-                    >
-                      {tech}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-
-              {/* Role & Impact in columns */}
-              <div className="grid sm:grid-cols-2 gap-4 text-sm">
-                <div>
-                  <h3 className="text-xs font-medium text-gray-400 mb-1">
-                    My Role
-                  </h3>
-                  <p className="text-gray-300 text-xs">{project.role}</p>
-                </div>
-                {project.impact && (
-                  <div>
-                    <h3 className="text-xs font-medium text-gray-400 mb-1">
-                      Impact
-                    </h3>
-                    <p className="text-gray-300 text-xs">{project.impact}</p>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
+      <ProjectDialog
+        project={project}
+        isOpen={isDialogOpen}
+        onClose={() => setIsDialogOpen(false)}
+        // isMobile={isMobile}
+      />
     </motion.div>
   );
 };
