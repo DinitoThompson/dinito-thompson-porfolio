@@ -1,20 +1,29 @@
-// ProjectCard.tsx
 "use client";
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Lock, PlayCircle, View, Clock, Building2 } from "lucide-react";
+import {
+  Lock,
+  PlayCircle,
+  ExternalLink,
+  Clock,
+  Building2,
+  Briefcase,
+  Eye,
+  ArrowRight,
+  Construction,
+} from "lucide-react";
 import { Project } from "../types/projects";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
-import { ProjectDialog } from "./project-dialog";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
+import { AnimeCard } from "@/app/components/anime/anime-effects";
 
 export const ProjectCard = ({ project }: { project: Project }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -36,183 +45,269 @@ export const ProjectCard = ({ project }: { project: Project }) => {
     const months =
       (end.getFullYear() - start.getFullYear()) * 12 +
       (end.getMonth() - start.getMonth());
+
     if (months < 1) return "< 1 month";
     if (months === 1) return "1 month";
     if (months < 12) return `${months} months`;
+
     const years = Math.floor(months / 12);
     const remainingMonths = months % 12;
+
     if (remainingMonths === 0)
       return `${years} ${years === 1 ? "year" : "years"}`;
-    return `${years} ${years === 1 ? "year" : "years"}, ${remainingMonths} ${
-      remainingMonths === 1 ? "month" : "months"
-    }`;
+    return `${years}y ${remainingMonths}m`;
   };
 
   return (
-    <motion.div
-      className="h-full"
-      whileHover={{ scale: isMobile ? 1 : 1.02 }}
-      transition={{ duration: 0.3 }}
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
-    >
-      <Card className="bg-gray-800/50 backdrop-blur-sm border-gray-700 overflow-hidden shadow-lg rounded-lg h-full transition-all duration-300 hover:shadow-xl hover:border-blue-500">
-        {/* Image Section */}
-        <div className="relative aspect-[16/9]">
-          <Image
-            src={project.screenshot}
-            alt={`${project.title} screenshot`}
-            loading="eager"
-            fill
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/60 to-transparent" />
+    <AnimeCard glowColor="blue" intensity="medium">
+      <motion.div
+        className="h-full group"
+        whileHover={{ y: isMobile ? 0 : -4 }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
+        onHoverStart={() => setIsHovered(true)}
+        onHoverEnd={() => setIsHovered(false)}
+      >
+        <div
+          className={cn(
+            "h-full rounded-lg overflow-hidden",
+            "bg-gray-900/40 backdrop-blur-sm border border-gray-800/50",
+            "hover:bg-gray-900/60 hover:border-gray-700/50",
+            "transition-all duration-300 ease-out",
+            "hover:shadow-xl hover:shadow-black/20"
+          )}
+        >
+          {/* Image Section */}
+          <Link href={`/home/projects/${project.id}`} passHref>
+            <div
+              className="relative aspect-[16/9] cursor-pointer overflow-hidden"
+              onContextMenu={(e) => {
+                if (project.inDevelopment) {
+                  e.preventDefault();
+                  return false;
+                }
+              }}
+            >
+              <Image
+                src={project.screenshot}
+                alt={`${project.title} screenshot`}
+                loading="lazy"
+                fill
+                className={cn(
+                  "object-cover transition-transform duration-300",
+                  !project.inDevelopment && "group-hover:scale-105",
+                  project.inDevelopment && "blur-md select-none"
+                )}
+                unoptimized={project.inDevelopment}
+                draggable={!project.inDevelopment}
+              />
 
-          <AnimatePresence>
-            {(isHovered || isMobile) && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="absolute inset-0 flex items-center justify-center bg-black/60 backdrop-blur-[2px]"
-              >
-                <Button
-                  size="sm"
-                  className="bg-blue-500/90 hover:bg-blue-600 text-white px-3 py-1.5 text-[10px] sm:text-xs sm:px-4 sm:py-2"
-                  onClick={() => setIsDialogOpen(true)}
+              {/* Gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/40 to-transparent" />
+
+              {/* Development overlay */}
+              {project.inDevelopment && (
+                <div className="absolute inset-0 flex items-center justify-center bg-gray-900/60 backdrop-blur-[2px]">
+                  <div className="text-center p-4">
+                    <Construction className="w-8 h-8 text-yellow-400 mx-auto mb-2" />
+                    <p className="text-sm text-gray-300">
+                      Project Under Development
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {/* Category badge - top right */}
+              <div className="absolute top-3 right-3 flex gap-2">
+                {project.inDevelopment && (
+                  <Badge
+                    variant="outline"
+                    className="border-yellow-500/30 text-yellow-300 bg-gray-900/80 backdrop-blur-sm"
+                  >
+                    <Construction className="w-3 h-3 mr-1" />
+                    In Development
+                  </Badge>
+                )}
+                <Badge
+                  variant="outline"
+                  className={cn(
+                    "border-gray-700/50 bg-gray-900/80 backdrop-blur-sm",
+                    "text-gray-300 text-xs",
+                    project.category === "Enterprise" &&
+                      "border-blue-500/30 text-blue-300",
+                    project.category === "Personal" &&
+                      "border-purple-500/30 text-purple-300",
+                    project.category === "Academic" &&
+                      "border-green-500/30 text-green-300"
+                  )}
                 >
-                  View Details
-                </Button>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
+                  {project.category}
+                </Badge>
+              </div>
 
-        {/* Content Section */}
-        <CardContent className="p-2 sm:p-3 md:p-4">
-          <div className="space-y-1.5 sm:space-y-2">
-            <div className="flex items-start justify-between">
-              <h2 className="text-sm sm:text-base md:text-lg font-semibold text-white line-clamp-1">
+              {/* Hover overlay - only show for non-development projects */}
+              <AnimatePresence>
+                {!project.inDevelopment && (isHovered || isMobile) && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-[2px]"
+                  >
+                    <div className="flex items-center gap-2 bg-blue-500/90 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                      <Eye className="w-4 h-4" />
+                      View Details
+                      <ArrowRight className="w-4 h-4" />
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </Link>
+
+          {/* Content Section */}
+          <div className="p-5 space-y-4">
+            {/* Header */}
+            <div className="space-y-2">
+              <h3 className="text-lg font-semibold text-gray-100 group-hover:text-blue-300 transition-colors line-clamp-1">
                 {project.title}
-              </h2>
-              <Badge
-                variant="outline"
-                className="ml-2 border-gray-700 text-gray-400 text-[8px] sm:text-xs px-1.5"
-              >
-                {project.category}
-              </Badge>
+              </h3>
+
+              {/* Company & Role Info */}
+              <div className="space-y-1">
+                <div className="flex items-center text-sm text-gray-400">
+                  <Building2 className="mr-2 h-4 w-4 text-blue-400/70" />
+                  <span className="truncate">{project.company.name}</span>
+                </div>
+                <div className="flex items-center justify-between text-sm text-gray-400">
+                  <div className="flex items-center">
+                    <Briefcase className="mr-2 h-4 w-4 text-blue-400/70" />
+                    <span className="truncate">{project.role}</span>
+                  </div>
+                  <div className="flex items-center text-xs">
+                    <Clock className="mr-1 h-3 w-3" />
+                    <span>{getDuration()}</span>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            {/* Company and Duration */}
-            <div className="flex flex-col gap-0.5">
-              <div className="flex items-center text-[10px] sm:text-xs text-gray-400">
-                <Building2 className="mr-1 h-3 w-3" />
-                <span className="line-clamp-1">{project.company.name}</span>
-              </div>
-              <div className="flex items-center text-[10px] sm:text-xs text-gray-400">
-                <Clock className="mr-1 h-3 w-3" />
-                <span>{getDuration()}</span>
-              </div>
-            </div>
-
-            <p className="text-[10px] sm:text-xs text-gray-300 line-clamp-2 leading-relaxed">
+            {/* Description */}
+            <p className="text-sm text-gray-300 leading-relaxed line-clamp-2">
               {project.description}
             </p>
 
             {/* Technologies */}
-            <div className="flex flex-wrap gap-1 sm:gap-1.5 pt-0.5 sm:pt-1">
-              {project.technologies.slice(0, isMobile ? 2 : 3).map((tech) => (
-                <Badge
-                  key={tech}
-                  variant="secondary"
-                  className="bg-blue-500/20 text-blue-300 text-[8px] sm:text-xs px-1.5 sm:px-2 py-0.5"
-                >
-                  {tech}
-                </Badge>
-              ))}
-              {project.technologies.length > (isMobile ? 2 : 3) && (
-                <Badge
-                  variant="secondary"
-                  className="bg-blue-500/20 text-blue-300 text-[8px] sm:text-xs px-1.5 sm:px-2 py-0.5"
-                >
-                  +{project.technologies.length - (isMobile ? 2 : 3)}
-                </Badge>
-              )}
+            <div className="space-y-2">
+              <div className="flex flex-wrap gap-1.5">
+                {project.technologies.slice(0, 4).map((tech) => (
+                  <Badge
+                    key={tech}
+                    variant="secondary"
+                    className="bg-blue-500/10 text-blue-300 border border-blue-500/20 text-xs px-2 py-0.5"
+                  >
+                    {tech}
+                  </Badge>
+                ))}
+                {project.technologies.length > 4 && (
+                  <Badge
+                    variant="secondary"
+                    className="bg-gray-800/50 text-gray-400 border border-gray-700/50 text-xs px-2 py-0.5"
+                  >
+                    +{project.technologies.length - 4}
+                  </Badge>
+                )}
+              </div>
             </div>
 
-            {/* Highlights Preview */}
-            {project.highlights && (
-              <div className="pt-1">
-                <p className="text-[8px] sm:text-xs text-gray-300 line-clamp-1">
-                  ✨ {project.highlights[0]}
+            {/* Key highlight - subtle discovery element */}
+            {project.highlights && project.highlights[0] && (
+              <div className="pt-2 border-t border-gray-800/30">
+                <p className="text-xs text-gray-400 leading-relaxed">
+                  <span className="text-yellow-400/70">★</span>{" "}
+                  {project.highlights[0]}
                 </p>
               </div>
             )}
 
             {/* Actions */}
-            <div className="flex items-center gap-1.5 sm:gap-2 pt-0.5 sm:pt-1">
-              {!project.isPublic ? (
-                <div className="flex items-center text-gray-400 text-[8px] sm:text-xs bg-gray-700/50 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full">
-                  <Lock className="mr-0.5 sm:mr-1 h-2.5 w-2.5 sm:h-3 sm:w-3" />
-                  <span>Private</span>
-                </div>
-              ) : (
-                project.github && (
+            <div className="flex items-center justify-between pt-2">
+              <div className="flex items-center gap-2">
+                {project.isPublic ? (
+                  project.github && (
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      className="h-7 px-2 text-xs bg-gray-800/50 hover:bg-gray-800/80 text-gray-300 hover:text-white"
+                      asChild
+                    >
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <GitHubLogoIcon className="mr-1 h-3 w-3" />
+                        Code
+                      </a>
+                    </Button>
+                  )
+                ) : (
+                  <div className="flex items-center text-gray-500 text-xs bg-gray-800/30 px-2 py-1 rounded">
+                    <Lock className="mr-1 h-3 w-3" />
+                    Private
+                  </div>
+                )}
+
+                {project.hasVideo && project.videoLink && (
                   <Button
                     size="sm"
-                    variant="ghost"
-                    className="bg-gradient-to-r from-blue-700 to-blue-900 text-white text-[8px] sm:text-xs h-5 sm:h-6 px-1.5 sm:px-2"
+                    className="h-7 px-2 text-xs bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 border border-purple-500/30"
                     asChild
                   >
                     <a
-                      href={project.github}
+                      href={project.videoLink}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
                     >
-                      <GitHubLogoIcon className="mr-0.5 sm:mr-1 h-2.5 w-2.5 sm:h-3 sm:w-3" />{" "}
-                      GitHub
+                      <PlayCircle className="mr-1 h-3 w-3" />
+                      Demo
                     </a>
                   </Button>
-                )
-              )}
-              {project.hasVideo && (
-                <Button
-                  size="sm"
-                  className="bg-gradient-to-r from-pink-500 to-purple-600 text-[8px] sm:text-xs h-5 sm:h-6 px-1.5 sm:px-2"
-                  onClick={() => setIsDialogOpen(true)}
-                >
-                  <PlayCircle className="mr-0.5 sm:mr-1 h-2.5 w-2.5 sm:h-3 sm:w-3" />{" "}
-                  Demo
-                </Button>
-              )}
-              {project.isLive && project.websiteLink && (
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  className="bg-gradient-to-r from-blue-700 to-blue-900 text-white text-[8px] sm:text-xs h-5 sm:h-6 px-1.5 sm:px-2"
-                  asChild
-                >
-                  <a
-                    href={project.websiteLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                )}
+
+                {project.isLive && project.websiteLink && (
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    className="h-7 px-2 text-xs bg-green-500/20 hover:bg-green-500/30 text-green-300 border border-green-500/30"
+                    asChild
                   >
-                    <View className="mr-0.5 sm:mr-1 h-2.5 w-2.5 sm:h-3 sm:w-3" />
-                    Live
-                  </a>
-                </Button>
+                    <a
+                      href={project.websiteLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <ExternalLink className="mr-1 h-3 w-3" />
+                      Live
+                    </a>
+                  </Button>
+                )}
+              </div>
+
+              {/* Impact metrics - subtle discovery */}
+              {project.impact.metrics && project.impact.metrics.length > 0 && (
+                <div className="text-right">
+                  <p className="text-xs text-gray-500 opacity-70 group-hover:opacity-100 transition-opacity">
+                    {project.impact.metrics.length} key metrics
+                  </p>
+                </div>
               )}
             </div>
           </div>
-        </CardContent>
-      </Card>
-
-      <ProjectDialog
-        project={project}
-        isOpen={isDialogOpen}
-        onClose={() => setIsDialogOpen(false)}
-        // isMobile={isMobile}
-      />
-    </motion.div>
+        </div>
+      </motion.div>
+    </AnimeCard>
   );
 };

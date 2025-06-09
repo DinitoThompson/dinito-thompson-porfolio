@@ -1,62 +1,79 @@
 "use client";
 
-import { FileText, GraduationCap, Calendar, MapPin } from "lucide-react";
+import { GraduationCap, Calendar, MapPin, Award } from "lucide-react";
 import { Section } from "../components/section";
 import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 export function EducationSection() {
   return (
-    <Section title="Relevant Education">
+    <Section title="Education">
       <motion.div
-        initial={{ opacity: 0, x: -50 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5 }}
-        className="relative ml-6 hover:translate-x-1 transition-transform duration-300"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="relative"
       >
-        <div className="absolute -left-4 top-0 h-full w-0.5 bg-blue-500/20">
-          <div className="absolute -left-[5px] top-[20px] sm:top-[24px] h-3 w-3 rounded-full bg-blue-500 border-2 border-gray-900" />
-        </div>
+        {/* Refined timeline indicator */}
+        <div className="absolute left-4 top-0 bottom-0 w-px bg-gradient-to-b from-blue-400/30 to-transparent" />
+        <div className="absolute left-3.5 top-6 w-2 h-2 rounded-full bg-blue-400 shadow-sm shadow-blue-400/50" />
 
-        <div className="p-4 sm:p-6 bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-lg border border-gray-800 hover:border-blue-500/50 transition-colors duration-300 shadow-lg backdrop-blur-sm">
-          <div className="flex items-start justify-between flex-wrap gap-3 sm:gap-4">
-            <div className="flex-1">
-              <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
-                <motion.div
-                  animate={{
-                    scale: [1, 1.2, 1],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    repeatType: "reverse",
-                  }}
-                >
-                  <GraduationCap className="h-5 w-5 sm:h-6 sm:w-6 text-blue-400" />
-                </motion.div>
-                <h3 className="text-lg sm:text-xl font-bold text-white">
+        <div
+          className={cn(
+            "ml-8 p-6 rounded-lg group",
+            "bg-gray-900/40 backdrop-blur-sm",
+            "border border-gray-800/50",
+            "hover:border-gray-700/50 hover:bg-gray-900/60",
+            "transition-all duration-300"
+          )}
+        >
+          <div className="flex items-start gap-4">
+            {/* Icon - more subtle */}
+            <div className="p-2.5 rounded-lg bg-blue-400/10 border border-blue-400/20 flex-shrink-0">
+              <motion.div
+                animate={{ scale: [1, 1.05, 1] }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                }}
+              >
+                <GraduationCap className="h-5 w-5 text-blue-400" />
+              </motion.div>
+            </div>
+
+            {/* Content */}
+            <div className="flex-1 space-y-3">
+              <div>
+                <h3 className="text-base sm:text-lg font-semibold text-gray-100 group-hover:text-blue-300 transition-colors">
                   Bachelor&apos;s Degree in Computer Science
                 </h3>
+                <p className="text-blue-300/90 font-medium text-sm sm:text-base">
+                  University of Technology
+                </p>
               </div>
 
-              <div className="space-y-1.5 sm:space-y-2">
-                <div className="flex items-center gap-2 text-gray-300">
-                  <FileText className="h-4 w-4 text-blue-400/70" />
-                  <span className="text-base sm:text-lg">
-                    University of Technology
-                  </span>
-                </div>
-
-                <div className="flex items-center gap-2 text-gray-400">
+              {/* Details - refined layout */}
+              <div className="flex flex-wrap gap-4 text-sm text-gray-400">
+                <div className="flex items-center gap-2">
                   <MapPin className="h-4 w-4 text-blue-400/70" />
-                  <span className="text-sm sm:text-base">
-                    Kingston, Jamaica
-                  </span>
+                  <span>Kingston, Jamaica</span>
                 </div>
-
-                <div className="flex items-center gap-2 text-gray-400">
+                <div className="flex items-center gap-2">
                   <Calendar className="h-4 w-4 text-blue-400/70" />
-                  <span className="text-sm sm:text-base">2020 - 2024</span>
+                  <span>2020 - 2024</span>
                 </div>
+                <div className="flex items-center gap-2">
+                  <Award className="h-4 w-4 text-blue-400/70" />
+                  <span>Computer Science</span>
+                </div>
+              </div>
+
+              {/* Additional details - subtle discovery element */}
+              <div className="pt-3 border-t border-gray-800/30">
+                <p className="text-xs text-gray-500">
+                  Focused on software engineering, algorithms, and system design
+                </p>
               </div>
             </div>
           </div>

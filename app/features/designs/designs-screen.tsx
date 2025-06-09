@@ -9,6 +9,7 @@ import { DesignCard } from "@/app/features/designs/components/design-card";
 import { CategoryTabs } from "@/app/features/designs/components/category-tab";
 import { BubblesBackground } from "@/app/components/animated-background/bubbles-animated-bg";
 import { NavButton } from "@/components/ui/nav-button";
+import { cn } from "@/lib/utils";
 
 export default function DesignsScreen() {
   const [selectedDesign, setSelectedDesign] = React.useState<Design | null>(
@@ -34,36 +35,61 @@ export default function DesignsScreen() {
       : data.filter((design) => design.category === activeCategory);
   }, [activeCategory, data]);
 
-  // Organize designs for masonry layout with smaller, more uniform sizes
+  // Refined masonry layout with subtle variations
   const organizedDesigns = useMemo(() => {
     if (!filteredDesigns.length) return [];
 
     return filteredDesigns.map((design, index) => ({
       ...design,
       span: {
-        // More subtle variations in sizing
-        row: index % 12 === 0 ? 2 : 1,
-        col: index % 12 === 0 ? 2 : 1,
+        // More subtle and strategic sizing
+        row: index % 15 === 0 ? 2 : 1,
+        col: index % 20 === 0 ? 2 : 1,
       },
     }));
   }, [filteredDesigns]);
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.03,
+        delayChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: [0.25, 0.25, 0.25, 0.75],
+      },
+    },
+  };
+
   if (isLoading || error) {
     return (
-      <div className="min-h-screen text-white relative overflow-hidden">
-        <BubblesBackground />
-        <div className="h-screen flex items-center justify-center">
+      <div className="min-h-screen bg-gray-950 text-gray-100 relative overflow-hidden">
+        <BubblesBackground className="opacity-60" />
+        <div className="h-screen flex items-center justify-center relative z-10">
           {isLoading ? (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="text-2xl font-bold"
+              className="text-center space-y-4"
             >
-              Loading Designs...
+              <div className="w-8 h-8 border-2 border-blue-400 border-t-transparent rounded-full animate-spin mx-auto" />
+              <p className="text-gray-300">Loading design portfolio...</p>
             </motion.div>
           ) : (
-            <div className="text-2xl font-bold text-red-500">
-              Error loading designs
+            <div className="text-center space-y-4">
+              <p className="text-xl text-red-400">Error loading designs</p>
+              <p className="text-gray-400">Please try refreshing the page</p>
             </div>
           )}
         </div>
@@ -72,60 +98,116 @@ export default function DesignsScreen() {
   }
 
   return (
-    <div className="min-h-screen text-white relative pb-6 overflow-hidden">
-      <BubblesBackground />
-      <div className="max-w-[2000px] pl-9 pr-9 mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16 relative z-10">
-        <motion.h2
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8 sm:mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-teal-500"
-        >
-          Graphic Designs
-        </motion.h2>
+    <div className="min-h-screen bg-gray-950 text-gray-100 relative overflow-hidden">
+      {/* Subtle background */}
+      <BubblesBackground className="opacity-60" />
 
-        <div className="w-full">
-          <CategoryTabs
-            categories={categories}
-            activeCategory={activeCategory}
-            onCategoryChange={setActiveCategory}
-          />
-        </div>
+      <div className="relative z-10 py-12 px-6 sm:px-8 lg:px-12">
+        <div className="max-w-7xl mx-auto">
+          {/* Refined header */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12 space-y-4"
+          >
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-gray-200">
+              Design Portfolio
+            </h1>
+            <p className="text-sm sm:text-base text-gray-400 max-w-2xl mx-auto leading-relaxed">
+              A collection of some of my graphic design work
+            </p>
 
-        <motion.div
-          layout
-          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-3 md:gap-4 auto-rows-[200px] sm:auto-rows-[220px] md:auto-rows-[240px]"
-        >
-          {organizedDesigns.map((design, index) => (
+            {/* Subtle design count indicator */}
+            <div className="text-xs text-gray-500">
+              {filteredDesigns.length}{" "}
+              {filteredDesigns.length === 1 ? "design" : "designs"}
+              {activeCategory !== "All" && ` in ${activeCategory}`}
+            </div>
+          </motion.div>
+
+          {/* Category tabs */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mb-8"
+          >
+            <CategoryTabs
+              categories={categories}
+              activeCategory={activeCategory}
+              onCategoryChange={setActiveCategory}
+            />
+          </motion.div>
+
+          {/* Designs grid */}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            layout
+            className={cn(
+              "grid gap-4 mb-12",
+              "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6",
+              "auto-rows-[180px] sm:auto-rows-[200px] md:auto-rows-[220px]"
+            )}
+          >
+            {organizedDesigns.map((design) => (
+              <motion.div
+                key={design.id}
+                variants={itemVariants}
+                layout
+                className={cn(
+                  "transition-all duration-500",
+                  design.span.row === 2 && "row-span-2",
+                  design.span.col === 2 && "sm:col-span-2"
+                )}
+              >
+                <DesignCard
+                  design={design}
+                  onClick={() => setSelectedDesign(design)}
+                />
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Empty state */}
+          {organizedDesigns.length === 0 && (
             <motion.div
-              key={design.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.05 }}
-              className={`
-                ${design.span.row === 2 ? "row-span-2" : ""}
-                ${design.span.col === 2 ? "sm:col-span-2" : ""}
-                transition-all duration-500
-              `}
+              className="text-center py-12"
             >
-              <DesignCard
-                design={design}
-                onClick={() => setSelectedDesign(design)}
-              />
+              <p className="text-gray-400 mb-4">
+                No designs found in this category
+              </p>
+              <button
+                onClick={() => setActiveCategory("All")}
+                className="text-blue-400 hover:text-blue-300 transition-colors text-sm"
+              >
+                View all designs
+              </button>
             </motion.div>
-          ))}
-        </motion.div>
+          )}
 
-        {organizedDesigns.length === 0 && (
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-center text-gray-400 mt-8 text-lg"
+          {/* Call to action */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+            className="flex justify-center"
           >
-            No designs found in this category.
-          </motion.p>
-        )}
+            <NavButton
+              href="/home/contact"
+              text="Get In Touch"
+              variant="secondary"
+              size="md"
+            />
+          </motion.div>
+        </div>
       </div>
 
+      {/* Design modal */}
       {selectedDesign && (
         <DesignDialog
           design={selectedDesign}
@@ -134,8 +216,6 @@ export default function DesignsScreen() {
           onClose={() => setSelectedDesign(null)}
         />
       )}
-
-      <NavButton href="/home/contact" text="Contact Me" />
     </div>
   );
 }

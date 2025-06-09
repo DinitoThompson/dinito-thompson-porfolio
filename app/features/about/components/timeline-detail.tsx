@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 interface TimelineItemProps {
   year: string;
@@ -17,38 +18,57 @@ export function TimelineItem({
 }: TimelineItemProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, x: -50 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.5 }}
-      className="relative mb-6 sm:mb-8 ml-6 hover:translate-x-1 transition-transform duration-300"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      className="relative group"
     >
-      <div className="absolute -left-4 top-0 h-full w-0.5 bg-blue-500/20">
-        <div className="absolute -left-[5px] top-[24px] h-3 w-3 rounded-full bg-blue-500 border-2 border-gray-900" />
-      </div>
+      {/* Refined timeline line and dot */}
+      <div className="absolute left-4 top-0 bottom-0 w-px bg-gradient-to-b from-blue-400/30 via-blue-400/20 to-transparent" />
+      <div className="absolute left-3.5 top-6 w-2 h-2 rounded-full bg-blue-400 shadow-sm shadow-blue-400/50 transition-all duration-300 group-hover:shadow-md group-hover:shadow-blue-400/60" />
 
-      <div className="ml-6 p-4 sm:p-6 bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-lg border border-gray-800 hover:border-blue-500/50 transition-colors duration-300 shadow-lg backdrop-blur-sm">
-        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-2 mb-3 sm:mb-4">
-          <div>
-            <h3 className="text-lg sm:text-xl font-bold text-white group-hover:text-blue-400 transition-colors">
+      <div
+        className={cn(
+          "ml-8 mb-6 p-6 rounded-lg",
+          "bg-gray-900/40 backdrop-blur-sm",
+          "border border-gray-800/50",
+          "hover:border-gray-700/50 hover:bg-gray-900/60",
+          "transition-all duration-300 ease-out",
+          "group-hover:translate-x-1"
+        )}
+      >
+        {/* Header with refined layout */}
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
+          <div className="space-y-1">
+            <h3 className="text-base sm:text-lg font-semibold text-gray-100 group-hover:text-blue-300 transition-colors">
               {title}
             </h3>
-            <p className="text-base sm:text-lg text-blue-400/90 font-medium">
+            <p className="text-blue-300/90 font-medium text-sm sm:text-base">
               {company}
             </p>
           </div>
-          <span className="inline-flex items-center px-2 sm:px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs sm:text-sm font-medium whitespace-nowrap">
+
+          {/* Year badge - more subtle */}
+          <span
+            className={cn(
+              "inline-flex items-center px-3 py-1 rounded-full text-xs font-medium",
+              "bg-blue-400/10 border border-blue-400/20 text-blue-300",
+              "whitespace-nowrap"
+            )}
+          >
             {year}
           </span>
         </div>
 
-        <ul className="space-y-2 sm:space-y-3">
+        {/* Achievements list - refined styling */}
+        <ul className="space-y-2.5">
           {description.map((item, index) => (
             <li
               key={index}
-              className="flex gap-2 sm:gap-3 text-gray-300 leading-relaxed"
+              className="flex gap-3 text-gray-300 leading-relaxed"
             >
-              <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-blue-500/50" />
-              <span className="text-sm sm:text-base">{item}</span>
+              <span className="mt-2 h-1 w-1 flex-shrink-0 rounded-full bg-blue-400/60" />
+              <span className="text-sm">{item}</span>
             </li>
           ))}
         </ul>
