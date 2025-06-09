@@ -1,3 +1,4 @@
+import { ReactElement } from "react";
 import {
   Code,
   Globe,
@@ -10,7 +11,18 @@ import {
   Brain,
 } from "lucide-react";
 
-export const skillCategories = [
+export interface Skill {
+  name: string;
+  icon: string;
+}
+
+export interface SkillCategory {
+  name: string;
+  icon: ReactElement;
+  skills: Skill[];
+}
+
+export const skillCategories: SkillCategory[] = [
   {
     name: "Languages",
     icon: <Code />,
@@ -24,26 +36,26 @@ export const skillCategories = [
         icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
       },
       {
-        name: "TypeScript",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+        name: "PHP",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg",
       },
     ],
   },
   {
-    name: "Web",
+    name: "Frontend",
     icon: <Globe />,
     skills: [
-      {
-        name: "React",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
-      },
       {
         name: "Next.js",
         icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
       },
       {
-        name: "Node.js",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+        name: "TailwindCSS",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg",
+      },
+      {
+        name: "TypeScript",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
       },
     ],
   },
@@ -56,21 +68,17 @@ export const skillCategories = [
         icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg",
       },
       {
-        name: "Dart",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg",
-      },
-      {
-        name: "Android Studio",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/android/android-original.svg",
+        name: "React Native",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
       },
     ],
   },
   {
-    name: "Backend & APIs",
+    name: "Backend",
     icon: <Server />,
     skills: [
       {
-        name: "Spring",
+        name: "Spring Boot",
         icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg",
       },
       {
@@ -78,8 +86,8 @@ export const skillCategories = [
         icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/yii/yii-original.svg",
       },
       {
-        name: "PHP",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg",
+        name: "Laravel",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg",
       },
     ],
   },
@@ -96,8 +104,8 @@ export const skillCategories = [
         icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
       },
       {
-        name: "MongoDB",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+        name: "Firebase",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
       },
     ],
   },
@@ -114,13 +122,13 @@ export const skillCategories = [
         icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
       },
       {
-        name: "GitHub",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
+        name: "Git",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
       },
     ],
   },
   {
-    name: "IDEs & Tools",
+    name: "Tools & IDEs",
     icon: <Terminal />,
     skills: [
       {
@@ -128,8 +136,8 @@ export const skillCategories = [
         icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg",
       },
       {
-        name: "IntelliJ IDEA",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/intellij/intellij-original.svg",
+        name: "Cursor",
+        icon: "/assets/icons/cursor.png",
       },
       {
         name: "Postman",
@@ -138,25 +146,25 @@ export const skillCategories = [
     ],
   },
   {
-    name: "Design & UI/UX",
+    name: "Design & Creative",
     icon: <PenTool />,
     skills: [
       {
-        name: "Illustrator",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/illustrator/illustrator-plain.svg",
-      },
-      {
-        name: "Photoshop",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-original.svg",
+        name: "Affinity",
+        icon: "/assets/icons/affinity.png",
       },
       {
         name: "Figma",
         icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
       },
+      {
+        name: "Canva",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/canva/canva-original.svg",
+      },
     ],
   },
   {
-    name: "Machine Learning",
+    name: "AI & Data",
     icon: <Brain />,
     skills: [
       {
@@ -164,12 +172,12 @@ export const skillCategories = [
         icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg",
       },
       {
-        name: "PyTorch",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg",
-      },
-      {
         name: "OpenCV",
         icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opencv/opencv-original.svg",
+      },
+      {
+        name: "Claude",
+        icon: "/assets/icons/claude.webp",
       },
     ],
   },

@@ -11,87 +11,206 @@ export const ContactEmailTemplate: React.FC<
 > = ({ name, email, message }) => (
   <div
     style={{
-      fontFamily: "Arial, sans-serif",
-      maxWidth: "600px",
+      fontFamily:
+        "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+      maxWidth: "640px",
       margin: "0 auto",
-      padding: "20px",
-      backgroundColor: "#f8f9fa",
-      borderRadius: "8px",
-      boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+      padding: "0",
+      backgroundColor: "#0f172a", // gray-950
+      borderRadius: "12px",
+      boxShadow:
+        "0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.1)",
+      overflow: "hidden",
     }}
   >
+    {/* Header */}
     <div
       style={{
-        backgroundColor: "#4a5568",
-        color: "white",
-        padding: "20px",
-        borderRadius: "8px 8px 0 0",
+        background: "linear-gradient(135deg, #1e293b 0%, #0f172a 100%)", // gray-800 to gray-950
+        color: "#f1f5f9", // gray-100
+        padding: "32px 24px",
         textAlign: "center" as const,
+        borderBottom: "1px solid #334155", // gray-700
       }}
     >
-      <h1 style={{ margin: "0", fontSize: "24px" }}>
-        New Contact Form Submission
+      <h1
+        style={{
+          margin: "0 0 8px 0",
+          fontSize: "28px",
+          fontWeight: "600",
+          letterSpacing: "-0.025em",
+        }}
+      >
+        New Portfolio Inquiry
       </h1>
+      <p
+        style={{
+          margin: "0",
+          fontSize: "16px",
+          color: "#94a3b8", // gray-400
+          fontWeight: "400",
+        }}
+      >
+        Contact form submission from dinitothompson.dev
+      </p>
     </div>
+
+    {/* Content */}
     <div
       style={{
-        padding: "20px",
-        backgroundColor: "white",
-        borderRadius: "0 0 8px 8px",
+        padding: "32px 24px",
+        backgroundColor: "#1e293b", // gray-800
       }}
     >
-      <p style={{ fontSize: "16px", lineHeight: "1.5", color: "#4a5568" }}>
-        You have received a new message from your portfolio website&apos;s
+      <p
+        style={{
+          fontSize: "16px",
+          lineHeight: "1.6",
+          color: "#cbd5e1", // gray-300
+          margin: "0 0 24px 0",
+        }}
+      >
+        You have received a new message through your portfolio website&apos;s
         contact form:
       </p>
+
+      {/* Contact Details Card */}
       <div
         style={{
-          backgroundColor: "#edf2f7",
-          padding: "15px",
-          borderRadius: "6px",
-          marginBottom: "20px",
+          backgroundColor: "#0f172a", // gray-950
+          border: "1px solid #334155", // gray-700
+          borderRadius: "8px",
+          padding: "20px",
+          marginBottom: "24px",
         }}
       >
-        <p style={{ margin: "0 0 10px 0", fontSize: "16px", color: "#4a5568" }}>
-          <strong style={{ color: "#2d3748" }}>Name:</strong> {name}
-        </p>
-        <p style={{ margin: "0 0 10px 0", fontSize: "16px", color: "#4a5568" }}>
-          <strong style={{ color: "#2d3748" }}>Email:</strong> {email}
-        </p>
+        <div style={{ marginBottom: "16px" }}>
+          <p
+            style={{
+              margin: "0 0 4px 0",
+              fontSize: "12px",
+              fontWeight: "500",
+              color: "#64748b", // gray-500
+              textTransform: "uppercase",
+              letterSpacing: "0.05em",
+            }}
+          >
+            Contact Information
+          </p>
+        </div>
+
+        <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+            <div
+              style={{
+                width: "32px",
+                height: "32px",
+                backgroundColor: "#3b82f6", // blue-500
+                borderRadius: "6px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexShrink: "0",
+              }}
+            >
+              <span
+                style={{ color: "white", fontSize: "14px", fontWeight: "500" }}
+              >
+                {name.charAt(0).toUpperCase()}
+              </span>
+            </div>
+            <div>
+              <p
+                style={{
+                  margin: "0",
+                  fontSize: "16px",
+                  fontWeight: "500",
+                  color: "#f1f5f9",
+                }}
+              >
+                {name}
+              </p>
+              <p style={{ margin: "0", fontSize: "14px", color: "#94a3b8" }}>
+                {email}
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
-      <h2 style={{ fontSize: "20px", color: "#2d3748", marginBottom: "10px" }}>
-        Message:
-      </h2>
+
+      {/* Message Content */}
       <div
         style={{
-          backgroundColor: "#edf2f7",
-          padding: "15px",
-          borderRadius: "6px",
-          whiteSpace: "pre-wrap",
+          backgroundColor: "#0f172a", // gray-950
+          border: "1px solid #334155", // gray-700
+          borderRadius: "8px",
+          padding: "20px",
         }}
       >
-        <p
+        <div style={{ marginBottom: "16px" }}>
+          <p
+            style={{
+              margin: "0",
+              fontSize: "12px",
+              fontWeight: "500",
+              color: "#64748b", // gray-500
+              textTransform: "uppercase",
+              letterSpacing: "0.05em",
+            }}
+          >
+            Message
+          </p>
+        </div>
+
+        <div
           style={{
-            margin: "0",
-            fontSize: "16px",
-            lineHeight: "1.6",
-            color: "#4a5568",
+            backgroundColor: "#1e293b", // gray-800
+            borderRadius: "6px",
+            padding: "16px",
+            border: "1px solid #475569", // gray-600
           }}
         >
-          {message}
-        </p>
+          <p
+            style={{
+              margin: "0",
+              fontSize: "15px",
+              lineHeight: "1.7",
+              color: "#cbd5e1", // gray-300
+              whiteSpace: "pre-wrap",
+            }}
+          >
+            {message}
+          </p>
+        </div>
       </div>
     </div>
+
+    {/* Footer */}
     <div
       style={{
-        marginTop: "20px",
+        padding: "24px",
+        backgroundColor: "#0f172a", // gray-950
+        borderTop: "1px solid #334155", // gray-700
         textAlign: "center" as const,
-        fontSize: "14px",
-        color: "#718096",
       }}
     >
-      <p>
-        This email was sent from your portfolio website&apos;s contact form.
+      <p
+        style={{
+          margin: "0 0 8px 0",
+          fontSize: "14px",
+          color: "#64748b", // gray-500
+        }}
+      >
+        This email was generated automatically from your portfolio website
+      </p>
+      <p
+        style={{
+          margin: "0",
+          fontSize: "12px",
+          color: "#475569", // gray-600
+        }}
+      >
+        dinitothompson.dev • Portfolio Contact Form
       </p>
     </div>
   </div>
