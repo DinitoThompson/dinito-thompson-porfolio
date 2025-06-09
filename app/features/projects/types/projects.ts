@@ -25,6 +25,7 @@ export interface Project {
   title: string;
   description: string;
   category: ProjectCategory;
+  inDevelopment?: boolean; // Flag to indicate if project is in development
 
   // Company & Role Information
   company: CompanyDetails;
@@ -74,8 +75,7 @@ export const projects: Project[] = [
       position: "Student Developer",
       timeline: "2022-2023",
     },
-    description:
-      "AI-powered platform for real-time vehicle monitoring and analysis of campus entries and exits.",
+    description: "AI-powered platform monitoring system.",
     duration: {
       start: "2022-09",
       end: "2023-05",
@@ -142,10 +142,10 @@ export const projects: Project[] = [
       position: "Lead Software Developer",
       timeline: "2023 - Present",
     },
-    description: "In-house Job management system for Konnexx Services Limited",
+    description: "In-house Job management system",
     duration: {
       start: "2023-05",
-      end: "Present",
+      end: "2023-09",
     },
     features: [
       "Real-time job tracking and assignment",
@@ -210,7 +210,7 @@ export const projects: Project[] = [
       position: "Lead Software Developer",
       timeline: "2023 - Present",
     },
-    description: "Delivery and logistics management system for Massy Groups",
+    description: "Delivery and logistics management system",
     duration: {
       start: "2024-10",
       end: "Present",
@@ -340,10 +340,10 @@ export const projects: Project[] = [
       position: "Software Developer",
       timeline: "2023 - Present",
     },
-    description: "Digicel+ home security system, using smart technology",
+    description: "Digicel+ home surveillance system",
     duration: {
       start: "2023-06",
-      end: "Present",
+      end: "2023-12",
     },
     features: [
       "Real-time camera feeds",
@@ -396,14 +396,14 @@ export const projects: Project[] = [
     title: "AirSpace",
     category: "Enterprise",
     company: {
-      name: "ByteOptima",
+      name: "Byte",
       position: "Software Developer",
       timeline: "2024",
     },
     description: "Courier and logistics management system",
     duration: {
       start: "2024-01",
-      end: "Present",
+      end: "2024-05",
     },
     features: [
       "Shipment tracking",
@@ -452,9 +452,48 @@ export const projects: Project[] = [
       "Frontend implementation",
       "System integration",
     ],
-    isPublic: true,
+    isPublic: false,
     hasVideo: false,
-    isLive: true,
-    websiteLink: "https://airspacelogisticshub.com",
+    isLive: false,
+    // websiteLink: "https://airspacelogisticshub.com",
+    // documentation: "https://github.com/DinitoThompson/FlowEase",
+  },
+  {
+    id: 7,
+    title: "Video Streaming Platform",
+    description: "Video streaming platform for Jamaican content.",
+    company: {
+      name: "Personal Project",
+      position: "Full Stack Developer",
+      timeline: "2024 - Present",
+    },
+    role: "Software Developer",
+    category: "Personal",
+    duration: {
+      start: "2024-02",
+      end: "Present",
+    },
+    screenshot: "/assets/development/portfolio.png",
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Framer Motion",
+      "Shadcn/ui",
+    ],
+    impact: {
+      description:
+        "Personal portfolio website to showcase my projects and skills.",
+      metrics: [],
+      businessValue: [],
+    },
+    inDevelopment: true,
+    isPublic: false,
+    isLive: false,
+    hasVideo: false,
   },
 ];
+
+export const getProjectById = (id: number): Project | undefined => {
+  return projects.find((project) => project.id === id);
+};

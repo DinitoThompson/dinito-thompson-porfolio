@@ -2,25 +2,38 @@
 
 import React from "react";
 import { useTypewriter, Cursor } from "react-simple-typewriter";
+import { cn } from "@/lib/utils";
 
-export function TypeWriter() {
+interface TypeWriterProps {
+  className?: string;
+  speed?: number;
+  delay?: number;
+}
+
+export function TypeWriter({
+  className,
+  speed = 60,
+  delay = 2500,
+}: TypeWriterProps) {
   const [typewriterText] = useTypewriter({
     words: [
-      "Innovation leads, Imitation follows",
-      "Code gives us superpowers",
-      "Dream in code, build reality",
-      "Imagination fuels impact",
+      "Building scalable web applications",
+      "Crafting intuitive backend services",
+      "Exploring modern development practices",
+      "Researching new AI applications",
+      "Designing thoughtful user experiences",
+      "Optimizing performance and accessibility",
     ],
     loop: 0,
-    typeSpeed: 70,
+    typeSpeed: speed,
     deleteSpeed: 50,
-    delaySpeed: 2000,
+    delaySpeed: delay,
   });
 
   return (
-    <>
-      {typewriterText}
-      <Cursor cursorColor="white" />
-    </>
+    <span className={cn("inline-flex items-center", className)}>
+      <span className="text-blue-300 font-normal">{typewriterText}</span>
+      <Cursor cursorColor="#93c5fd" cursorStyle="|" cursorBlinking={true} />
+    </span>
   );
 }

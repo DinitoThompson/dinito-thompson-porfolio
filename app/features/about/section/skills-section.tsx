@@ -10,14 +10,15 @@ interface SkillsSectionProps {
 
 export function SkillsSection({ controls }: SkillsSectionProps) {
   return (
-    <Section title="Skills Summary">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+    <Section title="Primary Stack">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {resumeSkills.map((skill, index) => (
           <motion.div
             key={skill.category}
             custom={index}
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={controls}
+            transition={{ delay: index * 0.1 }}
           >
             <Skill {...skill} />
           </motion.div>
