@@ -1,13 +1,9 @@
-import React from "react";
+"use client";
+
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
-import {
-  Project,
-  getProjectById,
-} from "@/app/features/projects/types/projects";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
 import {
   ArrowLeft,
   ExternalLink,
@@ -20,26 +16,31 @@ import {
   Zap,
   Clock,
   Construction,
-  Loader2,
+  BarChart3,
+  Layers,
 } from "lucide-react";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { BubblesBackground } from "@/app/components/animated-background/bubbles-animated-bg";
-import { motion } from "framer-motion";
+import {
+  Project,
+  getProjectById,
+} from "@/app/features/projects/types/projects";
+import { getYouTubeEmbedUrl } from "@/app/features/projects/types/youtube-player";
+import {
+  categoryStyles,
+  formatDurationRange,
+  getDuration,
+} from "@/app/features/projects/utils/project-utils";
+import { ProjectDetailSkeleton } from "./components/project-detail-skeleton";
+import {
+  ProjectDetailSection,
+  ProjectDetailList,
+  ProjectSidebarCard,
+} from "./components/project-detail-section";
+import { ProjectLinkButton } from "./components/project-link-button";
 import { cn } from "@/lib/utils";
-
-const LoadingState = () => (
-  <div className="min-h-screen bg-gray-950 flex items-center justify-center text-gray-100 relative">
-    <BubblesBackground className="opacity-60" />
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className="relative z-10 flex flex-col items-center gap-4"
-    >
-      <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
-      <p className="text-gray-400">Loading project details...</p>
-    </motion.div>
-  </div>
-);
 
 function ProjectDetailScreen() {
   const router = useRouter();
@@ -64,52 +65,47 @@ function ProjectDetailScreen() {
       setIsLoading(false);
     };
 
-    // Add a small delay to prevent flash of loading state for fast loads
-    const timer = setTimeout(loadProject, 300);
+    const timer = setTimeout(loadProject, 200);
     return () => clearTimeout(timer);
   }, [params.id]);
 
-  const getYouTubeEmbedUrl = (url: string): string | null => {
-    if (!url) return null;
-    let videoId = null;
-
-    const urlParams = new URLSearchParams(new URL(url).search);
-    videoId = urlParams.get("v");
-
-    if (!videoId && url.includes("youtu.be/")) {
-      videoId = url.split("youtu.be/")[1]?.split("?")[0];
-    }
-
-    if (!videoId && url.includes("/embed/")) {
-      videoId = url.split("/embed/")[1]?.split("?")[0];
-    }
-
-    return videoId ? `https://www.youtube.com/embed/${videoId}` : null;
-  };
-
   if (isLoading) {
-    return <LoadingState />;
+    return (
+      <div className="relative min-h-screen overflow-hidden bg-welcome-deep text-welcome-foreground">
+        <BubblesBackground className="opacity-45" density="low" animeMode={true} />
+        <div className="relative z-10 px-4 py-8 sm:px-6 sm:py-10 md:px-8 lg:px-10 lg:py-12">
+          <ProjectDetailSkeleton />
+        </div>
+      </div>
+    );
   }
 
   if (project === null || project === undefined) {
     return (
-      <div className="min-h-screen bg-gray-950 flex flex-col items-center justify-center text-gray-100 relative px-4">
-        <BubblesBackground className="opacity-60" />
+      <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-welcome-deep px-4 text-welcome-foreground">
+        <BubblesBackground className="opacity-45" density="low" animeMode={true} />
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          className="relative z-10 text-center p-8 bg-gray-900/60 backdrop-blur-sm rounded-lg border border-gray-800/50 max-w-md"
+          className={cn(
+            "relative z-10 max-w-md rounded-2xl border border-welcome-surface-border/60",
+            "bg-welcome-elevated/90 p-8 text-center backdrop-blur-md"
+          )}
         >
-          <h1 className="text-2xl font-semibold mb-2">Project Not Found</h1>
-          <p className="text-gray-400 mb-6">
-            Sorry, we couldn&apos;t find the project you&apos;re looking for. It
-            might have been moved or doesn&apos;t exist.
+          <h1 className="text-xl font-bold text-welcome-foreground sm:text-2xl">
+            Project not found
+          </h1>
+          <p className="mt-2 text-sm text-welcome-muted">
+            This project may have moved or no longer exists.
           </p>
           <Button
             onClick={() => router.push("/home/projects")}
-            className="bg-blue-600 hover:bg-blue-700"
+            className={cn(
+              "mt-6 cursor-pointer gap-2 whitespace-nowrap",
+              "bg-welcome-accent-blue text-white hover:bg-welcome-accent-blue/90"
+            )}
           >
-            <ArrowLeft className="mr-2 h-4 w-4" />
+            <ArrowLeft className="h-4 w-4 shrink-0" />
             Back to Projects
           </Button>
         </motion.div>
@@ -117,172 +113,150 @@ function ProjectDetailScreen() {
     );
   }
 
-  const renderTechStack = (technologies: string[]) => (
-    <div className="flex flex-wrap gap-2">
-      {technologies.map((tech) => (
-        <Badge
-          key={tech}
-          variant="secondary"
-          className="bg-blue-500/10 text-blue-300 border border-blue-500/20 px-3 py-1"
-        >
-          {tech}
-        </Badge>
-      ))}
-    </div>
+  const styles = categoryStyles[project.category];
+  const durationLabel = formatDurationRange(
+    project.duration.start,
+    project.duration.end
   );
-
-  const renderListSection = (
-    title: string,
-    items?: string[],
-    icon?: React.ReactNode
-  ) =>
-    items &&
-    items.length > 0 && (
-      <div className="space-y-3">
-        <h3 className="text-lg font-semibold text-gray-200 flex items-center">
-          {icon && <span className="mr-2 text-blue-400">{icon}</span>}
-          {title}
-        </h3>
-        <ul className="space-y-2">
-          {items.map((item, index) => (
-            <li
-              key={index}
-              className="flex items-start gap-2 text-gray-300 text-sm"
-            >
-              <span className="mt-2 h-1 w-1 bg-blue-400 rounded-full flex-shrink-0" />
-              {item}
-            </li>
-          ))}
-        </ul>
-      </div>
-    );
+  const durationShort = getDuration(project);
 
   return (
-    <div className="min-h-screen bg-gray-950 text-gray-100 relative overflow-hidden">
-      <BubblesBackground className="opacity-60" />
+    <div className="relative min-h-screen overflow-hidden bg-welcome-deep text-welcome-foreground">
+      <BubblesBackground className="opacity-45" density="low" animeMode={true} />
 
-      <div className="relative z-10 py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          {/* Back button */}
+      <div className="relative z-10 px-4 py-8 sm:px-6 sm:py-10 md:px-8 lg:px-10 lg:py-12">
+        <div className="mx-auto max-w-6xl space-y-8 sm:space-y-10">
+          {/* Back navigation */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
+            initial={{ opacity: 0, x: -12 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.4 }}
           >
             <Button
-              variant="ghost"
-              className="mb-8 bg-gray-900/50 border border-gray-800/50 hover:bg-gray-800/50 text-gray-300 hover:text-white"
-              onClick={() => router.back()}
+              variant="outline"
+              onClick={() => router.push("/home/projects")}
+              className={cn(
+                "h-10 cursor-pointer gap-2 whitespace-nowrap",
+                "border-welcome-surface-border/60 bg-welcome-surface/50 text-welcome-muted",
+                "hover:border-welcome-accent-blue/30 hover:bg-welcome-surface/80 hover:text-welcome-foreground",
+                "focus-visible:ring-2 focus-visible:ring-welcome-accent-blue/40"
+              )}
             >
-              <ArrowLeft className="mr-2 h-4 w-4" /> Back to Projects
+              <ArrowLeft className="h-4 w-4 shrink-0" />
+              Back to Projects
             </Button>
           </motion.div>
 
-          {/* Header */}
+          {/* Hero header */}
           <motion.header
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="mb-8 text-center sm:text-left"
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className={cn(
+              "overflow-hidden rounded-2xl border border-welcome-surface-border/60",
+              "bg-welcome-elevated/90 backdrop-blur-md sm:rounded-3xl"
+            )}
           >
-            <div className="flex items-center justify-between gap-4 mb-4">
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-gray-100">
-                {project.title}
-              </h1>
-              {project.inDevelopment && (
-                <Badge
-                  variant="outline"
-                  className="border-yellow-500/30 text-yellow-300 bg-gray-900/80 backdrop-blur-sm"
-                >
-                  <Construction className="w-4 h-4 mr-2" />
-                  In Development
-                </Badge>
-              )}
-            </div>
+            <div
+              className={cn("h-1 w-full bg-gradient-to-r", styles.bar)}
+              aria-hidden="true"
+            />
+            <div className="space-y-4 p-5 sm:p-8">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                <h1 className="min-w-0 text-2xl font-extrabold tracking-tight text-welcome-foreground sm:text-3xl md:text-4xl">
+                  {project.title}
+                </h1>
+                <div className="flex shrink-0 flex-wrap gap-2">
+                  {project.inDevelopment && (
+                    <Badge
+                      variant="outline"
+                      className="whitespace-nowrap border-welcome-accent-indigo/30 bg-welcome-accent-indigo/10 text-welcome-accent-indigo"
+                    >
+                      <Construction className="mr-1 h-3 w-3 shrink-0" />
+                      In Development
+                    </Badge>
+                  )}
+                  <Badge
+                    variant="outline"
+                    className={cn("whitespace-nowrap", styles.badge)}
+                  >
+                    {project.category}
+                  </Badge>
+                </div>
+              </div>
 
-            {/* Project metadata */}
-            <div className="flex flex-col sm:flex-row gap-4 text-sm text-gray-400">
-              <div className="flex items-center">
-                <Building2 className="mr-2 h-4 w-4 text-blue-400/70" />
-                <span>{project.company.name}</span>
-              </div>
-              <div className="flex items-center">
-                <Briefcase className="mr-2 h-4 w-4 text-blue-400/70" />
-                <span>{project.company.position}</span>
-              </div>
-              <div className="flex items-center">
-                <CalendarDays className="mr-2 h-4 w-4 text-blue-400/70" />
-                <span>
-                  {project.duration.start} to{" "}
-                  {project.duration.end || "Present"}
+              <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-welcome-muted">
+                <span className="inline-flex min-w-0 max-w-full items-center gap-2">
+                  <Building2 className="h-3.5 w-3.5 shrink-0 text-welcome-accent-blue" />
+                  <span className="truncate">{project.company.name}</span>
+                </span>
+                <span className="inline-flex min-w-0 max-w-full items-center gap-2">
+                  <Briefcase className="h-3.5 w-3.5 shrink-0 text-welcome-accent-blue" />
+                  <span className="truncate">{project.role}</span>
+                </span>
+                <span className="inline-flex shrink-0 items-center gap-2 whitespace-nowrap tabular-nums">
+                  <CalendarDays className="h-3.5 w-3.5 shrink-0 text-welcome-accent-blue" />
+                  {durationLabel}
+                </span>
+                <span className="inline-flex shrink-0 items-center gap-2 whitespace-nowrap tabular-nums">
+                  <Clock className="h-3.5 w-3.5 shrink-0 text-welcome-accent-blue" />
+                  {durationShort}
                 </span>
               </div>
-              <Badge
-                variant="outline"
-                className={cn(
-                  "border-gray-700 text-gray-300",
-                  project.category === "Enterprise" &&
-                    "border-blue-500/30 text-blue-300",
-                  project.category === "Personal" &&
-                    "border-purple-500/30 text-purple-300",
-                  project.category === "Academic" &&
-                    "border-green-500/30 text-green-300"
-                )}
-              >
-                {project.category}
-              </Badge>
             </div>
           </motion.header>
 
-          <div className="lg:grid lg:grid-cols-3 lg:gap-8">
-            {/* Main Content */}
-            <div className="lg:col-span-2 space-y-8">
-              {/* Media Section */}
+          <div className="grid gap-6 lg:grid-cols-3 lg:gap-8">
+            {/* Main content */}
+            <div className="min-w-0 space-y-6 lg:col-span-2">
+              {/* Media */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className={cn(
+                  "overflow-hidden rounded-xl border border-welcome-surface-border/60",
+                  "bg-welcome-elevated/85 shadow-[0_12px_40px_hsl(var(--welcome-bg-deep)/0.4)]"
+                )}
               >
                 {project.hasVideo &&
                 project.videoLink &&
                 !project.inDevelopment ? (
-                  <div className="aspect-video rounded-lg overflow-hidden border border-gray-800/50 shadow-xl">
+                  <div className="aspect-video w-full">
                     <iframe
-                      src={getYouTubeEmbedUrl(project.videoLink) || ""}
-                      title={`${project.title} Video Demo`}
-                      frameBorder="0"
+                      src={getYouTubeEmbedUrl(project.videoLink)}
+                      title={`${project.title} demo`}
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       allowFullScreen
-                      className="w-full h-full"
+                      className="h-full w-full"
                     />
                   </div>
                 ) : (
                   <div
-                    className="relative aspect-video rounded-lg overflow-hidden border border-gray-800/50 shadow-xl"
+                    className="relative aspect-video w-full overflow-hidden"
                     onContextMenu={(e) => {
-                      if (project.inDevelopment) {
-                        e.preventDefault();
-                        return false;
-                      }
+                      if (project.inDevelopment) e.preventDefault();
                     }}
                   >
                     <Image
                       src={project.screenshot}
-                      alt={`${project.title} main image`}
+                      alt={`${project.title} preview`}
                       fill
                       className={cn(
                         "object-cover",
-                        project.inDevelopment && "blur-md select-none"
+                        project.inDevelopment && "scale-105 blur-md select-none"
                       )}
                       unoptimized={project.inDevelopment}
                       draggable={!project.inDevelopment}
+                      priority
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-welcome-deep/80 via-transparent to-transparent" />
                     {project.inDevelopment && (
-                      <div className="absolute inset-0 flex items-center justify-center bg-gray-900/60 backdrop-blur-[2px]">
-                        <div className="text-center p-4">
-                          <Construction className="w-12 h-12 text-yellow-400 mx-auto mb-3" />
-                          <p className="text-lg text-gray-300">
-                            Project Under Development
+                      <div className="absolute inset-0 flex items-center justify-center bg-welcome-deep/50 backdrop-blur-[2px]">
+                        <div className="rounded-xl border border-welcome-accent-indigo/30 bg-welcome-surface/80 px-5 py-4 text-center backdrop-blur-sm">
+                          <Construction className="mx-auto mb-2 h-8 w-8 text-welcome-accent-indigo" />
+                          <p className="whitespace-nowrap text-sm font-medium text-welcome-muted">
+                            Under development
                           </p>
                         </div>
                       </div>
@@ -292,198 +266,181 @@ function ProjectDetailScreen() {
               </motion.div>
 
               {/* Overview */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="space-y-4"
-              >
-                <h2 className="text-xl font-semibold text-gray-200">
-                  Project Overview
-                </h2>
-                <p className="text-gray-300 leading-relaxed">
+              <ProjectDetailSection title="Overview" delay={0.05}>
+                <p className="text-sm leading-relaxed text-welcome-muted sm:text-base">
                   {project.description}
                 </p>
-              </motion.div>
+              </ProjectDetailSection>
 
-              {/* Only show detailed sections if not in development */}
               {!project.inDevelopment && (
                 <>
-                  {/* Technical Architecture */}
                   {project.technicalDetails?.architecture && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: 0.4 }}
-                      className="space-y-3"
+                    <ProjectDetailSection
+                      title="Architecture"
+                      icon={<Layers className="h-4 w-4 shrink-0" />}
+                      delay={0.1}
                     >
-                      <h3 className="text-lg font-semibold text-gray-200">
-                        Architecture
-                      </h3>
-                      <p className="text-gray-300">
-                        {project.technicalDetails.architecture.join(", ")}
+                      <p className="text-sm leading-relaxed text-welcome-muted">
+                        {project.technicalDetails.architecture.join(" · ")}
                       </p>
-                    </motion.div>
+                    </ProjectDetailSection>
                   )}
 
-                  {/* Key Sections */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.5 }}
-                    className="space-y-8"
-                  >
-                    {renderListSection(
-                      "Key Features",
-                      project.features,
-                      <Zap />
-                    )}
-                    {renderListSection(
-                      "Challenges Overcome",
-                      project.challenges,
-                      <Target />
-                    )}
-                    {renderListSection(
-                      "Highlights & Achievements",
-                      project.highlights,
-                      <Zap />
-                    )}
-                  </motion.div>
-
-                  {/* Impact Section */}
-                  {project.impact && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: 0.6 }}
-                      className="pt-8 border-t border-gray-800/30 space-y-6"
+                  {project.features && project.features.length > 0 && (
+                    <ProjectDetailSection
+                      title="Key Features"
+                      icon={<Zap className="h-4 w-4 shrink-0" />}
+                      delay={0.12}
                     >
-                      <h2 className="text-xl font-semibold text-gray-200">
-                        Impact & Business Value
-                      </h2>
-                      <p className="text-gray-300 leading-relaxed">
-                        {project.impact.description}
-                      </p>
-                      {renderListSection("Key Metrics", project.impact.metrics)}
-                      {renderListSection(
-                        "Business Value",
-                        project.impact.businessValue
-                      )}
-                    </motion.div>
+                      <ProjectDetailList items={project.features} />
+                    </ProjectDetailSection>
+                  )}
+
+                  {project.challenges && project.challenges.length > 0 && (
+                    <ProjectDetailSection
+                      title="Challenges"
+                      icon={<Target className="h-4 w-4 shrink-0" />}
+                      delay={0.14}
+                    >
+                      <ProjectDetailList items={project.challenges} />
+                    </ProjectDetailSection>
+                  )}
+
+                  {project.highlights && project.highlights.length > 0 && (
+                    <ProjectDetailSection title="Highlights" delay={0.16}>
+                      <div className="space-y-2">
+                        {project.highlights.map((item, index) => (
+                          <div
+                            key={index}
+                            className={cn(
+                              "rounded-lg border border-welcome-surface-border/40",
+                              "bg-welcome-surface/50 px-3 py-2.5 text-sm leading-relaxed text-welcome-muted"
+                            )}
+                          >
+                            <span className="mr-1.5 text-welcome-accent-indigo">
+                              ★
+                            </span>
+                            {item}
+                          </div>
+                        ))}
+                      </div>
+                    </ProjectDetailSection>
+                  )}
+
+                  {project.impact && (
+                    <ProjectDetailSection
+                      title="Impact"
+                      icon={<BarChart3 className="h-4 w-4 shrink-0" />}
+                      delay={0.18}
+                    >
+                      <div className="space-y-5">
+                        <p className="text-sm leading-relaxed text-welcome-muted">
+                          {project.impact.description}
+                        </p>
+                        {project.impact.metrics &&
+                          project.impact.metrics.length > 0 && (
+                            <div>
+                              <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-welcome-muted">
+                                Metrics
+                              </p>
+                              <ProjectDetailList items={project.impact.metrics} />
+                            </div>
+                          )}
+                        {project.impact.businessValue &&
+                          project.impact.businessValue.length > 0 && (
+                            <div>
+                              <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-welcome-muted">
+                                Business Value
+                              </p>
+                              <ProjectDetailList
+                                items={project.impact.businessValue}
+                              />
+                            </div>
+                          )}
+                      </div>
+                    </ProjectDetailSection>
                   )}
                 </>
               )}
             </div>
 
             {/* Sidebar */}
-            <div className="mt-8 lg:mt-0 space-y-6">
-              {/* Tech Stack */}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="p-6 bg-gray-900/40 backdrop-blur-sm rounded-lg border border-gray-800/50"
-              >
-                <h3 className="text-lg font-semibold text-gray-200 mb-4">
-                  Technologies Used
-                </h3>
-                {renderTechStack(project.technologies)}
-              </motion.div>
+            <aside className="min-w-0 space-y-5">
+              <ProjectSidebarCard title="Tech Stack" delay={0.08}>
+                <div className="flex flex-wrap gap-2">
+                  {project.technologies.map((tech) => (
+                    <span
+                      key={tech}
+                      className={cn(
+                        "inline-flex shrink-0 items-center whitespace-nowrap rounded-md",
+                        "border border-welcome-accent-blue/20 bg-welcome-accent-blue/10",
+                        "px-2.5 py-1 text-xs font-medium text-welcome-accent-cyan"
+                      )}
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </ProjectSidebarCard>
 
-              {/* Project Links - Only show if not in development */}
               {!project.inDevelopment &&
                 (project.github ||
                   project.websiteLink ||
                   project.documentation) && (
-                  <motion.div
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.6, delay: 0.4 }}
-                    className="p-6 bg-gray-900/40 backdrop-blur-sm rounded-lg border border-gray-800/50"
-                  >
-                    <h3 className="text-lg font-semibold text-gray-200 mb-4">
-                      Project Links
-                    </h3>
-                    <div className="space-y-3">
+                  <ProjectSidebarCard title="Links" delay={0.12}>
+                    <div className="space-y-2.5">
                       {project.isPublic && project.github && (
-                        <Button
-                          variant="outline"
-                          asChild
-                          className="w-full justify-start bg-gray-800/50 border-gray-700/50 hover:bg-gray-800/80 text-gray-200 hover:text-white"
-                        >
-                          <a
-                            href={project.github}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <GitHubLogoIcon className="mr-2 h-4 w-4" />
-                            GitHub Repository
-                          </a>
-                        </Button>
+                        <ProjectLinkButton
+                          href={project.github}
+                          label="GitHub"
+                          icon={
+                            <GitHubLogoIcon className="h-4 w-4 shrink-0" />
+                          }
+                        />
                       )}
                       {project.isLive && project.websiteLink && (
-                        <Button
-                          variant="outline"
-                          asChild
-                          className="w-full justify-start bg-gray-800/50 border-gray-700/50 hover:bg-gray-800/80 text-gray-200 hover:text-white"
-                        >
-                          <a
-                            href={project.websiteLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <ExternalLink className="mr-2 h-4 w-4" />
-                            Live Demo
-                          </a>
-                        </Button>
+                        <ProjectLinkButton
+                          href={project.websiteLink}
+                          label="Live Demo"
+                          icon={
+                            <ExternalLink className="h-4 w-4 shrink-0" />
+                          }
+                          variant="success"
+                        />
                       )}
                       {project.documentation && (
-                        <Button
-                          variant="outline"
-                          asChild
-                          className="w-full justify-start bg-gray-800/50 border-gray-700/50 hover:bg-gray-800/80 text-gray-200 hover:text-white"
-                        >
-                          <a
-                            href={project.documentation}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <Paperclip className="mr-2 h-4 w-4" />
-                            Documentation
-                          </a>
-                        </Button>
+                        <ProjectLinkButton
+                          href={project.documentation}
+                          label="Documentation"
+                          icon={<Paperclip className="h-4 w-4 shrink-0" />}
+                        />
                       )}
                     </div>
-                  </motion.div>
+                  </ProjectSidebarCard>
                 )}
 
-              {/* Project Details - Show limited info if in development */}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.5 }}
-                className="p-6 bg-gray-900/40 backdrop-blur-sm rounded-lg border border-gray-800/50"
-              >
-                <h3 className="text-lg font-semibold text-gray-200 mb-4">
-                  Project Details
-                </h3>
-                <div className="space-y-4">
-                  <div className="flex items-start gap-3">
-                    <Briefcase className="mt-0.5 h-4 w-4 text-blue-400 flex-shrink-0" />
-                    <div>
-                      <span className="font-medium text-gray-200">Role:</span>
-                      <p className="text-gray-300">{project.role}</p>
+              <ProjectSidebarCard title="Details" delay={0.16}>
+                <div className="space-y-4 text-sm">
+                  <div className="flex min-w-0 items-start gap-3">
+                    <Briefcase className="mt-0.5 h-4 w-4 shrink-0 text-welcome-accent-blue" />
+                    <div className="min-w-0">
+                      <p className="text-xs font-medium uppercase tracking-wide text-welcome-muted">
+                        Role
+                      </p>
+                      <p className="truncate font-medium text-welcome-foreground">
+                        {project.role}
+                      </p>
                     </div>
                   </div>
 
                   {project.teamSize && !project.inDevelopment && (
-                    <div className="flex items-start gap-3">
-                      <Users className="mt-0.5 h-4 w-4 text-blue-400 flex-shrink-0" />
-                      <div>
-                        <span className="font-medium text-gray-200">
-                          Team Size:
-                        </span>
-                        <p className="text-gray-300">
+                    <div className="flex min-w-0 items-start gap-3">
+                      <Users className="mt-0.5 h-4 w-4 shrink-0 text-welcome-accent-blue" />
+                      <div className="min-w-0">
+                        <p className="text-xs font-medium uppercase tracking-wide text-welcome-muted">
+                          Team
+                        </p>
+                        <p className="whitespace-nowrap font-medium text-welcome-foreground">
                           {project.teamSize}{" "}
                           {project.teamSize === 1 ? "person" : "people"}
                         </p>
@@ -495,23 +452,16 @@ function ProjectDetailScreen() {
                     project.responsibilities.length > 0 &&
                     !project.inDevelopment && (
                       <div>
-                        <h4 className="font-medium text-gray-200 mb-2 flex items-center">
-                          <Clock className="mr-2 h-4 w-4 text-blue-400" />
-                          Key Responsibilities:
-                        </h4>
-                        <ul className="space-y-1 text-gray-300 pl-6">
-                          {project.responsibilities.map((resp, i) => (
-                            <li key={i} className="flex items-start gap-2">
-                              <span className="mt-2 h-1 w-1 bg-blue-400 rounded-full flex-shrink-0" />
-                              {resp}
-                            </li>
-                          ))}
-                        </ul>
+                        <p className="mb-2 flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-welcome-muted">
+                          <Clock className="h-3.5 w-3.5 shrink-0 text-welcome-accent-blue" />
+                          Responsibilities
+                        </p>
+                        <ProjectDetailList items={project.responsibilities} />
                       </div>
                     )}
                 </div>
-              </motion.div>
-            </div>
+              </ProjectSidebarCard>
+            </aside>
           </div>
         </div>
       </div>

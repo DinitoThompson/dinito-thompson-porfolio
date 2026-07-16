@@ -1,24 +1,36 @@
-import React, { useEffect, useState, useCallback } from "react";
+"use client";
+
+import { useEffect, useState, useCallback } from "react";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogFooter,
 } from "@/components/ui/dialog";
-import { Design } from "../types/designs";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { Design } from "../types/designs";
+import { getDesignCategoryStyle } from "../utils/design-category-styles";
 
-export const DesignDialog: React.FC<{
+interface DesignDialogProps {
   design: Design;
   designs: Design[];
   isOpen: boolean;
   onClose: () => void;
-}> = ({ design, designs, isOpen, onClose }) => {
+}
+
+export function DesignDialog({
+  design,
+  designs,
+  isOpen,
+  onClose,
+}: DesignDialogProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -42,183 +54,187 @@ export const DesignDialog: React.FC<{
       if (!isOpen) return;
       if (e.key === "ArrowLeft") handlePrevious();
       if (e.key === "ArrowRight") handleNext();
-      if (e.key === "Escape") onClose();
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, onClose, handlePrevious, handleNext]);
+  }, [isOpen, handlePrevious, handleNext]);
 
   const currentDesign = designs[currentIndex];
-
   if (!currentDesign) return null;
 
-  const getCategoryColor = (category: string) => {
-    const colors = {
-      Logo: "bg-blue-500/20 text-blue-300 border-blue-500/30",
-      Portrait: "bg-purple-500/20 text-purple-300 border-purple-500/30",
-      Inspirational: "bg-green-500/20 text-green-300 border-green-500/30",
-      Clothing: "bg-orange-500/20 text-orange-300 border-orange-500/30",
-      Conceptual: "bg-pink-500/20 text-pink-300 border-pink-500/30",
-      Redesign: "bg-cyan-500/20 text-cyan-300 border-cyan-500/30",
-    };
-    return (
-      colors[category as keyof typeof colors] ||
-      "bg-gray-500/20 text-gray-300 border-gray-500/30"
-    );
-  };
+  const styles = getDesignCategoryStyle(currentDesign.category);
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-[95vw] h-[95vh] md:h-[90vh] p-0 bg-gray-900/95 backdrop-blur-sm text-gray-100 border border-gray-800/50 overflow-hidden rounded-lg shadow-2xl">
-        {/* Subtle background gradient */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="absolute inset-0 bg-gradient-to-b from-gray-900/30 via-transparent to-gray-900/30 pointer-events-none"
+    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
+      <DialogContent
+        className={cn(
+          "flex h-[95vh] max-h-[95vh] w-[95vw] max-w-5xl flex-col gap-0 overflow-hidden p-0",
+          "border-welcome-surface-border/60 bg-welcome-elevated/95 text-welcome-foreground backdrop-blur-md",
+          "sm:rounded-2xl [&>button:last-child]:hidden"
+        )}
+      >
+        {/* Accent bar */}
+        <div
+          className="h-1 w-full shrink-0"
+          style={{
+            background:
+              "linear-gradient(90deg, hsl(var(--welcome-accent-blue)), hsl(var(--welcome-accent-indigo)), hsl(var(--welcome-accent-teal)))",
+          }}
+          aria-hidden="true"
         />
 
-        {/* Enhanced close button */}
-        <Button
-          variant="ghost"
-          size="icon"
-          className="absolute right-4 top-4 z-50 bg-gray-900/80 backdrop-blur-sm hover:bg-gray-800/80 rounded-full border border-gray-700/50 shadow-lg transition-all duration-200 hover:scale-105"
-          onClick={onClose}
-        >
-          <X className="h-4 w-4 text-gray-300 hover:text-white" />
-        </Button>
-
-        <div className="flex flex-col h-full">
-          {/* Header */}
-          <DialogHeader className="px-6 py-4 bg-gradient-to-b from-gray-900/60 to-transparent border-b border-gray-800/30">
-            <DialogTitle className="text-xl md:text-2xl font-semibold text-center">
-              <motion.span
-                key={currentDesign.title}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3 }}
-                className="text-gray-100"
-              >
-                {currentDesign.title}
-              </motion.span>
-            </DialogTitle>
-          </DialogHeader>
-
-          {/* Main content area */}
-          <div className="relative flex-1 min-h-0 flex items-center justify-center px-4 sm:px-12 md:px-20">
-            {/* Navigation buttons */}
+        {/* Header — fixed */}
+        <DialogHeader className="shrink-0 space-y-0 border-b border-welcome-surface-border/40 px-4 py-4 sm:px-6">
+          <div className="flex items-start justify-between gap-4 pr-10">
+            <div className="min-w-0 flex-1">
+              <DialogTitle className="truncate text-left text-lg font-bold text-welcome-foreground sm:text-xl">
+                <motion.span
+                  key={currentDesign.title}
+                  initial={{ opacity: 0, y: -6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.25 }}
+                >
+                  {currentDesign.title}
+                </motion.span>
+              </DialogTitle>
+              <div className="mt-2 flex flex-wrap items-center gap-2">
+                <Badge
+                  variant="outline"
+                  className={cn("shrink-0 whitespace-nowrap", styles.badge)}
+                >
+                  {currentDesign.category}
+                </Badge>
+                {currentDesign.year && (
+                  <span className="whitespace-nowrap text-xs tabular-nums text-welcome-muted">
+                    {currentDesign.year}
+                  </span>
+                )}
+              </div>
+            </div>
             <Button
               variant="ghost"
               size="icon"
+              aria-label="Close"
               className={cn(
-                "absolute left-2 sm:left-4 z-50 h-12 w-12 rounded-full",
-                "bg-gray-900/60 backdrop-blur-sm border border-gray-700/50",
-                "hover:bg-gray-800/80 text-gray-300 hover:text-white",
-                "transition-all duration-200 hover:scale-105",
-                "shadow-lg"
+                "absolute right-3 top-3 h-9 w-9 shrink-0 cursor-pointer rounded-full",
+                "border border-welcome-surface-border/50 bg-welcome-surface/70",
+                "text-welcome-muted hover:bg-welcome-surface hover:text-welcome-foreground",
+                "focus:ring-2 focus:ring-welcome-accent-blue/40"
               )}
-              onClick={handlePrevious}
+              onClick={onClose}
             >
-              <ChevronLeft className="h-6 w-6" />
+              <X className="h-4 w-4" />
             </Button>
+          </div>
+        </DialogHeader>
 
-            <Button
-              variant="ghost"
-              size="icon"
-              className={cn(
-                "absolute right-2 sm:right-4 z-50 h-12 w-12 rounded-full",
-                "bg-gray-900/60 backdrop-blur-sm border border-gray-700/50",
-                "hover:bg-gray-800/80 text-gray-300 hover:text-white",
-                "transition-all duration-200 hover:scale-105",
-                "shadow-lg"
-              )}
-              onClick={handleNext}
-            >
-              <ChevronRight className="h-6 w-6" />
-            </Button>
+        {/* Body — scrollable image area */}
+        <div className="relative min-h-0 flex-1 overflow-hidden">
+          <Button
+            variant="ghost"
+            size="icon"
+            aria-label="Previous design"
+            className={cn(
+              "absolute left-2 top-1/2 z-20 h-10 w-10 -translate-y-1/2 cursor-pointer rounded-full sm:left-4 sm:h-11 sm:w-11",
+              "border border-welcome-surface-border/50 bg-welcome-surface/80 backdrop-blur-sm",
+              "text-welcome-muted hover:bg-welcome-surface hover:text-welcome-foreground",
+              "focus:ring-2 focus:ring-welcome-accent-blue/40"
+            )}
+            onClick={handlePrevious}
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </Button>
 
-            {/* Image display */}
+          <Button
+            variant="ghost"
+            size="icon"
+            aria-label="Next design"
+            className={cn(
+              "absolute right-2 top-1/2 z-20 h-10 w-10 -translate-y-1/2 cursor-pointer rounded-full sm:right-4 sm:h-11 sm:w-11",
+              "border border-welcome-surface-border/50 bg-welcome-surface/80 backdrop-blur-sm",
+              "text-welcome-muted hover:bg-welcome-surface hover:text-welcome-foreground",
+              "focus:ring-2 focus:ring-welcome-accent-blue/40"
+            )}
+            onClick={handleNext}
+          >
+            <ChevronRight className="h-5 w-5" />
+          </Button>
+
+          <div className="flex h-full items-center justify-center overflow-y-auto px-12 py-4 sm:px-16 sm:py-6">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentDesign.image}
-                initial={{ opacity: 0, scale: 0.95 }}
+                initial={{ opacity: 0, scale: 0.97 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 1.05 }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
-                className="w-full h-full flex items-center justify-center p-4"
+                exit={{ opacity: 0, scale: 1.02 }}
+                transition={{ duration: 0.28, ease: "easeOut" }}
+                className="relative h-full w-full max-h-[55vh] min-h-[200px]"
               >
-                <div className="relative w-full h-full">
+                {isLoading && (
+                  <Skeleton className="absolute inset-4 rounded-xl sm:inset-8" />
+                )}
+                <div
+                  className="absolute inset-4 overflow-hidden rounded-xl border border-welcome-surface-border/30 bg-welcome-mid/60 sm:inset-8"
+                  style={{
+                    backgroundImage:
+                      "radial-gradient(circle at 1px 1px, hsl(var(--welcome-surface-border) / 0.3) 1px, transparent 0)",
+                    backgroundSize: "20px 20px",
+                  }}
+                >
                   <Image
                     src={currentDesign.image}
                     alt={currentDesign.title}
                     fill
                     priority
-                    className="object-contain drop-shadow-lg"
-                    onLoadingComplete={() => setIsLoading(false)}
+                    className={cn(
+                      "object-contain p-4 transition-opacity duration-300 sm:p-6",
+                      isLoading ? "opacity-0" : "opacity-100"
+                    )}
+                    onLoad={() => setIsLoading(false)}
                   />
                 </div>
               </motion.div>
             </AnimatePresence>
           </div>
-
-          {/* Footer with design info */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-            className="px-6 py-4 bg-gradient-to-t from-gray-900/60 to-transparent border-t border-gray-800/30"
-          >
-            <motion.p
-              key={currentDesign.description}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
-              className="text-gray-300 text-center text-sm md:text-base mb-4 line-clamp-2 leading-relaxed"
-            >
-              {currentDesign.description}
-            </motion.p>
-
-            <div className="flex items-center justify-center gap-4">
-              <Badge
-                variant="secondary"
-                className={cn(
-                  "text-sm px-3 py-1 transition-all duration-200 backdrop-blur-sm border",
-                  getCategoryColor(currentDesign.category)
-                )}
-              >
-                {currentDesign.category}
-              </Badge>
-
-              <motion.div
-                key={currentIndex}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.2 }}
-                className="text-sm text-gray-400 bg-gray-800/50 px-3 py-1 rounded-full border border-gray-700/50 backdrop-blur-sm"
-              >
-                {currentIndex + 1} of {designs.length}
-              </motion.div>
-            </div>
-          </motion.div>
         </div>
 
-        {/* Loading overlay */}
-        <AnimatePresence>
-          {isLoading && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="absolute inset-0 flex items-center justify-center bg-gray-950/60 backdrop-blur-sm"
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-6 h-6 border-2 border-blue-400 border-t-transparent rounded-full animate-spin" />
-                <span className="text-gray-300 text-sm">Loading...</span>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {/* Footer — fixed */}
+        <DialogFooter className="shrink-0 flex-col gap-3 border-t border-welcome-surface-border/40 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+          <motion.p
+            key={currentDesign.description}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.25 }}
+            className="line-clamp-2 min-w-0 flex-1 text-left text-sm leading-relaxed text-welcome-muted"
+          >
+            {currentDesign.description}
+          </motion.p>
+
+          <div className="flex shrink-0 items-center justify-between gap-3 sm:justify-end">
+            <span className="whitespace-nowrap rounded-full border border-welcome-surface-border/50 bg-welcome-surface/60 px-3 py-1 text-xs tabular-nums text-welcome-muted">
+              {currentIndex + 1} of {designs.length}
+            </span>
+            <div className="flex gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                className="cursor-pointer whitespace-nowrap border-welcome-surface-border/60 bg-welcome-surface/50 text-welcome-muted hover:border-welcome-accent-blue/30 hover:text-welcome-foreground"
+                onClick={handlePrevious}
+              >
+                Previous
+              </Button>
+              <Button
+                size="sm"
+                className="cursor-pointer whitespace-nowrap bg-welcome-accent-blue text-white hover:bg-welcome-accent-blue/90"
+                onClick={handleNext}
+              >
+                Next
+              </Button>
+            </div>
+          </div>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
-};
+}

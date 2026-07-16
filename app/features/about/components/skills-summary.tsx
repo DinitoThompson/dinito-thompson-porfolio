@@ -4,6 +4,7 @@ import { Cloud, Code, Database, Smartphone } from "lucide-react";
 import { motion } from "framer-motion";
 import React from "react";
 import { cn } from "@/lib/utils";
+import { AboutCard, AboutIconBadge } from "./about-card";
 
 export interface SkillProps {
   icon: React.ReactNode;
@@ -13,71 +14,47 @@ export interface SkillProps {
 
 export const resumeSkills: SkillProps[] = [
   {
-    icon: <Code size={20} />,
+    icon: <Code className="h-5 w-5" />,
     category: "Web Development",
-    items: ["NextJS", "TailwindCSS", "TypeScript"],
+    items: ["Next.js", "Tailwind CSS", "TypeScript"],
   },
   {
-    icon: <Database size={20} />,
+    icon: <Database className="h-5 w-5" />,
     category: "Database & Backend",
     items: ["Laravel", "PostgreSQL", "MySQL"],
   },
   {
-    icon: <Cloud size={20} />,
+    icon: <Cloud className="h-5 w-5" />,
     category: "Cloud & DevOps",
     items: ["AWS", "Git", "Docker"],
   },
   {
-    icon: <Smartphone size={20} />,
+    icon: <Smartphone className="h-5 w-5" />,
     category: "Mobile Development",
     items: ["Flutter", "React Native"],
   },
 ];
 
 export const Skill: React.FC<SkillProps> = ({ icon, category, items }) => (
-  <motion.div
-    whileHover={{ y: -2, scale: 1.01 }}
-    transition={{ duration: 0.2, ease: "easeOut" }}
-    className={cn(
-      "group p-5 rounded-lg",
-      "bg-gray-900/40 backdrop-blur-sm",
-      "border border-gray-800/50",
-      "hover:border-gray-700/50 hover:bg-gray-900/60",
-      "transition-all duration-300"
-    )}
-  >
+  <AboutCard className="h-full">
     <div className="flex items-start gap-4">
-      {/* Icon container - more refined */}
-      <div className="p-2.5 rounded-lg bg-blue-400/10 border border-blue-400/20 flex-shrink-0">
-        <motion.div
-          animate={{ rotate: [0, 5, 0] }}
-          transition={{
-            duration: 6,
-            repeat: Infinity,
-            repeatType: "reverse",
-          }}
-          className="text-blue-400"
-        >
-          {icon}
-        </motion.div>
-      </div>
+      <AboutIconBadge>{icon}</AboutIconBadge>
 
-      {/* Content */}
-      <div className="flex-1 min-w-0">
-        <h3 className="text-base font-semibold text-gray-100 mb-3 group-hover:text-blue-300 transition-colors">
+      <div className="min-w-0 flex-1">
+        <h3 className="mb-3 truncate text-sm font-bold text-welcome-foreground sm:text-base">
           {category}
         </h3>
 
-        {/* Skills tags - more subtle */}
         <div className="flex flex-wrap gap-2">
           {items.map((item) => (
             <span
               key={item}
               className={cn(
-                "inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium",
-                "bg-gray-800/60 border border-gray-700/50 text-gray-300",
-                "hover:bg-gray-800/80 hover:border-gray-600/50 hover:text-gray-200",
-                "transition-all duration-200"
+                "inline-flex shrink-0 items-center whitespace-nowrap rounded-md",
+                "border border-welcome-surface-border/50 bg-welcome-surface/60",
+                "px-2.5 py-1 text-xs font-medium text-welcome-muted",
+                "transition-colors duration-200",
+                "hover:border-welcome-accent-indigo/30 hover:text-welcome-foreground"
               )}
             >
               {item}
@@ -86,5 +63,5 @@ export const Skill: React.FC<SkillProps> = ({ icon, category, items }) => (
         </div>
       </div>
     </div>
-  </motion.div>
+  </AboutCard>
 );

@@ -2,12 +2,15 @@
 
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { AboutCard } from "./about-card";
+import { AboutTimeline } from "./about-timeline";
 
 interface TimelineItemProps {
   year: string;
   title: string;
   company: string;
   description: string[];
+  isLast?: boolean;
 }
 
 export function TimelineItem({
@@ -15,64 +18,47 @@ export function TimelineItem({
   title,
   company,
   description,
+  isLast = false,
 }: TimelineItemProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      className="relative group"
-    >
-      {/* Refined timeline line and dot */}
-      <div className="absolute left-4 top-0 bottom-0 w-px bg-gradient-to-b from-blue-400/30 via-blue-400/20 to-transparent" />
-      <div className="absolute left-3.5 top-6 w-2 h-2 rounded-full bg-blue-400 shadow-sm shadow-blue-400/50 transition-all duration-300 group-hover:shadow-md group-hover:shadow-blue-400/60" />
-
-      <div
-        className={cn(
-          "ml-8 mb-6 p-6 rounded-lg",
-          "bg-gray-900/40 backdrop-blur-sm",
-          "border border-gray-800/50",
-          "hover:border-gray-700/50 hover:bg-gray-900/60",
-          "transition-all duration-300 ease-out",
-          "group-hover:translate-x-1"
-        )}
-      >
-        {/* Header with refined layout */}
-        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
-          <div className="space-y-1">
-            <h3 className="text-base sm:text-lg font-semibold text-gray-100 group-hover:text-blue-300 transition-colors">
+    <AboutTimeline isLast={isLast} className="group">
+      <AboutCard className="mb-4 sm:mb-5">
+        <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+          <div className="min-w-0 space-y-1">
+            <h3 className="text-base font-bold text-welcome-foreground transition-colors group-hover:text-welcome-accent-cyan sm:text-lg">
               {title}
             </h3>
-            <p className="text-blue-300/90 font-medium text-sm sm:text-base">
+            <p className="truncate text-sm font-medium text-welcome-accent-indigo/90 sm:text-base">
               {company}
             </p>
           </div>
 
-          {/* Year badge - more subtle */}
           <span
             className={cn(
-              "inline-flex items-center px-3 py-1 rounded-full text-xs font-medium",
-              "bg-blue-400/10 border border-blue-400/20 text-blue-300",
-              "whitespace-nowrap"
+              "inline-flex w-fit shrink-0 items-center whitespace-nowrap rounded-full",
+              "border border-welcome-accent-blue/25 bg-welcome-accent-blue/10",
+              "px-3 py-1 text-xs font-semibold tabular-nums text-welcome-accent-cyan"
             )}
           >
             {year}
           </span>
         </div>
 
-        {/* Achievements list - refined styling */}
         <ul className="space-y-2.5">
           {description.map((item, index) => (
             <li
               key={index}
-              className="flex gap-3 text-gray-300 leading-relaxed"
+              className="flex gap-3 text-sm leading-relaxed text-welcome-muted"
             >
-              <span className="mt-2 h-1 w-1 flex-shrink-0 rounded-full bg-blue-400/60" />
-              <span className="text-sm">{item}</span>
+              <span
+                className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-welcome-accent-blue/70"
+                aria-hidden="true"
+              />
+              <span>{item}</span>
             </li>
           ))}
         </ul>
-      </div>
-    </motion.div>
+      </AboutCard>
+    </AboutTimeline>
   );
 }

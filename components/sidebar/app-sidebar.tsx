@@ -21,67 +21,60 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
+  SidebarRail,
+  SidebarSeparator,
 } from "@/components/ui/sidebar";
-import { Separator } from "../ui/separator";
 import { FooterContent } from "./footer-content";
 import { cn } from "@/lib/utils";
 
 const sidebarData = {
   header: {
-    title: "Portfolio",
     profile: {
       name: "Dinito Thompson",
-      role: "Software Developer & Designer",
+      role: "Lead Software Developer",
       location: "Jamaica",
       avatar: "/profile.jpg",
-      status: "Available",
+      status: "Available for work",
     },
   },
   menuItems: {
     title: "Navigation",
-    openNewTab: false,
     links: [
       {
         name: "Home",
         url: "/home",
         icon: Home,
         openNewTab: false,
-        description: "Welcome & overview",
       },
       {
         name: "About",
         url: "/home/about",
         icon: User,
         openNewTab: false,
-        description: "My background",
       },
       {
         name: "Skills",
         url: "/home/skills",
         icon: Code,
         openNewTab: false,
-        description: "Technical expertise",
       },
       {
         name: "Projects",
         url: "/home/projects",
         icon: Briefcase,
         openNewTab: false,
-        description: "Development work",
       },
       {
         name: "Designs",
         url: "/home/designs",
         icon: PenTool,
         openNewTab: false,
-        description: "UI/UX portfolio",
       },
       {
         name: "Contact",
         url: "/home/contact",
         icon: PhoneCall,
         openNewTab: false,
-        description: "Get in touch",
       },
     ],
   },
@@ -93,28 +86,24 @@ const sidebarData = {
         url: "https://github.com/DinitoThompson",
         icon: Github,
         openNewTab: true,
-        description: "Code repositories",
       },
       {
         name: "LinkedIn",
         url: "https://www.linkedin.com/in/dinito-thompson/",
         icon: Linkedin,
         openNewTab: true,
-        description: "Professional network",
       },
       {
         name: "Email",
         url: "mailto:dinitothompson@gmail.com",
         icon: Mail,
         openNewTab: true,
-        description: "Direct contact",
       },
       {
         name: "Resume",
         url: "https://drive.google.com/drive/folders/1gewsLO8TAwmCM2ugSrGCNH1zWaQfGVBl",
         icon: FileText,
         openNewTab: true,
-        description: "Download CV",
       },
     ],
   },
@@ -131,32 +120,39 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       collapsible="icon"
       variant="inset"
       className={cn(
-        "border-r border-gray-800/50 bg-gray-900/95 backdrop-blur-sm",
+        "[&_[data-sidebar=sidebar]]:relative [&_[data-sidebar=sidebar]]:overflow-hidden",
+        "[&_[data-sidebar=sidebar]]:border [&_[data-sidebar=sidebar]]:border-sidebar-border/60",
+        "[&_[data-sidebar=sidebar]]:bg-sidebar/95 [&_[data-sidebar=sidebar]]:backdrop-blur-xl",
+        "[&_[data-sidebar=sidebar]]:shadow-[4px_0_24px_hsl(var(--sidebar-background)/0.5)]",
         "transition-colors duration-300"
       )}
       {...props}
     >
-      <SidebarHeader className="border-b border-gray-800/30 bg-gray-900/50">
+      {/* Gradient accent edge */}
+      <div
+        className="pointer-events-none absolute inset-y-0 right-0 z-20 hidden w-px md:block"
+        style={{
+          background:
+            "linear-gradient(180deg, transparent, hsl(var(--sidebar-active) / 0.5), hsl(var(--sidebar-glow) / 0.4), hsl(var(--sidebar-success) / 0.3), transparent)",
+        }}
+        aria-hidden="true"
+      />
+
+      <SidebarHeader className="border-b border-sidebar-border/40 bg-sidebar-surface/50 px-2.5 py-3 group-data-[collapsible=icon]:border-b-sidebar-border/30 group-data-[collapsible=icon]:bg-transparent group-data-[collapsible=icon]:px-1.5 group-data-[collapsible=icon]:py-2">
         <HeaderContent profile={sidebarData.header.profile} />
       </SidebarHeader>
 
-      <SidebarContent className="px-0 bg-gray-900/30">
-        <div className="space-y-6 py-4">
-          <NavMain items={sidebarData.menuItems} />
-          <div className="px-4">
-            <Separator className="bg-gray-800/30" />
-          </div>
-          <NavMain items={sidebarData.onlineItems} />
-        </div>
+      <SidebarContent className="gap-0 bg-transparent px-1 py-3">
+        <NavMain items={sidebarData.menuItems} />
+        <SidebarSeparator className="my-3 bg-sidebar-border/40" />
+        <NavMain items={sidebarData.onlineItems} />
       </SidebarContent>
 
-      <div className="px-4">
-        <Separator className="bg-gray-800/30" />
-      </div>
-
-      <SidebarFooter className="bg-gray-900/50 border-t border-gray-800/30">
+      <SidebarFooter className="border-t border-sidebar-border/40 bg-sidebar-surface/50 px-2.5 py-3 group-data-[collapsible=icon]:border-t-sidebar-border/30 group-data-[collapsible=icon]:bg-transparent group-data-[collapsible=icon]:px-1.5 group-data-[collapsible=icon]:py-2">
         <FooterContent profile={sidebarData.footer} />
       </SidebarFooter>
+
+      <SidebarRail className="hover:after:bg-sidebar-active/40" />
     </Sidebar>
   );
 }

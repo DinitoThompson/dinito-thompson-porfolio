@@ -1,7 +1,9 @@
 "use client";
 
-import { floatingIconsClean as floatingIcons } from "./types/floating-icons";
+import React from "react";
 import { motion } from "framer-motion";
+import { MapPin, Sparkles } from "lucide-react";
+import { floatingIconsClean as floatingIcons } from "./types/floating-icons";
 import { TypeWriter } from "./components/type-writer";
 import { BubblesBackground } from "@/app/components/animated-background/bubbles-animated-bg";
 import { NavButton } from "@/components/ui/nav-button";
@@ -12,161 +14,208 @@ const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.2,
-    },
+    transition: { staggerChildren: 0.1, delayChildren: 0.15 },
   },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 18 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: {
-      duration: 0.6,
-      ease: [0.25, 0.25, 0.25, 0.75],
-    },
+    transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] },
   },
 };
 
+const metaItems = [
+  { label: "Available for work", type: "status" as const },
+  { label: "Jamaica", type: "text" as const },
+  { label: "Remote friendly", type: "text" as const },
+];
+
 export default function HomeScreen() {
   return (
-    <div className="relative min-h-screen bg-gray-950 text-gray-100 overflow-hidden">
-      {/* Subtle animated background */}
+    <div className="relative min-h-screen overflow-hidden bg-welcome-deep text-welcome-foreground">
       <BubblesBackground density="medium" animeMode={true} />
 
-      {/* Floating technology icons - more subtle */}
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+      {/* Floating tech icons */}
+      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
         {floatingIcons.map(({ Icon, x, y, delay = 0, scale = 1 }, index) => (
           <motion.div
             key={index}
-            className="absolute text-blue-400/20"
+            className="absolute text-welcome-accent-blue/25"
             style={{ left: x, top: y }}
             initial={{ scale: 0, rotate: -90, opacity: 0 }}
             animate={{
-              scale: scale * 0.8,
+              scale: scale * 0.75,
               rotate: 0,
-              opacity: 0.3,
-              y: [0, -5, 0],
+              opacity: 0.35,
+              y: [0, -6, 0],
             }}
             transition={{
               type: "spring",
-              stiffness: 100,
-              damping: 30,
-              delay: delay + 0.5,
+              stiffness: 90,
+              damping: 28,
+              delay: delay + 0.4,
               y: {
-                duration: 6,
+                duration: 5,
                 repeat: Infinity,
                 repeatType: "reverse",
-                delay: delay + 3,
+                delay: delay + 2,
               },
             }}
           >
-            <Icon className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10" />
+            <Icon className="h-6 w-6 sm:h-8 sm:w-8 md:h-9 md:w-9" />
           </motion.div>
         ))}
       </div>
 
-      {/* Main content - properly spaced and sized */}
-      <section className="relative z-10 min-h-screen flex items-center justify-center px-6 sm:px-8 lg:px-12">
+      {/* Hero */}
+      <section className="relative z-10 flex min-h-[calc(100svh-theme(spacing.4))] items-center justify-center px-4 py-10 sm:px-6 sm:py-12 md:px-8 lg:px-10">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="max-w-4xl w-full mx-auto text-center space-y-8"
+          className="mx-auto w-full max-w-3xl"
         >
-          {/* Subtle greeting */}
-          <motion.div variants={itemVariants}>
-            <p className="text-lg sm:text-xl text-gray-400 font-light">
-              Hello, I&apos;m
-            </p>
-          </motion.div>
-
-          {/* Name - nicely sized, not overwhelming */}
-          <motion.div variants={itemVariants}>
-            <h1
-              className={cn(
-                "text-3xl sm:text-4xl md:text-5xl lg:text-6xl",
-                "font-bold tracking-tight leading-tight",
-                "bg-gradient-to-r from-blue-400 via-purple-400 to-teal-400",
-                "bg-clip-text text-transparent"
-              )}
-            >
-              Dinito Thompson
-            </h1>
-          </motion.div>
-
-          {/* Professional title - reasonable sizing */}
-          <motion.div variants={itemVariants}>
-            <p className="text-lg sm:text-xl md:text-2xl text-gray-300 leading-relaxed">
-              <span className="text-blue-300 font-medium">
-                Lead Software Developer
-              </span>
-            </p>
-          </motion.div>
-
-          {/* Subtle value proposition */}
-          <motion.div variants={itemVariants}>
-            <p className="text-sm sm:text-base md:text-lg text-gray-400 leading-relaxed max-w-2xl mx-auto">
-              Transforming abstract complexity into intuitive solutions.
-            </p>
-          </motion.div>
-
-          {/* Typewriter section - more subtle */}
-          <motion.div variants={itemVariants}>
+          {/* Hero card */}
+          <div
+            className={cn(
+              "overflow-hidden rounded-2xl border border-welcome-surface-border/70",
+              "bg-welcome-elevated/90 shadow-[0_16px_48px_hsl(var(--welcome-bg-deep)/0.65)] backdrop-blur-lg",
+              "sm:rounded-3xl"
+            )}
+          >
+            {/* Top accent gradient bar */}
             <div
-              className={cn(
-                "inline-flex items-center gap-3 px-5 py-3 rounded-lg",
-                "bg-gray-900/60 backdrop-blur border border-gray-800/50",
-                "text-sm sm:text-base",
-                "shadow-sm"
-              )}
+              className="h-1 w-full"
+              style={{
+                background:
+                  "linear-gradient(90deg, hsl(var(--welcome-accent-blue)), hsl(var(--welcome-accent-indigo)), hsl(var(--welcome-accent-teal)))",
+              }}
+              aria-hidden="true"
+            />
+
+            <div className="space-y-6 px-5 py-8 sm:space-y-7 sm:px-8 sm:py-10 md:px-10 md:py-12">
+              {/* Identity zone */}
+              <motion.div
+                variants={itemVariants}
+                className="space-y-4 text-center"
+              >
+                <p className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-welcome-muted sm:text-sm">
+                  <Sparkles
+                    className="h-3.5 w-3.5 shrink-0 text-welcome-accent-indigo"
+                    aria-hidden="true"
+                  />
+                  <span className="whitespace-nowrap">Hello, I&apos;m</span>
+                </p>
+
+                <h1 className="bg-gradient-to-r from-welcome-accent-blue via-welcome-accent-indigo to-welcome-accent-teal bg-clip-text text-3xl font-extrabold tracking-tight text-transparent sm:text-4xl md:text-5xl lg:text-[3.25rem]">
+                  Dinito Thompson
+                </h1>
+
+                <div className="flex justify-center">
+                  <span
+                    className={cn(
+                      "inline-flex items-center whitespace-nowrap rounded-full",
+                      "border border-welcome-accent-blue/25 bg-welcome-accent-blue/10",
+                      "px-4 py-1.5 text-sm font-semibold text-welcome-accent-cyan sm:text-base"
+                    )}
+                  >
+                    Lead Software Developer
+                  </span>
+                </div>
+
+                <p className="mx-auto max-w-md text-sm leading-relaxed text-welcome-muted sm:max-w-lg sm:text-base">
+                  Turning complex problems into intuitive software.
+                </p>
+              </motion.div>
+
+              {/* Activity zone — full-width typewriter strip */}
+              <motion.div variants={itemVariants}>
+                <div
+                  className={cn(
+                    "rounded-xl border border-welcome-surface-border/50",
+                    "bg-welcome-surface/70 p-4 sm:p-5"
+                  )}
+                >
+                  <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
+                    <span className="shrink-0 whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.14em] text-welcome-muted sm:text-xs">
+                      Currently
+                    </span>
+                    <div className="h-px w-full bg-welcome-surface-border/40 sm:hidden" />
+                    <div className="min-w-0 flex-1 overflow-hidden">
+                      <TypeWriter />
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Action zone */}
+              <motion.div
+                variants={itemVariants}
+                className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-center sm:gap-4"
+              >
+                <NavButton
+                  href="/home/about"
+                  text="View Experience"
+                  variant="primary"
+                  size="md"
+                  className="w-full sm:w-auto"
+                />
+                <NavButton
+                  href="https://drive.google.com/drive/folders/1gewsLO8TAwmCM2ugSrGCNH1zWaQfGVBl"
+                  text="Download Resume"
+                  variant="secondary"
+                  size="md"
+                  icon={Download}
+                  external={true}
+                  showArrow={false}
+                  className="w-full sm:w-auto"
+                />
+              </motion.div>
+            </div>
+
+            {/* Meta zone */}
+            <motion.div
+              variants={itemVariants}
+              className="border-t border-welcome-surface-border/40 bg-welcome-surface/40 px-5 py-4 sm:px-8"
             >
-              <span className="text-gray-500 text-sm">Currently:</span>
-              <TypeWriter />
-            </div>
-          </motion.div>
-
-          {/* Call-to-action buttons - properly spaced */}
-          <motion.div
-            variants={itemVariants}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4"
-          >
-            <NavButton
-              href="/home/about"
-              text="Professional History"
-              variant="primary"
-              size="md"
-            />
-
-            <NavButton
-              href="https://drive.google.com/drive/folders/1gewsLO8TAwmCM2ugSrGCNH1zWaQfGVBl"
-              text="Download Resume"
-              variant="secondary"
-              size="md"
-              icon={Download}
-              external={true}
-            />
-          </motion.div>
-
-          {/* Subtle professional status - reward for looking closer */}
-          <motion.div
-            variants={itemVariants}
-            className="pt-12 mt-8 border-t border-gray-800/30"
-          >
-            <div className="flex flex-wrap items-center justify-center gap-6 text-xs sm:text-sm text-gray-500">
-              <span className="flex items-center gap-2">
-                <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></div>
-                Available for opportunities
-              </span>
-              <span className="opacity-50">•</span>
-              <span>Jamaica</span>
-              <span className="opacity-50">•</span>
-              <span>Remote friendly</span>
-            </div>
-          </motion.div>
+              <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-welcome-muted sm:text-sm">
+                {metaItems.map((item, i) => (
+                  <React.Fragment key={item.label}>
+                    {i > 0 && (
+                      <span
+                        className="hidden h-1 w-1 shrink-0 rounded-full bg-welcome-muted/40 sm:inline-block"
+                        aria-hidden="true"
+                      />
+                    )}
+                    {item.type === "status" ? (
+                      <span className="inline-flex shrink-0 items-center gap-2 whitespace-nowrap">
+                        <span className="relative flex h-2 w-2">
+                          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sidebar-success opacity-50" />
+                          <span className="relative inline-flex h-2 w-2 rounded-full bg-sidebar-success" />
+                        </span>
+                        <span className="font-medium text-sidebar-success">
+                          {item.label}
+                        </span>
+                      </span>
+                    ) : (
+                      <span className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap">
+                        {item.label === "Jamaica" && (
+                          <MapPin
+                            className="h-3 w-3 shrink-0 opacity-70"
+                            aria-hidden="true"
+                          />
+                        )}
+                        {item.label}
+                      </span>
+                    )}
+                  </React.Fragment>
+                ))}
+              </div>
+            </motion.div>
+          </div>
         </motion.div>
       </section>
     </div>
