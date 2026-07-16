@@ -1,7 +1,6 @@
 "use client";
 
 import { Cloud, Code, Database, Smartphone } from "lucide-react";
-import { motion } from "framer-motion";
 import React from "react";
 import { cn } from "@/lib/utils";
 import { AboutCard, AboutIconBadge } from "./about-card";
