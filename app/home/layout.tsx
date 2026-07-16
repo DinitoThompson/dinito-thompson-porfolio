@@ -14,28 +14,29 @@ export default function HomeLayout({
   children: React.ReactNode;
 }) {
   return (
-    <SidebarProvider className="bg-gray-950">
+    <SidebarProvider className="bg-welcome-deep">
       <AppSidebar />
       <SidebarInset className="flex-1">
-        {/* Subtle mobile sidebar trigger */}
-        <div className="fixed top-4 left-4 z-50 md:hidden">
+        {/* Mobile sidebar trigger */}
+        <div className="fixed left-4 top-4 z-50 md:hidden">
           <SidebarTrigger
             className={cn(
-              "h-9 w-9 rounded-md",
-              "bg-gray-900/80 backdrop-blur-sm border border-gray-800/50",
-              "text-gray-300 hover:text-white hover:bg-gray-800/80",
-              "shadow-lg transition-all duration-200 ease-out",
-              "focus:outline-none focus:ring-1 focus:ring-blue-500/50"
+              "h-10 w-10 cursor-pointer rounded-xl",
+              "border border-sidebar-border/60 bg-sidebar/90 backdrop-blur-md",
+              "text-sidebar-muted shadow-lg",
+              "transition-all duration-200 ease-out",
+              "hover:border-sidebar-active/40 hover:bg-sidebar-surface hover:text-sidebar-foreground",
+              "focus:outline-none focus:ring-2 focus:ring-sidebar-active/50 focus:ring-offset-2 focus:ring-offset-welcome-deep",
+              "active:scale-95"
             )}
             aria-label="Toggle navigation menu"
           />
         </div>
 
-        {/* Main content with proper dark theme */}
         <main
           className={cn(
-            "flex flex-col min-h-screen",
-            "bg-gray-950 text-gray-100",
+            "flex min-h-screen flex-col",
+            "bg-welcome-deep text-welcome-foreground",
             "transition-colors duration-300"
           )}
           role="main"

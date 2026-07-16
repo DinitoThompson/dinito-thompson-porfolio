@@ -1,5 +1,12 @@
+"use client";
+
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+
+function seededRandom(seed: number): number {
+  const x = Math.sin(seed * 12.9898 + 78.233) * 43758.5453;
+  return x - Math.floor(x);
+}
 
 // Cursed Energy Orb - more intense version
 interface CursedEnergyOrbProps {
@@ -10,6 +17,7 @@ interface CursedEnergyOrbProps {
   initialY: string;
   intensity?: "low" | "medium" | "high";
   density: "low" | "medium" | "high";
+  seed: number;
 }
 
 const CursedEnergyOrb: React.FC<CursedEnergyOrbProps> = ({
@@ -20,7 +28,9 @@ const CursedEnergyOrb: React.FC<CursedEnergyOrbProps> = ({
   initialY,
   intensity = "medium",
   density,
+  seed,
 }) => {
+  const r = (offset: number) => seededRandom(seed + offset);
   const baseIntensityValues = {
     low: { from: 15, via: 10, to: 8, shadow: 20 },
     medium: { from: 35, via: 20, to: 15, shadow: 30 },
@@ -77,12 +87,12 @@ const CursedEnergyOrb: React.FC<CursedEnergyOrbProps> = ({
         opacity: 0,
       }}
       animate={{
-        x: [initialX, `${Math.random() * 100}%`, `${Math.random() * 100}%`],
-        y: [initialY, `${Math.random() * 100}%`, `${Math.random() * 100}%`],
+        x: [initialX, `${r(1) * 100}%`, `${r(2) * 100}%`],
+        y: [initialY, `${r(3) * 100}%`, `${r(4) * 100}%`],
         scale: [
           0.1 * currentAdjustment.scaleFactor,
-          (Math.random() * 0.8 + 0.6) * currentAdjustment.scaleFactor,
-          (Math.random() * 0.5 + 0.3) * currentAdjustment.scaleFactor,
+          (r(5) * 0.8 + 0.6) * currentAdjustment.scaleFactor,
+          (r(6) * 0.5 + 0.3) * currentAdjustment.scaleFactor,
         ],
         opacity: [
           0,
@@ -113,9 +123,9 @@ const CursedEnergyOrb: React.FC<CursedEnergyOrbProps> = ({
               key={i}
               className="absolute w-px h-4 bg-cyan-300"
               style={{
-                top: `${Math.random() * 100}%`,
-                left: `${Math.random() * 100}%`,
-                transform: `rotate(${Math.random() * 360}deg)`,
+                top: `${r(10 + i * 3) * 100}%`,
+                left: `${r(11 + i * 3) * 100}%`,
+                transform: `rotate(${r(12 + i * 3) * 360}deg)`,
               }}
               animate={{
                 opacity: [0, 1, 0],
@@ -123,10 +133,10 @@ const CursedEnergyOrb: React.FC<CursedEnergyOrbProps> = ({
               }}
               transition={{
                 duration: 0.1,
-                delay: Math.random() * 2 * currentAdjustment.durationFactor,
+                delay: r(13 + i * 3) * 2 * currentAdjustment.durationFactor,
                 repeat: Infinity,
                 repeatDelay:
-                  (Math.random() * 1 + 0.5) * currentAdjustment.durationFactor,
+                  (r(14 + i * 3) * 1 + 0.5) * currentAdjustment.durationFactor,
               }}
             />
           )
@@ -152,6 +162,7 @@ interface LightningStreakProps {
   initialX: string;
   initialY: string;
   density: "low" | "medium" | "high";
+  repeatDelay: number;
 }
 
 const LightningStreak: React.FC<LightningStreakProps> = ({
@@ -159,10 +170,9 @@ const LightningStreak: React.FC<LightningStreakProps> = ({
   initialX,
   initialY,
   density,
+  repeatDelay,
 }) => {
   const opacity = density === "low" ? 0.6 : density === "medium" ? 0.8 : 1;
-  const repeatDelayFactor =
-    density === "low" ? 1.8 : density === "medium" ? 1.3 : 1;
   const svgScale = density === "low" ? 0.7 : density === "medium" ? 0.85 : 1;
 
   return (
@@ -179,7 +189,7 @@ const LightningStreak: React.FC<LightningStreakProps> = ({
         duration: 0.15,
         delay,
         repeat: Infinity,
-        repeatDelay: (Math.random() * 3 + 1) * repeatDelayFactor,
+        repeatDelay,
       }}
     >
       <svg width="60" height="80" viewBox="0 0 60 80" className="text-cyan-300">
@@ -315,7 +325,10 @@ const FloatingKanji: React.FC<FloatingKanjiProps> = ({ density }) => {
 
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
-      {Array.from({ length: count }, (_, i) => (
+      {Array.from({ length: count }, (_, i) => {
+        const r = (offset: number) => seededRandom(i * 10 + offset);
+
+        return (
         <motion.div
           key={i}
           className={cn(
@@ -325,26 +338,27 @@ const FloatingKanji: React.FC<FloatingKanjiProps> = ({ density }) => {
             density === "high" && "text-blue-300/40"
           )}
           style={{
-            top: `${Math.random() * 100}%`,
-            left: `${Math.random() * 100}%`,
-            fontSize: `${Math.random() * (fontSizeBase / 2) + fontSizeBase}px`,
+            top: `${r(1) * 100}%`,
+            left: `${r(2) * 100}%`,
+            fontSize: `${r(3) * (fontSizeBase / 2) + fontSizeBase}px`,
           }}
           animate={{
             y: [0, -200],
-            rotate: [0, Math.random() > 0.5 ? 360 : -360],
+            rotate: [0, r(4) > 0.5 ? 360 : -360],
             opacity: [0, opacityBase, 0],
             scale: [0.5, 1, 0.5],
           }}
           transition={{
-            duration: (Math.random() * 4 + 3) * durationFactor,
-            delay: Math.random() * 3,
+            duration: (r(5) * 4 + 3) * durationFactor,
+            delay: r(6) * 3,
             repeat: Infinity,
             ease: "linear",
           }}
         >
-          {symbols[Math.floor(Math.random() * symbols.length)]}
+          {symbols[Math.floor(r(7) * symbols.length)]}
         </motion.div>
-      ))}
+        );
+      })}
     </div>
   );
 };
@@ -356,6 +370,7 @@ interface CursedParticleProps {
   initialY: string;
   color?: "blue" | "purple" | "red";
   density: "low" | "medium" | "high";
+  seed: number;
 }
 
 const CursedParticle: React.FC<CursedParticleProps> = ({
@@ -364,7 +379,9 @@ const CursedParticle: React.FC<CursedParticleProps> = ({
   initialY,
   color = "blue",
   density,
+  seed,
 }) => {
+  const r = (offset: number) => seededRandom(seed + offset);
   const colorClasses = {
     blue: "bg-cyan-300 shadow-cyan-300",
     purple: "bg-purple-400 shadow-purple-400",
@@ -403,7 +420,7 @@ const CursedParticle: React.FC<CursedParticleProps> = ({
           initialX,
           `${
             parseInt(initialX) +
-            Math.random() *
+            r(1) *
               (density === "low" ? 20 : density === "medium" ? 30 : 40) -
             (density === "low" ? 10 : density === "medium" ? 15 : 20)
           }%`,
@@ -412,7 +429,7 @@ const CursedParticle: React.FC<CursedParticleProps> = ({
         scale: [0.5 * scaleFactor, 1.2 * scaleFactor, 0.5 * scaleFactor],
       }}
       transition={{
-        duration: (Math.random() * 3 + 2) * durationFactor,
+        duration: (r(2) * 3 + 2) * durationFactor,
         delay,
         repeat: Infinity,
         ease: "easeInOut",
@@ -489,25 +506,33 @@ export const BubblesBackground: React.FC<BubblesBackgroundProps> = ({
   // Generate more intense energy orbs
   const cursedOrbs = Array.from({ length: elementCount.orbs }, (_, i) => ({
     id: i,
-    delay: Math.random() * 5,
-    duration: Math.random() * 8 + 8,
-    size: Math.random() * 120 + 80,
-    initialX: `${Math.random() * 100}%`,
-    initialY: `${Math.random() * 100}%`,
+    seed: i * 100,
+    delay: seededRandom(i * 100) * 5,
+    duration: seededRandom(i * 100 + 1) * 8 + 8,
+    size: seededRandom(i * 100 + 2) * 120 + 80,
+    initialX: `${seededRandom(i * 100 + 3) * 100}%`,
+    initialY: `${seededRandom(i * 100 + 4) * 100}%`,
     intensity: (["low", "medium", "high"] as const)[
-      Math.floor(Math.random() * 3)
+      Math.floor(seededRandom(i * 100 + 5) * 3)
     ],
   }));
+
+  const repeatDelayFactor =
+    density === "low" ? 1.8 : density === "medium" ? 1.3 : 1;
 
   // Generate lightning streaks
   const lightningStreaks = Array.from(
     { length: elementCount.lightning },
     (_, i) => ({
       id: i,
+      seed: i * 200,
       delay:
-        Math.random() * (density === "low" ? 6 : density === "medium" ? 5 : 4),
-      initialX: `${Math.random() * 100}%`,
-      initialY: `${Math.random() * 100}%`,
+        seededRandom(i * 200) *
+        (density === "low" ? 6 : density === "medium" ? 5 : 4),
+      initialX: `${seededRandom(i * 200 + 1) * 100}%`,
+      initialY: `${seededRandom(i * 200 + 2) * 100}%`,
+      repeatDelay:
+        (seededRandom(i * 200 + 3) * 3 + 1) * repeatDelayFactor,
     })
   );
 
@@ -516,13 +541,14 @@ export const BubblesBackground: React.FC<BubblesBackgroundProps> = ({
     { length: elementCount.particles },
     (_, i) => ({
       id: i,
+      seed: i * 300,
       delay:
-        Math.random() *
+        seededRandom(i * 300) *
         (density === "low" ? 12 : density === "medium" ? 10 : 8),
-      initialX: `${Math.random() * 100}%`,
+      initialX: `${seededRandom(i * 300 + 1) * 100}%`,
       initialY: "100%",
       color: (["blue", "purple", "red"] as const)[
-        Math.floor(Math.random() * 3)
+        Math.floor(seededRandom(i * 300 + 2) * 3)
       ],
     })
   );
@@ -645,6 +671,7 @@ export const BubblesBackground: React.FC<BubblesBackgroundProps> = ({
           initialY={orb.initialY}
           intensity={orb.intensity}
           density={density}
+          seed={orb.seed}
         />
       ))}
 
@@ -656,6 +683,7 @@ export const BubblesBackground: React.FC<BubblesBackgroundProps> = ({
           initialX={lightning.initialX}
           initialY={lightning.initialY}
           density={density}
+          repeatDelay={lightning.repeatDelay}
         />
       ))}
 
@@ -668,6 +696,7 @@ export const BubblesBackground: React.FC<BubblesBackgroundProps> = ({
           initialY={particle.initialY}
           color={particle.color}
           density={density}
+          seed={particle.seed}
         />
       ))}
 

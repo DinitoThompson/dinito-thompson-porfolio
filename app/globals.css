@@ -47,6 +47,40 @@ body {
     --sidebar-accent-foreground: 0 0% 100%; /* White text for contrast */
     --sidebar-border: 215 28% 30%; /* Slightly lighter border */
     --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-surface: 217 28% 13%;
+    --sidebar-surface-elevated: 217 28% 16%;
+    --sidebar-muted: 215 20% 55%;
+    --sidebar-active: 217 91% 60%;
+    --sidebar-active-foreground: 210 40% 98%;
+    --sidebar-active-surface: 217 91% 60%;
+    --sidebar-hover-surface: 215 28% 20%;
+    --sidebar-glow: 239 84% 67%;
+    --sidebar-success: 172 66% 50%;
+    --sidebar-success-surface: 172 66% 50%;
+    --sidebar-gradient-from: 217 91% 60%;
+    --sidebar-gradient-via: 239 84% 67%;
+    --sidebar-gradient-to: 172 66% 50%;
+
+    /* Welcome / splash screen */
+    --welcome-bg-deep: 222 47% 4%;
+    --welcome-bg-mid: 217 33% 8%;
+    --welcome-bg-elevated: 217 28% 11%;
+    --welcome-surface: 217 33% 10%;
+    --welcome-surface-border: 217 32% 18%;
+    --welcome-foreground: 210 40% 96%;
+    --welcome-muted: 215 20% 55%;
+    --welcome-accent-blue: 217 91% 60%;
+    --welcome-accent-indigo: 239 84% 67%;
+    --welcome-accent-purple: 271 81% 56%;
+    --welcome-accent-teal: 172 66% 50%;
+    --welcome-accent-cyan: 187 92% 69%;
+    --welcome-ring-primary: 217 91% 60%;
+    --welcome-ring-secondary: 239 84% 67%;
+    --welcome-ring-tertiary: 172 66% 50%;
+    --welcome-glow-blue: 217 91% 60%;
+    --welcome-glow-indigo: 239 84% 67%;
+    --welcome-glow-teal: 172 66% 50%;
+    --welcome-glass: 217 33% 10%;
   }
   .dark {
     --background: 0 0% 3.9%;
@@ -81,6 +115,19 @@ body {
     --sidebar-accent-foreground: 0 0% 100%; /* Same as light mode */
     --sidebar-border: 215 28% 30%; /* Same as light mode */
     --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-surface: 217 28% 13%;
+    --sidebar-surface-elevated: 217 28% 16%;
+    --sidebar-muted: 215 20% 55%;
+    --sidebar-active: 217 91% 60%;
+    --sidebar-active-foreground: 210 40% 98%;
+    --sidebar-active-surface: 217 91% 60%;
+    --sidebar-hover-surface: 215 28% 20%;
+    --sidebar-glow: 239 84% 67%;
+    --sidebar-success: 172 66% 50%;
+    --sidebar-success-surface: 172 66% 50%;
+    --sidebar-gradient-from: 217 91% 60%;
+    --sidebar-gradient-via: 239 84% 67%;
+    --sidebar-gradient-to: 172 66% 50%;
   }
 }
 
@@ -131,4 +178,118 @@ body {
 
 .animation-delay-2000 {
   animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+/* Welcome screen animations */
+@keyframes orbit-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes orbit-spin-reverse {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes welcome-pulse-glow {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes welcome-shimmer {
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
+}
+
+@keyframes star-twinkle {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes scan-line {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+.animate-orbit-spin {
+  animation: orbit-spin 24s linear infinite;
+}
+
+.animate-orbit-spin-reverse {
+  animation: orbit-spin-reverse 18s linear infinite;
+}
+
+.animate-orbit-spin-slow {
+  animation: orbit-spin 36s linear infinite;
+}
+
+.animate-welcome-pulse-glow {
+  animation: welcome-pulse-glow 4s ease-in-out infinite;
+}
+
+.animate-welcome-shimmer {
+  animation: welcome-shimmer 3s linear infinite;
+}
+
+.animate-star-twinkle {
+  animation: star-twinkle 3s ease-in-out infinite;
+}
+
+.animate-scan-line {
+  animation: scan-line 8s ease-in-out infinite;
+}
+
+@keyframes skeleton-shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-skeleton-shimmer {
+  animation: skeleton-shimmer 2s ease-in-out infinite;
 }

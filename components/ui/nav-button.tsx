@@ -14,6 +14,7 @@ interface NavButtonProps {
   className?: string;
   children?: React.ReactNode;
   external?: boolean;
+  showArrow?: boolean;
 }
 
 export const NavButton: React.FC<NavButtonProps> = ({
@@ -25,56 +26,58 @@ export const NavButton: React.FC<NavButtonProps> = ({
   className,
   children,
   external = false,
+  showArrow = true,
   ...props
 }) => {
   const baseClasses = cn(
-    "group relative inline-flex items-center justify-center gap-2",
-    "font-medium rounded-lg transition-all duration-300 ease-out",
-    "focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:ring-offset-2 focus:ring-offset-gray-950",
-    "active:scale-95",
+    "group relative inline-flex cursor-pointer items-center justify-center gap-2",
+    "whitespace-nowrap font-medium rounded-xl transition-all duration-200 ease-out",
+    "focus:outline-none focus:ring-2 focus:ring-welcome-accent-blue/50 focus:ring-offset-2 focus:ring-offset-welcome-deep",
+    "active:scale-[0.98]",
     className
   );
 
   const variantClasses = {
     primary: cn(
-      "bg-gradient-to-r from-blue-600 to-blue-700 text-white",
-      "hover:from-blue-500 hover:to-blue-600 hover:shadow-lg hover:shadow-blue-500/20",
-      "border border-blue-500/20"
+      "bg-gradient-to-r from-welcome-accent-blue to-welcome-accent-indigo text-white",
+      "border border-welcome-accent-blue/30",
+      "hover:shadow-lg hover:shadow-welcome-accent-blue/25 hover:brightness-110"
     ),
     secondary: cn(
-      "bg-gray-900/60 backdrop-blur text-gray-300 border border-gray-700/50",
-      "hover:bg-gray-800/80 hover:text-white hover:border-gray-600/50",
-      "hover:shadow-md"
+      "border border-welcome-surface-border/70 bg-welcome-surface/80 text-welcome-foreground backdrop-blur-sm",
+      "hover:border-welcome-accent-indigo/40 hover:bg-welcome-elevated/80"
     ),
     ghost: cn(
-      "bg-gray-900/30 text-gray-400 border border-gray-800/30",
-      "hover:bg-gray-800/50 hover:text-gray-300 hover:border-gray-700/50"
+      "border border-transparent bg-transparent text-welcome-muted",
+      "hover:border-welcome-surface-border/50 hover:bg-welcome-surface/50 hover:text-welcome-foreground"
     ),
   };
 
   const sizeClasses = {
     sm: "px-4 py-2 text-sm",
-    md: "px-6 py-2.5 text-sm",
-    lg: "px-8 py-3 text-base",
+    md: "px-6 py-3 text-sm",
+    lg: "px-8 py-3.5 text-base",
   };
 
   const ButtonContent = () => (
     <>
       {children || (
         <>
-          {Icon && <Icon className="w-4 h-4" />}
+          {Icon && <Icon className="h-4 w-4 shrink-0" />}
           <span>{text}</span>
-          <motion.div
-            className="opacity-60 group-hover:opacity-100"
-            animate={{ x: [0, 2, 0] }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              repeatType: "reverse",
-            }}
-          >
-            <ArrowRight className="w-4 h-4" />
-          </motion.div>
+          {showArrow && (
+            <motion.span
+              className="opacity-70 group-hover:opacity-100"
+              animate={{ x: [0, 2, 0] }}
+              transition={{
+                duration: 2.5,
+                repeat: Infinity,
+                repeatType: "reverse",
+              }}
+            >
+              <ArrowRight className="h-4 w-4 shrink-0" />
+            </motion.span>
+          )}
         </>
       )}
     </>

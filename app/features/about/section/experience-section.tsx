@@ -13,7 +13,6 @@ export function WorkExperience({ controls }: SkillProps) {
   const getOptimizedExperience = () => {
     if (!isMobile) return workExperience;
 
-    // On mobile, show fewer bullet points for better readability
     return workExperience.map((exp, index) => ({
       ...exp,
       description:
@@ -23,18 +22,19 @@ export function WorkExperience({ controls }: SkillProps) {
     }));
   };
 
+  const items = getOptimizedExperience();
+
   return (
-    <Section title="Professional Experience">
-      <div className="space-y-0">
-        {getOptimizedExperience().map((item, index) => (
+    <Section title="Experience" id="experience">
+      <div>
+        {items.map((item, index) => (
           <motion.div
-            key={item.year}
+            key={`${item.year}-${item.company}`}
             custom={index}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, x: -12 }}
             animate={controls}
-            transition={{ delay: index * 0.1 }}
           >
-            <TimelineItem {...item} />
+            <TimelineItem {...item} isLast={index === items.length - 1} />
           </motion.div>
         ))}
       </div>
